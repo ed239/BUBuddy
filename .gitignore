@@ -2,3 +2,4 @@ To ignore logs, some unnecessary things, etc.
 
 .idea
 BUBuddy.iml
+.DS_Store
