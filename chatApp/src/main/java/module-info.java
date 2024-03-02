@@ -3,6 +3,6 @@ module org.example.chatapp {
     requires javafx.fxml;
 
 
-    opens org.example.chatapp to javafx.fxml;
-    exports org.example.chatapp;
+    opens org.chatapp to javafx.fxml;
+    exports org.chatapp;
 }
