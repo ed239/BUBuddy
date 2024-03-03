@@ -11,12 +11,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import org.chatapp.network.chatClient;
+
 public class SceneController {
     private Stage stage;
     private Scene scene;
     private Parent root;
     @FXML
     private Label welcomeText;
+
+    private chatClient client;
+
+    public void setChatClient(chatClient client) {
+        this.client = client;
+    }
+
+
 
 
     @FXML
