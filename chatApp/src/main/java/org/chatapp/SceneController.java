@@ -63,4 +63,11 @@ public class SceneController {
         stage.show();
     }
 
+    public void signUpPageToLoginPageNoAccountCreated(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.getScene().setRoot(root);
+        stage.show();
+    }
+
 }
