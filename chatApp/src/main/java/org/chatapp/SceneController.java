@@ -31,7 +31,7 @@ public class SceneController {
 
     @FXML
     protected void onHelloButtonClick() {
-        welcomeText.setText("Welcome to JavaFX Application!");
+        welcomeText.setText("JavaFX Application!");
     }
 
     public void loginPageToSignUpPage(ActionEvent event) throws IOException {
