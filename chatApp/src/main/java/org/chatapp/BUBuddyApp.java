@@ -1,12 +1,15 @@
 package org.chatapp;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import javafx.stage.WindowEvent;
 import org.chatapp.network.chatClient;
 import org.chatapp.network.chatServer;
 
@@ -29,6 +32,13 @@ public class BUBuddyApp extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+        // Closing out of Window closes application.
+        Platform.setImplicitExit(true);
+        stage.setOnCloseRequest(e -> {
+            Platform.exit();
+            System.exit(0);
+        });
     }
 
     public static void main(String[] args) {
@@ -37,4 +47,6 @@ public class BUBuddyApp extends Application {
         new Thread(chatClient::main).start();
         launch();
     }
+
+
 }
