@@ -12,7 +12,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class QuickStart {
     public static void main(String[] args) {
-        String uri = "mongodb+srv://amiyev:BuBuddy2024@bubuddyv1.kups6t4.mongodb.net/?retryWrites=true&w=majority&appName=BuBuddyV1";
+        String uri = ""; //insert db string here
 
         try(MongoClient mongoClient = MongoClients.create(uri)) {
 
