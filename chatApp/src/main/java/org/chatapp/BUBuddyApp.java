@@ -28,9 +28,11 @@ public class BUBuddyApp extends Application {
         sceneController.setChatClient(newChatClient);
 
 
-
         stage.setTitle("Hello!");
         stage.setScene(scene);
+        stage.setMinHeight(600);
+        stage.setMinWidth(550);
+        
         stage.show();
 
         // Closing out of Window closes application.
