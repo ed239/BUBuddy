@@ -26,7 +26,6 @@ public class BUBuddyApp extends Application {
         chatClient newChatClient = new chatClient(sceneController);
 //        sceneController.setChatClient(newChatClient);
 
-
         stage.setScene(scene);
         stage.setMinHeight(600);
         stage.setMinWidth(550);
