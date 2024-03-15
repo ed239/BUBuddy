@@ -1,44 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #1ba4bf;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
-   <children>
-      <Label blendMode="SRC_ATOP" layoutX="414.0" layoutY="43.0" text="BU BUDDY">
-         <font>
-            <Font size="57.0" />
-         </font>
-      </Label>
-      <Label blendMode="SRC_ATOP" layoutX="454.0" layoutY="112.0" text="WHERE YOU CAN BU!">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <AnchorPane layoutX="313.0" layoutY="167.0" prefHeight="367.0" prefWidth="475.0" style="-fx-background-color: white;">
+<BorderPane minHeight="600.0" minWidth="550.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
+   <center>
+         <VBox alignment="CENTER" minHeight="600.0" minWidth="0.0" prefHeight="700.0" prefWidth="550.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
+            <children>
+               <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="BU BUDDY" textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="85.0" />
+                  </font>
+               </Text>
+               <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Where you, can BU! " textAlignment="CENTER">
+                  <font>
+                     <Font size="35.0" />
+                  </font>
+               </Text>
+            </children>
+            <padding>
+               <Insets bottom="350.0" left="20.0" right="20.0" />
+            </padding>
+         </VBox>
+   </center>
+   <right>
+      <VBox alignment="CENTER" minHeight="600.0" minWidth="550.0" prefHeight="700.0" prefWidth="550.0" scaleZ="2.0" spacing="45.0" style="-fx-background-color: #faf9f6;" translateZ="1.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="90.0" layoutY="37.0" prefHeight="261.0" prefWidth="294.0" style="-fx-background-color: silver;" />
-            <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="174.0" layoutY="43.0" text="LOGIN HERE">
+            <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="55.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Text>
+            <TextField fx:id="txtusername" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="txtpassword" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </PasswordField>
+            <Button mnemonicParsing="false" onAction="#loginPageToChatPage" style="-fx-background-color: #CC0000;" text="LOGIN" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />
                </font>
-            </Label>
-             <Button layoutX="210.0" layoutY="247.0" onAction="#loginPageToChatPage" text="LOGIN" />
-            <Button alignment="CENTER" contentDisplay="CENTER" layoutX="186.0" layoutY="316.0" onAction="#loginPageToSignUpPage" text="SIGN UP HERE" />
-         
-                      <Label fx:id="welcomeText" />
-            <TextField layoutX="127.0" layoutY="127.0" prefHeight="26.0" prefWidth="225.0" promptText="ENTER EMAIL USERNAME" style="-fx-background-color: white;">
+            </Button>
+            <Hyperlink onAction="#loginPageToSignUpPage" text="Don't have an account, sign up here! ">
                <font>
-                  <Font size="14.0" />
+                  <Font size="21.0" />
                </font>
-            </TextField>
-            <PasswordField layoutX="127.0" layoutY="186.0" prefHeight="26.0" prefWidth="225.0" promptText="ENTER PASSWORD" style="-fx-background-color: white;" />
+            </Hyperlink>
          </children>
-      </AnchorPane>
-   </children>
-</AnchorPane>
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="10.0" />
+         </padding>
+      </VBox>
+   </right>
+</BorderPane>

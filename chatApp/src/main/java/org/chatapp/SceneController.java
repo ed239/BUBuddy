@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -17,10 +16,7 @@ import org.chatapp.network.chatClient;
 
 public class SceneController {
     private Stage stage;
-    private Scene scene;
     private Parent root;
-    @FXML
-    private Label welcomeText;
 
     private chatClient client;
 
@@ -39,7 +35,7 @@ public class SceneController {
     @FXML
     private TextField txtfullname;
     Database database = Database.getInstance();
-    public void Login(ActionEvent event) throws IOException{
+    public Boolean Login() throws IOException{
         // Provide username and password
         String username = txtusername.getText();
         String password = txtpassword.getText();
@@ -50,12 +46,15 @@ public class SceneController {
             boolean validUser = database.verifyPassword(username, password);
             if(validUser){
                 System.out.println("Authenticated!");
+                return true;
             }else{
                 System.out.println("Not Authenticated");
+                return false;
             }
 
         } else {
             System.out.println("User does not exist.");
+            return false;
         }
 
     }
@@ -77,17 +76,18 @@ public class SceneController {
     }
 
     public void backToLogIn(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage2.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();
     }
 
-    //    public void loginPageToChatPage(ActionEvent event) throws IOException {
-//        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
-//        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-//        stage.getScene().setRoot(root);
-//        stage.show();
-//
-//    }
+        public void loginPageToChatPage(ActionEvent event) throws IOException {
+        if (Login()) {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.show();
+        }
+    }
 }

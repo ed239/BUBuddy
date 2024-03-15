@@ -12,5 +12,5 @@
    <Label text="Chat Page" />
 
     <Label fx:id="welcomeText" />
-    <Button onAction="#chatPageToLoginPage" text="Go To Login Page Button" />
+    <Button onAction="#backToLogIn" text="Go To Login Page Button" />
 </VBox>
