@@ -60,19 +60,18 @@ public class SceneController {
     }
 
     public void loginPageToSignUpPage(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUp2.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUpPage.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();
-
     }
 
-    public void signUp(ActionEvent event) throws IOException {
+    public Boolean signUp() throws IOException {
         String fullname = txtfullname.getText();
         String username = txtusername.getText();
         String password = txtpassword.getText();
 
-        database.createUser(fullname, username, password);
+      return database.createUser(fullname, username, password);
     }
 
     public void backToLogIn(ActionEvent event) throws IOException {
@@ -82,7 +81,16 @@ public class SceneController {
         stage.show();
     }
 
-        public void loginPageToChatPage(ActionEvent event) throws IOException {
+    public void backToLogInAccountCreated(ActionEvent event) throws IOException {
+        if (signUp()) {
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.show();
+        }
+    }
+
+    public void loginPageToChatPage(ActionEvent event) throws IOException {
         if (Login()) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();

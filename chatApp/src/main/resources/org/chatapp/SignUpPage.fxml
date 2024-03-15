@@ -1,61 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane onMouseClicked="#signUpPageToLoginPageNoAccountCreated" prefHeight="700.0" prefWidth="1100.0" style="-fx-background-color: #1ba4bf;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
-   <children>
-      <Label blendMode="SRC_ATOP" layoutX="424.0" layoutY="53.0" text="BU BUDDY">
-         <font>
-            <Font size="57.0" />
-         </font>
-      </Label>
-      <Label blendMode="SRC_ATOP" layoutX="464.0" layoutY="122.0" text="WHERE YOU CAN BU!">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-      <AnchorPane layoutX="154.0" layoutY="177.0" prefHeight="410.0" prefWidth="801.0" style="-fx-background-color: white;">
+<BorderPane minHeight="600.0" minWidth="550.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
+   <center>
+         <VBox alignment="CENTER" minHeight="600.0" minWidth="0.0" prefHeight="700.0" prefWidth="550.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
+            <children>
+               <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="BU BUDDY" textAlignment="CENTER">
+                  <font>
+                     <Font name="System Bold" size="85.0" />
+                  </font>
+               </Text>
+               <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Where you, can BU! " textAlignment="CENTER">
+                  <font>
+                     <Font size="35.0" />
+                  </font>
+               </Text>
+            </children>
+            <padding>
+               <Insets bottom="350.0" left="20.0" right="20.0" />
+            </padding>
+         </VBox>
+   </center>
+   <right>
+      <VBox alignment="CENTER" minHeight="600.0" minWidth="550.0" prefHeight="700.0" prefWidth="550.0" scaleZ="2.0" spacing="45.0" style="-fx-background-color: #faf9f6;" translateZ="1.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="90.0" layoutY="37.0" prefHeight="331.0" prefWidth="632.0" style="-fx-background-color: silver;">
-               <children>
-                  <Label alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="247.0" layoutY="10.0" text="SIGN UP HERE">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <TextField layoutX="332.0" layoutY="89.0" prefHeight="26.0" prefWidth="225.0" promptText="ENTER LAST NAME" style="-fx-background-color: white;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                   <Button layoutX="223.0" layoutY="275.0" onAction="#signUpPageToLoginPage" text="GO TO LOGIN PAGE BUTTON" />
-                  <PasswordField layoutX="71.0" layoutY="225.0" prefHeight="26.0" prefWidth="225.0" promptText="ENTER PASSWORD" style="-fx-background-color: white;" />
-                  <TextField layoutX="71.0" layoutY="89.0" prefHeight="26.0" prefWidth="225.0" promptText="ENTER FIRST NAME" style="-fx-background-color: white;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField layoutX="332.0" layoutY="225.0" prefHeight="26.0" prefWidth="225.0" promptText="CONFIRM PASSWORD" style="-fx-background-color: white;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField layoutX="204.0" layoutY="160.0" prefHeight="26.0" prefWidth="225.0" promptText="ENTER EMAIL ADDRESS" style="-fx-background-color: white;">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </TextField>
-               </children>
-            </AnchorPane>
-            <Label fx:id="welcomeText1" />
-            <Hyperlink layoutX="290.0" layoutY="374.0" onAction="#signUpPageToLoginPageNoAccountCreated" text="Already have an account? Log in here." />
+            <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="55.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Text>
+            <TextField fx:id="txtfullname" promptText="Full Name" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="txtusername" layoutX="60.0" layoutY="270.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="txtpassword" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </PasswordField>
+            <Button mnemonicParsing="false" onAction="#backToLogInAccountCreated" style="-fx-background-color: #CC0000;" text="SIGN UP" textAlignment="CENTER" textFill="#faf9f6">
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+            <Hyperlink onAction="#backToLogIn" text="Already have an account, log in here! ">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Hyperlink>
          </children>
-      </AnchorPane>
-   </children>
-</AnchorPane>
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="10.0" />
+         </padding>
+      </VBox>
+   </right>
+</BorderPane>

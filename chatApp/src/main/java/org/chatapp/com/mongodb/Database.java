@@ -47,15 +47,17 @@ public class Database {
         return false;
     }
 
-    public void createUser(String fullname, String username, String password){
+    public Boolean createUser(String fullname, String username, String password){
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
         if(!exists){
-                Document newDoc = new Document("username", username).append("password", hashedPassword).append("fullname", fullname);
-                userCollection.insertOne(newDoc);
-                System.out.println("Created New User");
-        }else{
+            Document newDoc = new Document("username", username).append("password", hashedPassword).append("fullname", fullname);
+            userCollection.insertOne(newDoc);
+            System.out.println("Created New User");
+            return true;
+        } else {
             System.out.println("User already exists");
+            return false;
         }
     }
 
