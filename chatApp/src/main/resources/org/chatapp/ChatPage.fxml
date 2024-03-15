@@ -2,15 +2,96 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="20.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-    </padding>
-   <Label text="Chat Page" />
 
-    <Label fx:id="welcomeText" />
-    <Button onAction="#backToLogIn" text="Go To Login Page Button" />
-</VBox>
+<BorderPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
+   <center>
+      <VBox alignment="BOTTOM_CENTER" prefHeight="700.0" prefWidth="1100.0" spacing="20.0">
+          <padding>
+              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+          </padding>
+         <children>
+            <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="CHAT PAGE" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="55.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="300.0" />
+               </VBox.margin>
+            </Text>
+            <GridPane alignment="BOTTOM_CENTER" prefHeight="120.0" prefWidth="1060.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="12.0" percentWidth="12.0" prefWidth="20.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <TextArea prefHeight="200.0" prefWidth="723.0" promptText="ENTER MESSAGE HERE">
+                     <GridPane.margin>
+                        <Insets left="30.0" right="30.0" />
+                     </GridPane.margin>
+                  </TextArea>
+                  <Button alignment="CENTER_RIGHT" style="-fx-background-color: #cc0000;" text="SEND" textAlignment="CENTER" textFill="#faf9f6" GridPane.columnIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+         </children>
+      </VBox>
+   </center>
+   <top>
+      <GridPane alignment="CENTER" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="BU BUDDY" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="55.0" />
+               </font>
+            </Text>
+             <Button alignment="CENTER_RIGHT" onAction="#backToLogIn" style="-fx-background-color: #faf9f6;" text="LOG OUT" textAlignment="CENTER" textFill="#cc0000" GridPane.columnIndex="2" GridPane.halignment="RIGHT">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets right="50.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="23.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="20.0" top="20.0" />
+         </padding>
+      </GridPane>
+   </top>
+   <left>
+      <ListView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #c3c9c5;" BorderPane.alignment="CENTER" />
+   </left>
+</BorderPane>
