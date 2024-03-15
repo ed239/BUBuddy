@@ -31,7 +31,7 @@ public class Database {
 
     public boolean userExists(String username) {
         Document doc = userCollection.find(new Document("username", username)).first();
-        if(doc != null){
+        if(doc != null) {
             return true;
         }
         return false;
