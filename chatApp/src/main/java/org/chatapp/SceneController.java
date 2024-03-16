@@ -92,6 +92,7 @@ public class SceneController {
 
     public void loginPageToChatPage(ActionEvent event) throws IOException {
         if (Login()) {
+            ChatPageController chatPageController = new ChatPageController();
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.getScene().setRoot(root);
