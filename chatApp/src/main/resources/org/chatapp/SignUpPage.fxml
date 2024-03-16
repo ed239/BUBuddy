@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
@@ -56,6 +57,7 @@
                   <Font size="25.0" />
                </font>
             </PasswordField>
+            <Label fx:id="errorMessageSignUp" textFill="#e80d0d" />
             <Button mnemonicParsing="false" onAction="#backToLogInAccountCreated" style="-fx-background-color: #CC0000;" text="SIGN UP" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />
@@ -66,6 +68,7 @@
                   <Font size="21.0" />
                </font>
             </Hyperlink>
+            <Label />
          </children>
          <padding>
             <Insets bottom="50.0" left="50.0" right="50.0" top="10.0" />

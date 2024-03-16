@@ -24,7 +24,10 @@ public class SceneController {
 //        this.client = client;
 //    }
     @FXML
-    private Label lblcurrentuser;
+    private Label errorMessage;
+
+    @FXML
+    private Label errorMessageSignUp;
 
     @FXML
     private TextField txtusername;
@@ -48,12 +51,14 @@ public class SceneController {
                 System.out.println("Authenticated!");
                 return true;
             }else{
+                errorMessage.setText("Incorrect Password");
                 System.out.println("Not Authenticated");
                 return false;
             }
 
         } else {
-            System.out.println("User does not exist.");
+            errorMessage.setText("Not valid credentials");
+            System.out.println("Username does not exist.");
             return false;
         }
 
@@ -70,8 +75,14 @@ public class SceneController {
         String fullname = txtfullname.getText();
         String username = txtusername.getText();
         String password = txtpassword.getText();
-
-      return database.createUser(fullname, username, password);
+        if(fullname.length() > 2 && username.length() > 4 && password.length() > 3) {
+            return database.createUser(fullname, username, password);
+        }
+        else{
+            System.out.println("Invalid Length");
+            errorMessageSignUp.setText("Fullname must be longer than 2. Username and password longer than 3.");
+            return false;
+        }
     }
 
     public void backToLogIn(ActionEvent event) throws IOException {
