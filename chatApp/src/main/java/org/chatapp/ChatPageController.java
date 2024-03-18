@@ -12,6 +12,8 @@ import javafx.stage.Stage;
 
 public class ChatPageController {
 
+  private static ChatUser curUser = getCurUser();
+
   @FXML
   private ListView<String> userListView;
 
@@ -27,6 +29,10 @@ public class ChatPageController {
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
     stage.getScene().setRoot(root);
     stage.show();
+  }
+
+  public static ChatUser getCurUser() {
+    return SceneController.curUser;
   }
 
 }

@@ -6,6 +6,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import static com.mongodb.client.model.Filters.eq;
 public class Database {
@@ -46,6 +47,26 @@ public class Database {
         }
         return false;
     }
+
+    public String getName(String username, String password){
+        Document userDoc = userCollection.find(new Document("username", username)).first();
+        if (userDoc != null) {
+            String name = userDoc.getString("fullname");
+            return name;
+        }
+        return "";
+    }
+
+    public ObjectId getUserObjectId(String username) {
+        Document userDoc = userCollection.find(new Document("username", username)).first();
+        if (userDoc != null) {
+            return userDoc.getObjectId("_id");
+        } else {
+            return null; 
+        }
+    }
+
+
 
     public Boolean createUser(String fullname, String username, String password){
         boolean exists = userExists(username);
