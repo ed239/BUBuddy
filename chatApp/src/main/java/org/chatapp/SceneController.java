@@ -11,14 +11,18 @@ import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.chatClient;
+import org.chatapp.ChatUser;
 
 public class SceneController {
     private Stage stage;
     private Parent root;
 
     private chatClient client;
+
+    static ChatUser curUser = null;
 
 //    public void setChatClient(chatClient client) {
 //        this.client = client;
@@ -42,12 +46,16 @@ public class SceneController {
         // Provide username and password
         String username = txtusername.getText();
         String password = txtpassword.getText();
-
+        String name = "";
+        ObjectId id = new ObjectId();
         boolean exists = database.userExists(username);
         if (exists) {
             System.out.println("User exists.");
             boolean validUser = database.verifyPassword(username, password);
             if(validUser){
+                name = database.getName(username, password);
+                id = database.getUserObjectId(username);
+                curUser = new ChatUser(id, name, username);
                 System.out.println("Authenticated!");
                 return true;
             }else{
