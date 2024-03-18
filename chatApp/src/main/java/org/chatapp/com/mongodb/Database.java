@@ -1,12 +1,13 @@
 package org.chatapp.com.mongodb;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mongodb.client.*;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import org.chatapp.ChatUser;
 
 import static com.mongodb.client.model.Filters.eq;
 public class Database {
@@ -17,6 +18,7 @@ public class Database {
     private Database() {
         // Replace string with our db connection
         String uri = "";
+
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
@@ -80,6 +82,37 @@ public class Database {
             System.out.println("User already exists");
             return false;
         }
+    }
+
+    public String[] getAllChatUsersExceptCurrent(ChatUser currentUser) {
+        List<String> usersList = new ArrayList<>();
+        List<ChatUser> allChatUsers = getAllChatUsersFromDatabase();
+        for (ChatUser user : allChatUsers) {
+            if (!user.equals(currentUser)) {
+                usersList.add(user.getName());
+            }
+        }
+        return usersList.toArray(new String[0]);
+    }
+    public List<ChatUser> getAllChatUsersFromDatabase() {
+        List<ChatUser> allChatUsers = new ArrayList<>();
+
+        MongoCursor<Document> cursor = null;
+        try {
+            cursor = userCollection.find().iterator();
+            while (cursor.hasNext()) {
+                Document userDoc = cursor.next();
+                ObjectId id = userDoc.getObjectId("_id");
+                String name = userDoc.getString("fullname");
+                System.out.println(name);
+                String username = userDoc.getString("username");
+                ChatUser user = new ChatUser(id, name, username);
+                allChatUsers.add(user);
+            }
+        } finally {
+            cursor.close();
+        }
+        return allChatUsers;
     }
 
     private String hashPassword(String password) {
