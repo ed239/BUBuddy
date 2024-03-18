@@ -41,7 +41,7 @@ public class SceneController {
 
     @FXML
     private TextField txtfullname;
-    Database database = Database.getInstance();
+    static Database database = Database.getInstance();
     public Boolean Login() throws IOException{
         // Provide username and password
         String username = txtusername.getText();
