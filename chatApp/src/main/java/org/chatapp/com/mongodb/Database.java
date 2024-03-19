@@ -70,11 +70,11 @@ public class Database {
 
 
 
-    public Boolean createUser(String fullname, String username, String password){
+    public Boolean createUser(String fullname, String username, String password, String dateOfBirth){
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
         if(!exists){
-            Document newDoc = new Document("username", username).append("password", hashedPassword).append("fullname", fullname);
+            Document newDoc = new Document("username", username).append("password", hashedPassword).append("fullname", fullname).append("dateOfBirth", dateOfBirth);
             userCollection.insertOne(newDoc);
             System.out.println("Created New User");
             return true;
