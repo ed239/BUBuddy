@@ -22,10 +22,21 @@ public class ChatPageController {
   private ListView<String> userListView;
 
   @FXML
+  private ListView<String> secretListView;
+
+  @FXML
   private void initialize() {
 //    String[] users = {curUser.getName(), "Contact 2", "Contact 3", "Contact 4"};
     String[] users = database.getAllChatUsersExceptCurrent(curUser);
     userListView.getItems().addAll(users);
+
+    // tested to see if Listview would become scrollable with a lot of users + show difference
+    // in secret chat and main chat
+    String[] temp = {"Mock 1", "Mock 2", "Mock 3", "Mock 4", "Mock 5", "Mock 6", "Mock 7", "Mock 8",
+        "Mock 9", "Mock 10", "Mock 11", "Mock 12", "Mock 13", "Mock 14", "Mock 15", "Mock 16",
+        "Mock 17", "Mock 18", "Mock 19", "Mock 20",
+        "Mock 21", "Mock 22", "Mock 23", "Mock 24"};
+    secretListView.getItems().addAll(temp);
     System.out.println(userListView);
   }
 
