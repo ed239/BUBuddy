@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -32,14 +33,14 @@
          </VBox>
    </center>
    <right>
-      <VBox alignment="CENTER" minHeight="600.0" minWidth="550.0" prefHeight="700.0" prefWidth="550.0" scaleZ="2.0" spacing="45.0" style="-fx-background-color: #faf9f6;" translateZ="1.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" minHeight="600.0" minWidth="550.0" prefHeight="700.0" prefWidth="550.0" scaleZ="2.0" spacing="30.0" style="-fx-background-color: #faf9f6;" translateZ="1.0" BorderPane.alignment="CENTER">
          <children>
             <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="55.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="10.0" />
+                  <Insets bottom="10.0" top="45.0" />
                </VBox.margin>
             </Text>
             <TextField fx:id="txtfullname" promptText="Full Name" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
@@ -47,6 +48,7 @@
                   <Font size="25.0" />
                </font>
             </TextField>
+            <DatePicker fx:id="dateOfBirth" promptText="Date Of Birth" />
             <TextField fx:id="txtusername" layoutX="60.0" layoutY="270.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
                <font>
                   <Font size="25.0" />
@@ -58,17 +60,19 @@
                </font>
             </PasswordField>
             <Label fx:id="errorMessageSignUp" textFill="#e80d0d" />
-            <Button mnemonicParsing="false" onAction="#backToLogInAccountCreated" style="-fx-background-color: #CC0000;" text="SIGN UP" textAlignment="CENTER" textFill="#faf9f6">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#backToLogInAccountCreated" style="-fx-background-color: #CC0000;" text="SIGN UP" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />
                </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
             </Button>
             <Hyperlink onAction="#backToLogIn" text="Already have an account, log in here! ">
                <font>
                   <Font size="21.0" />
                </font>
             </Hyperlink>
-            <Label />
          </children>
          <padding>
             <Insets bottom="50.0" left="50.0" right="50.0" top="10.0" />
