@@ -18,7 +18,6 @@ public class Database {
     private Database() {
         // Replace string with our db connection
         String uri = "";
-
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
@@ -67,6 +66,14 @@ public class Database {
             return null; 
         }
     }
+    public String getDOB(String username){
+        Document userDoc = userCollection.find(new Document("username", username)).first();
+        if (userDoc != null) {
+            return userDoc.getString("dob");
+        } else {
+            return null;
+        }
+    }
 
 
 
@@ -74,7 +81,7 @@ public class Database {
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
         if(!exists){
-            Document newDoc = new Document("username", username).append("password", hashedPassword).append("fullname", fullname).append("dateOfBirth", dateOfBirth);
+            Document newDoc = new Document("username", username).append("password", hashedPassword).append("fullname", fullname).append("dob", dateOfBirth);
             userCollection.insertOne(newDoc);
             System.out.println("Created New User");
             return true;
@@ -106,7 +113,8 @@ public class Database {
                 String name = userDoc.getString("fullname");
                 //System.out.println(name);
                 String username = userDoc.getString("username");
-                ChatUser user = new ChatUser(id, name, username);
+                String dob = userDoc.getString("dob");
+                ChatUser user = new ChatUser(id, name, username,dob);
                 allChatUsers.add(user);
             }
         } finally {

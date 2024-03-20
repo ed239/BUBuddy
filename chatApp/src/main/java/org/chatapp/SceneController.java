@@ -53,6 +53,7 @@ public class SceneController {
         String username = txtusername.getText();
         String password = txtpassword.getText();
         String name = "";
+        String dob = "";
         ObjectId id = new ObjectId();
         boolean exists = database.userExists(username);
         if (exists) {
@@ -61,7 +62,8 @@ public class SceneController {
             if(validUser){
                 name = database.getName(username, password);
                 id = database.getUserObjectId(username);
-                curUser = new ChatUser(id, name, username);
+                dob = database.getDOB(username);
+                curUser = new ChatUser(id, name, username, dob);
                 System.out.println("Authenticated!");
                 return true;
             }else{
