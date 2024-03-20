@@ -104,7 +104,7 @@ public class Database {
                 Document userDoc = cursor.next();
                 ObjectId id = userDoc.getObjectId("_id");
                 String name = userDoc.getString("fullname");
-                System.out.println(name);
+                //System.out.println(name);
                 String username = userDoc.getString("username");
                 ChatUser user = new ChatUser(id, name, username);
                 allChatUsers.add(user);
