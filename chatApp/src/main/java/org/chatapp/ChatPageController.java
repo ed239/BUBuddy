@@ -84,7 +84,7 @@ public class ChatPageController {
           System.out.print(secretChatTab.isSelected());
           toUser.setText("Secret Chat");
         } else if (newTab.equals(mainChatTab)) {
-          //action here
+          toUser.setText("Main Chat");
         }
       }
     });
