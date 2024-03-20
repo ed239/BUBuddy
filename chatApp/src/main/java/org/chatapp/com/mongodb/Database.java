@@ -20,6 +20,7 @@ public class Database {
     private Database() {
         // Replace string with our db connection
         String uri = "";
+
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
@@ -98,10 +99,12 @@ public class Database {
         List<String> usersList = new ArrayList<>();
         List<ChatUser> allChatUsers = getAllChatUsersFromDatabase();
         for (ChatUser user : allChatUsers) {
-            if (!user.equals(currentUser)) {
+
+            if (!user.getId().equals(currentUser.getId())) {
                 usersList.add(user.getName());
             }
         }
+
         return usersList.toArray(new String[0]);
     }
     public List<ChatUser> getAllChatUsersFromDatabase() {
@@ -135,6 +138,26 @@ public class Database {
             e.printStackTrace();
             return false;
         }
+
+    }
+
+    public ChatUser getChatUser(String name){
+//        Document doc = userCollection.find(new Document("fullname", name)).first();
+//        if (doc != null) {
+//            ObjectId id = doc.getObjectId("_id");
+//            String fullname = doc.getString("fullname");
+//            String username = doc.getString("username");
+//            String dob = doc.getString("dob");
+//            return new ChatUser(id, fullname, username, dob);
+//
+//         }
+        List<ChatUser> allChatUsers = getAllChatUsersFromDatabase();
+        for (ChatUser user : allChatUsers) {
+            if (user.getName().equals(name)) {
+                return user;
+            }
+        }
+        return new ChatUser(null,null,null,null);
 
     }
 

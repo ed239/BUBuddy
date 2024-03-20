@@ -20,7 +20,7 @@ public class ChatPageController {
 
   private static ChatUser curUser = getCurUser();
 
-//  private static ChatUser toUser = getToUser();
+  private static ChatUser toUserObj;
 
   private static Database database = getDb();
 
@@ -47,9 +47,12 @@ public class ChatPageController {
   @FXML
   private TextArea txtmessage;
 
+
+
   @FXML
   private void initialize() {
 //    String[] users = {curUser.getName(), "Contact 2", "Contact 3", "Contact 4"};
+    curUser= getCurUser(); //this isnt very efficient -- have to fix
     String[] users = database.getAllChatUsersExceptCurrent(curUser);
     ObservableList<String> allChatUsersExceptCurrent = FXCollections.observableArrayList(users);
     userListView.setItems(allChatUsersExceptCurrent);
@@ -66,6 +69,7 @@ public class ChatPageController {
     userListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
       @Override
       public void changed(ObservableValue observable, String oldValue, String newValue) {
+        toUserObj = database.getChatUser(newValue);
         toUser.setText(newValue);
       }
     });
@@ -104,13 +108,15 @@ public class ChatPageController {
   }
 
   public static ChatUser getCurUser() {
+    System.out.println("CHAT PAGE getCurUser");
+    System.out.println(SceneController.curUser);
     return SceneController.curUser;
   }
   private static Database getDb() {
     return SceneController.database;
   }
   public void sendMessage(ActionEvent event) throws IOException {
-    ObjectId toId = new ObjectId("65fafc19975f2425e0d99e20");
+    ObjectId toId = toUserObj.getId();
     String text = txtmessage.getText();
     Date currentTime = new Date();
     if(text.length() > 1) {
