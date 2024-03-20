@@ -50,20 +50,23 @@ public class SceneController {
     static Database database = Database.getInstance();
     public Boolean Login() throws IOException{
         // Provide username and password
+//        curUser = null;
         String username = txtusername.getText();
         String password = txtpassword.getText();
         String name = "";
-        String dob = "";
-        ObjectId id = new ObjectId();
+//        String dob = "";
+//        ObjectId id = new ObjectId();
         boolean exists = database.userExists(username);
         if (exists) {
             System.out.println("User exists.");
             boolean validUser = database.verifyPassword(username, password);
             if(validUser){
                 name = database.getName(username, password);
-                id = database.getUserObjectId(username);
-                dob = database.getDOB(username);
-                curUser = new ChatUser(id, name, username, dob);
+//                id = database.getUserObjectId(username);
+//                dob = database.getDOB(username);
+                curUser = database.getChatUser(name);
+                System.out.println("SCENECONTROLLER");
+                System.out.println(curUser);
                 System.out.println("Authenticated!");
                 return true;
             }else{
