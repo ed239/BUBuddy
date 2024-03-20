@@ -29,10 +29,16 @@
          </rowConstraints>
          <children>
             <Label fx:id="toUser" alignment="TOP_CENTER" text="Selected User" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+            <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #faf9f6;" GridPane.rowIndex="1">
                <content>
-                  <VBox fx:id="chatContainer" alignment="CENTER" prefHeight="397.0" prefWidth="896.0" />
+                  <VBox fx:id="chatContainer" alignment="CENTER" prefHeight="397.0" prefWidth="896.0" style="-fx-background-color: #faf9f6;">
+                     <padding>
+                        <Insets left="30.0" right="30.0" />
+                     </padding></VBox>
                </content>
+               <GridPane.margin>
+                  <Insets left="30.0" right="30.0" />
+               </GridPane.margin>
             </ScrollPane>
             <GridPane alignment="BOTTOM_CENTER" prefHeight="120.0" prefWidth="1060.0" style="-fx-background-color: #faf9f6;" GridPane.rowIndex="2">
               <columnConstraints>
