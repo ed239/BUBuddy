@@ -1,6 +1,7 @@
 package org.chatapp;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Objects;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -11,15 +12,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
+import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
 public class ChatPageController {
 
   private static ChatUser curUser = getCurUser();
+
+//  private static ChatUser toUser = getToUser();
 
   private static Database database = getDb();
 
@@ -42,6 +43,9 @@ public class ChatPageController {
 
   @FXML
   private Tab mainChatTab;
+
+  @FXML
+  private TextArea txtmessage;
 
   @FXML
   private void initialize() {
@@ -104,6 +108,20 @@ public class ChatPageController {
   }
   private static Database getDb() {
     return SceneController.database;
+  }
+  public void sendMessage(ActionEvent event) throws IOException {
+    ObjectId toId = new ObjectId("65fafc19975f2425e0d99e20");
+    String text = txtmessage.getText();
+    Date currentTime = new Date();
+    if(text.length() > 1) {
+      boolean done = database.addNewmessage(toId, curUser.getId(), text, currentTime);
+      if (done) {
+        System.out.println("Message added successfully.");
+        txtmessage.setText("");
+      } else {
+        System.out.println("Failed to add message.");
+      }
+    }
   }
 
 }

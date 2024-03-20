@@ -43,12 +43,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextArea prefHeight="200.0" prefWidth="730.0" promptText="ENTER MESSAGE HERE">
+                  <TextArea fx:id="txtmessage" prefHeight="200.0" prefWidth="730.0" promptText="ENTER MESSAGE HERE">
                      <GridPane.margin>
                         <Insets left="30.0" right="20.0" />
                      </GridPane.margin>
                   </TextArea>
-                  <Button alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: #cc0000;" text="SEND" textAlignment="CENTER" textFill="#faf9f6" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                  <Button alignment="CENTER" contentDisplay="CENTER" onAction="#sendMessage" style="-fx-background-color: #cc0000;" text="SEND" textAlignment="CENTER" textFill="#faf9f6" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>

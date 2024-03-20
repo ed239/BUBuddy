@@ -2,6 +2,7 @@ package org.chatapp.com.mongodb;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.mongodb.client.*;
@@ -14,6 +15,7 @@ public class Database {
 
     private static Database instance = null;
     private final MongoCollection<Document> userCollection;
+    private final MongoCollection<Document> messagesCollection;
 
     private Database() {
         // Replace string with our db connection
@@ -21,6 +23,7 @@ public class Database {
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
+        messagesCollection = database.getCollection("messages");
 
     }
 
@@ -121,6 +124,18 @@ public class Database {
             cursor.close();
         }
         return allChatUsers;
+    }
+
+    public Boolean addNewmessage(ObjectId toId, ObjectId fromId, String text, Date timestamp){
+        try {
+            Document message = new Document("toId", toId).append("fromId", fromId).append("text", text).append("timestamp", timestamp);
+            messagesCollection.insertOne(message);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
     }
 
     private String hashPassword(String password) {
