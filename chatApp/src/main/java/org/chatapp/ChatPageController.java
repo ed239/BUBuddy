@@ -10,9 +10,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
@@ -46,6 +50,9 @@ public class ChatPageController {
 
   @FXML
   private TextArea txtmessage;
+
+  @FXML
+  private VBox chatContainer;
 
 
 
@@ -122,12 +129,30 @@ public class ChatPageController {
     if(text.length() > 1) {
       boolean done = database.addNewmessage(toId, curUser.getId(), text, currentTime);
       if (done) {
+        displayMessage(toId, curUser.getId(),text);
         System.out.println("Message added successfully.");
         txtmessage.setText("");
       } else {
         System.out.println("Failed to add message.");
       }
     }
+  }
+
+  public void displayMessage(ObjectId toId, ObjectId fromId, String text) {
+    Label messageLabel = new Label(text);
+    messageLabel.setWrapText(true);
+    messageLabel.setMaxWidth(200); // Adjust according to your needs
+
+    HBox messageContainer = new HBox();
+    messageContainer.getChildren().add(messageLabel);
+    messageContainer.setAlignment(Pos.CENTER_LEFT);
+    messageContainer.setPadding(new Insets(5)); // Add some padding
+
+    if (fromId.equals(curUser.getId())) { // Assuming curUser.getId() returns ObjectId
+      messageContainer.setAlignment(Pos.CENTER_RIGHT);
+    }
+
+    chatContainer.getChildren().add(messageContainer);
   }
 
 }

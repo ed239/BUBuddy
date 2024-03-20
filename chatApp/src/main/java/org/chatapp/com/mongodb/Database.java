@@ -20,7 +20,6 @@ public class Database {
     private Database() {
         // Replace string with our db connection
         String uri = "";
-
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
