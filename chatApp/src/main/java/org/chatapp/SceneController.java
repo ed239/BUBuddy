@@ -89,7 +89,6 @@ public class SceneController {
         String fullname = txtfullname.getText();
         String username = txtusername.getText();
         String dOB = dateOfBirth.getValue().toString();
-        System.out.println(dOB);
         String password = txtpassword.getText();
         if(fullname.length() > 2 && username.length() > 4 && password.length() > 3 && !dOB.isEmpty()) {
             return database.createUser(fullname, username, password, dOB);

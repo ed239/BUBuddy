@@ -2,12 +2,19 @@ package org.chatapp;
 
 import java.io.IOException;
 import java.util.Objects;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
 import org.chatapp.com.mongodb.Database;
 public class ChatPageController {
@@ -25,10 +32,23 @@ public class ChatPageController {
   private ListView<String> secretListView;
 
   @FXML
+  private Label toUser;
+
+  @FXML
+  private TabPane chatTabs;
+
+  @FXML
+  private Tab secretChatTab;
+
+  @FXML
+  private Tab mainChatTab;
+
+  @FXML
   private void initialize() {
 //    String[] users = {curUser.getName(), "Contact 2", "Contact 3", "Contact 4"};
     String[] users = database.getAllChatUsersExceptCurrent(curUser);
-    userListView.getItems().addAll(users);
+    ObservableList<String> allChatUsersExceptCurrent = FXCollections.observableArrayList(users);
+    userListView.setItems(allChatUsersExceptCurrent);
 
     // tested to see if Listview would become scrollable with a lot of users + show difference
     // in secret chat and main chat
@@ -37,7 +57,39 @@ public class ChatPageController {
         "Mock 17", "Mock 18", "Mock 19", "Mock 20",
         "Mock 21", "Mock 22", "Mock 23", "Mock 24"};
     secretListView.getItems().addAll(temp);
-    System.out.println(userListView);
+
+
+    userListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
+      @Override
+      public void changed(ObservableValue observable, String oldValue, String newValue) {
+        toUser.setText(newValue);
+      }
+    });
+
+    // makes secret chats menu operate like main chat user selection listener
+//    secretListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
+//      @Override
+//      public void changed(ObservableValue observable, String oldValue, String newValue) {
+//        toUser.setText(newValue);
+//      }
+//    });
+
+
+
+
+    chatTabs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
+      @Override
+      public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab newTab) {
+        if(newTab.equals(secretChatTab)) {
+          System.out.print(secretChatTab.isSelected());
+          toUser.setText("Secret Chat");
+        } else if (newTab.equals(mainChatTab)) {
+          //action here
+        }
+      }
+    });
+
+
   }
 
   public void backToLogIn(ActionEvent event) throws IOException {

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
@@ -17,35 +18,37 @@
 
 <BorderPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.ChatPageController">
    <center>
-      <VBox alignment="BOTTOM_CENTER" prefHeight="700.0" prefWidth="1100.0" spacing="20.0" style="-fx-background-color: #faf9f6;">
-          <padding>
-              <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-          </padding>
+      <GridPane alignment="CENTER" style="-fx-background-color: #faf9f6;">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints maxHeight="289.6264343261719" minHeight="10.0" percentHeight="8.0" prefHeight="131.9242706298828" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="469.02203369140625" minHeight="10.0" prefHeight="432.736572265625" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="114.263427734375" minHeight="10.0" percentHeight="25.0" prefHeight="114.263427734375" vgrow="SOMETIMES" />
+         </rowConstraints>
          <children>
-            <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="CHAT PAGE" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="55.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="300.0" />
-               </VBox.margin>
-            </Text>
-            <Label fx:id="toUser" text="Selected User" />
-            <GridPane alignment="BOTTOM_CENTER" prefHeight="120.0" prefWidth="1060.0">
+            <Label fx:id="toUser" alignment="TOP_CENTER" text="Selected User" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
+            <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+               <content>
+                  <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" />
+               </content>
+            </ScrollPane>
+            <GridPane alignment="BOTTOM_CENTER" prefHeight="120.0" prefWidth="1060.0" style="-fx-background-color: #faf9f6;" GridPane.rowIndex="2">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="200.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="12.0" percentWidth="12.0" prefWidth="20.0" />
+                <ColumnConstraints minWidth="15.0" percentWidth="15.0" prefWidth="20.0" />
               </columnConstraints>
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <TextArea prefHeight="200.0" prefWidth="723.0" promptText="ENTER MESSAGE HERE">
+                  <TextArea prefHeight="200.0" prefWidth="730.0" promptText="ENTER MESSAGE HERE">
                      <GridPane.margin>
-                        <Insets left="30.0" right="30.0" />
+                        <Insets left="30.0" right="20.0" />
                      </GridPane.margin>
                   </TextArea>
-                  <Button alignment="CENTER_RIGHT" style="-fx-background-color: #cc0000;" text="SEND" textAlignment="CENTER" textFill="#faf9f6" GridPane.columnIndex="1">
+                  <Button alignment="CENTER" contentDisplay="CENTER" style="-fx-background-color: #cc0000;" text="SEND" textAlignment="CENTER" textFill="#faf9f6" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
@@ -57,9 +60,12 @@
                      </GridPane.margin>
                   </Button>
                </children>
+               <GridPane.margin>
+                  <Insets bottom="30.0" />
+               </GridPane.margin>
             </GridPane>
          </children>
-      </VBox>
+      </GridPane>
    </center>
    <top>
       <GridPane alignment="CENTER" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
@@ -95,14 +101,14 @@
       </GridPane>
    </top>
    <left>
-      <TabPane nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #faf9f6; -fx-border-color: #2d2926; -fx-border-width: 0px 2px 0px 0px;" BorderPane.alignment="CENTER">
+      <TabPane fx:id="chatTabs" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #faf9f6; -fx-border-color: #2d2926; -fx-border-width: 0px 2px 0px 0px;" BorderPane.alignment="CENTER">
          <tabs>
-            <Tab closable="false" text="Main Chats">
+            <Tab fx:id="mainChatTab" closable="false" text="Main Chats">
                <content>
                   <ListView fx:id="userListView" prefHeight="200.0" prefWidth="200.0" style="-fx-control-inner-background: #faf9f6;" />
                </content>
             </Tab>
-            <Tab closable="false" text="Secret Chats">
+            <Tab fx:id="secretChatTab" closable="false" text="Secret Chats">
                <content>
                   <ListView fx:id="secretListView" prefHeight="200.0" prefWidth="200.0" style="-fx-control-inner-background: #faf9f6;" />
                </content>
