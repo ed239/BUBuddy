@@ -3,6 +3,8 @@ package org.chatapp;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Objects;
+
+import com.mongodb.client.FindIterable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -18,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
 public class ChatPageController {
@@ -77,6 +80,8 @@ public class ChatPageController {
       @Override
       public void changed(ObservableValue observable, String oldValue, String newValue) {
         toUserObj = database.getChatUser(newValue);
+        chatContainer.getChildren().clear();
+        displayAllMessage(curUser.getId(), toUserObj.getId(),"");
         toUser.setText(newValue);
       }
     });
@@ -129,7 +134,7 @@ public class ChatPageController {
     if(text.length() > 1) {
       boolean done = database.addNewmessage(toId, curUser.getId(), text, currentTime);
       if (done) {
-        displayMessage(toId, curUser.getId(),text);
+        displayNewMessage(toId, curUser.getId(),text);
         System.out.println("Message added successfully.");
         txtmessage.setText("");
       } else {
@@ -138,21 +143,28 @@ public class ChatPageController {
     }
   }
 
-  public void displayMessage(ObjectId toId, ObjectId fromId, String text) {
-    Label messageLabel = new Label(text);
-    messageLabel.setWrapText(true);
-    messageLabel.setMaxWidth(200); // Adjust according to your needs
+  public void displayAllMessage(ObjectId toId, ObjectId fromId, String text) {
+    FindIterable<Document> messages = database.getMessagesBetweenUsers(toId, fromId, text);
+    for (Document message : messages) {
+      String text2 = message.getString("text");
+      ObjectId senderId = message.getObjectId("fromId");
 
-    HBox messageContainer = new HBox();
-    messageContainer.getChildren().add(messageLabel);
-    messageContainer.setAlignment(Pos.CENTER_LEFT);
-    messageContainer.setPadding(new Insets(5)); // Add some padding
+      Label messageLabel = new Label(text2);
+      messageLabel.setWrapText(true);
+      messageLabel.setMaxWidth(200); // Adjust according to your needs
 
-    if (fromId.equals(curUser.getId())) { // Assuming curUser.getId() returns ObjectId
-      messageContainer.setAlignment(Pos.CENTER_RIGHT);
+      HBox messageContainer = new HBox(messageLabel);
+//      messageContainer.setAlignment(senderId.equals(curUser.getId()) ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+//      String color = senderId.equals(curUser.getId()) ? "#FFCCCC" : "#E0E0E0";
+//      messageContainer.setStyle("-fx-background-color: " + color + "; -fx-max-width: 200px;");
+      messageContainer.setAlignment(senderId.equals(curUser.getId()) ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+//      messageContainer.setStyle("-fx-background-color: " + (senderId.equals(curUser.getId()) ? "#ff9999" : "#d9d9d9") + "; -fx-max-width: 200px;");
+      chatContainer.getChildren().add(messageContainer);
     }
+  }
 
-    chatContainer.getChildren().add(messageContainer);
+  public void displayNewMessage(ObjectId toId, ObjectId fromId, String text){
+
   }
 
 }
