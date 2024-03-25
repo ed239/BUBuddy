@@ -142,6 +142,7 @@ public class ChatPageController {
   }
 
 public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
+    displayedMessages.clear();
   FindIterable<Document> messages = database.getMessagesBetweenUsers(toId, fromId, text);
   for (Document message : messages) {
     if (!displayedMessages.contains(message)) {
