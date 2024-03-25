@@ -1,8 +1,12 @@
 package org.chatapp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
+
+import com.mongodb.client.FindIterable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -10,10 +14,15 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
 public class ChatPageController {
@@ -47,7 +56,11 @@ public class ChatPageController {
   @FXML
   private TextArea txtmessage;
 
+  @FXML
+  private VBox chatContainer;
 
+  private List<Document> displayedMessages = new ArrayList<>();
+  private Date lastDisplayedTimestamp;
 
   @FXML
   private void initialize() {
@@ -70,6 +83,8 @@ public class ChatPageController {
       @Override
       public void changed(ObservableValue observable, String oldValue, String newValue) {
         toUserObj = database.getChatUser(newValue);
+        chatContainer.getChildren().clear();
+        displayAllMessages(curUser.getId(), toUserObj.getId(),"");
         toUser.setText(newValue);
       }
     });
@@ -82,9 +97,6 @@ public class ChatPageController {
 //      }
 //    });
 
-
-
-
     chatTabs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
       @Override
       public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab newTab) {
@@ -96,8 +108,6 @@ public class ChatPageController {
         }
       }
     });
-
-
   }
 
   public void backToLogIn(ActionEvent event) throws IOException {
@@ -122,6 +132,7 @@ public class ChatPageController {
     if(text.length() > 1) {
       boolean done = database.addNewmessage(toId, curUser.getId(), text, currentTime);
       if (done) {
+        displayNewMessages(toId, curUser.getId(),text);
         System.out.println("Message added successfully.");
         txtmessage.setText("");
       } else {
@@ -129,5 +140,54 @@ public class ChatPageController {
       }
     }
   }
+
+public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
+  FindIterable<Document> messages = database.getMessagesBetweenUsers(toId, fromId, text);
+  for (Document message : messages) {
+    if (!displayedMessages.contains(message)) {
+      displayMessage(message);
+      displayedMessages.add(message);
+    }
+  }
+}
+
+
+  private void displayMessage(Document message) {
+    String text = message.getString("text");
+    ObjectId senderId = message.getObjectId("fromId");
+    lastDisplayedTimestamp = message.getDate("timestamp");
+
+    Label messageLabel = new Label(text);
+    messageLabel.setWrapText(true);
+    messageLabel.setMaxWidth(0.3 * chatContainer.getWidth());
+
+    HBox messageContainer = new HBox(messageLabel);
+    messageContainer.setMinWidth(Label.USE_PREF_SIZE);
+    messageContainer.setMaxWidth(0.3 * chatContainer.getWidth());
+    messageContainer.setMinHeight(Label.USE_PREF_SIZE);
+    messageContainer.setAlignment(senderId.equals(curUser.getId()) ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+    String backgroundColor = senderId.equals(curUser.getId()) ? "#FFCCCC" : "#E0E0E0";
+    String borderRadius = "12px";
+    messageLabel.setStyle("-fx-background-color: " + backgroundColor + ";" + "-fx-background-radius: " + borderRadius + ";" + "-fx-padding: 10px;");
+//    if(senderId.equals(curUser.getId())){
+//      chatContainer.setAlignment(Pos.CENTER_RIGHT);
+//    }
+//    else{
+//      chatContainer.setAlignment(Pos.CENTER_LEFT);
+//    }
+    chatContainer.getChildren().add(messageContainer);
+
+  }
+
+  public void displayNewMessages(ObjectId toId, ObjectId fromId, String text) {
+    FindIterable<Document> newMessages = database.getNewMessagesBetweenUsers(toId, fromId, lastDisplayedTimestamp);
+    for (Document message : newMessages) {
+      if (!displayedMessages.contains(message)) {
+        displayMessage(message);
+        displayedMessages.add(message);
+      }
+    }
+  }
+
 
 }
