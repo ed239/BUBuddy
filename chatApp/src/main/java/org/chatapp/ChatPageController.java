@@ -177,6 +177,8 @@ public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
 //      chatContainer.setAlignment(Pos.CENTER_LEFT);
 //    }
     chatContainer.getChildren().add(messageContainer);
+    messageContainer.setMinWidth(chatContainer.getWidth());
+    messageContainer.setMaxWidth(chatContainer.getWidth());
 
   }
 
