@@ -20,7 +20,6 @@ public class Database {
     private Database() {
         // Replace string with our db connection
         String uri = "";
-
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
@@ -182,12 +181,19 @@ public class Database {
     public FindIterable<Document> getMessagesBetweenUsers(ObjectId toId, ObjectId fromId, String text){
         Document query = new Document("$or",
                 List.of(
-                        new Document("fromId", fromId).append("toId", toId),
-                        new Document("fromId", toId).append("toId", fromId)
-                )
-        );
-        FindIterable<Document> messages = messagesCollection.find(query).sort(new Document("timestamp", 1));
-        return messages;
+                    new Document("fromId", fromId).append("toId", toId),
+                    new Document("fromId", toId).append("toId", fromId)
+                ));
+        return messagesCollection.find(query).sort(new Document("timestamp", 1));
+    }
+
+    public FindIterable<Document> getNewMessagesBetweenUsers(ObjectId toId, ObjectId fromId, Date lastDisplayedTimestamp) {
+        Document query = new Document("$or",
+                List.of(
+                    new Document("fromId", fromId).append("toId", toId),
+                    new Document("fromId", toId).append("toId", fromId)
+                )).append("timestamp", new Document("$gt", lastDisplayedTimestamp));
+        return messagesCollection.find(query).sort(new Document("timestamp", 1));
     }
 
 
