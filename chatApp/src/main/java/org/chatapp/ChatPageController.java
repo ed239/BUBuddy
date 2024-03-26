@@ -163,9 +163,11 @@ public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
     messageLabel.setMaxWidth(0.3 * chatContainer.getWidth());
 
     HBox messageContainer = new HBox(messageLabel);
+    messageContainer.setPadding(new Insets(10, 40, 10, 40));
     messageContainer.setMinWidth(Label.USE_PREF_SIZE);
-    messageContainer.setMaxWidth(0.3 * chatContainer.getWidth());
+    //messageContainer.setMaxWidth(50);
     messageContainer.setMinHeight(Label.USE_PREF_SIZE);
+    //messageContainer.setSpacing(130);
     messageContainer.setAlignment(senderId.equals(curUser.getId()) ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
     String backgroundColor = senderId.equals(curUser.getId()) ? "#FFCCCC" : "#E0E0E0";
     String borderRadius = "12px";
