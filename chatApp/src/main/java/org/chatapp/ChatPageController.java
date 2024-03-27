@@ -1,12 +1,14 @@
 package org.chatapp;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 import com.mongodb.client.FindIterable;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,6 +27,8 @@ import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
+import org.chatapp.network.Client;
+
 public class ChatPageController {
 
   private static ChatUser curUser = getCurUser();
@@ -61,6 +65,9 @@ public class ChatPageController {
 
   private List<Document> displayedMessages = new ArrayList<>();
   private Date lastDisplayedTimestamp;
+
+  private Client client;
+  private static final int portNumber = 6667;
 
   @FXML
   private void initialize() {
@@ -108,6 +115,89 @@ public class ChatPageController {
         }
       }
     });
+
+    try {
+      Socket socket = new Socket("localhost", portNumber);
+      client = new Client(socket, curUser.getName());
+    }catch (IOException e) {
+      e.printStackTrace();
+    }
+//    secretListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
+//      @Override
+//      public void changed(ObservableValue observable, String oldValue, String newValue) {
+//        chatContainer.getChildren().clear();
+//        toUser.setText(newValue);
+//
+//
+//        chatContainer.heightProperty().addListener(new ChangeListener<Number>() {
+//          @Override
+//          public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+//            sp_secret.setVvalue((Double) newValue);
+//          }
+//        });
+//
+//        client.readMessage(chatContainer);
+//
+//        send_button.setOnAction(new EventHandler<ActionEvent>() {
+//          @Override
+//          public void handle(ActionEvent event) {
+//            String messageToSend = txtmessage.getText();
+//            if (!messageToSend.isEmpty()) {
+//              HBox hBox = new HBox();
+//              hBox.setAlignment(Pos.TOP_RIGHT);
+//
+//              hBox.setPadding(new Insets(5, 5, 5, 10));
+//              Text text = new Text(messageToSend);
+//              TextFlow textFlow = new TextFlow(text);
+//              textFlow.setStyle("-fx-color: #ffffff; -fx-background-color: #bd1111;  -fx-background-radius: 20px;");
+//
+//              textFlow.setPadding(new Insets(5, 5, 5, 10));
+//              text.setFill(Color.color(0.934, 0.945, 0.996));
+//
+//              hBox.getChildren().add(textFlow);
+//              chatContainer.getChildren().add(hBox);
+//
+//              client.sendMessage(messageToSend);
+//              txtmessage.clear();
+//            }
+//          }
+//        });
+//
+//      }
+//    });
+  }
+
+  public static void addLabel(String messageFromUser, VBox vBox, boolean isSent) {
+
+    Label messageLabel = new Label(messageFromUser);
+    messageLabel.setWrapText(true);
+    messageLabel.setMaxWidth(0.3 * vBox.getWidth());
+
+    HBox hBox = new HBox(messageLabel);
+    hBox.setPadding(new Insets(10, 40, 10, 40));
+    hBox.setMinWidth(Label.USE_PREF_SIZE);
+    hBox.setMinHeight(Label.USE_PREF_SIZE);
+    hBox.setAlignment(isSent ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+    String backgroundColor = isSent ? "#FFCCCC" : "#E0E0E0";
+    String borderRadius = "12px";
+    messageLabel.setStyle("-fx-background-color: " + backgroundColor + ";" + "-fx-background-radius: " + borderRadius + ";" + "-fx-padding: 10px;");
+
+    if (isSent) {
+      Platform.runLater(new Runnable() {
+        @Override
+        public void run() {
+          vBox.getChildren().add(hBox);
+          hBox.setMinWidth(vBox.getWidth());
+          hBox.setMaxWidth(vBox.getWidth());
+        }
+      });
+    }
+    else {
+      vBox.getChildren().add(hBox);
+      hBox.setMinWidth(vBox.getWidth());
+      hBox.setMaxWidth(vBox.getWidth());
+    }
+
   }
 
   public void backToLogIn(ActionEvent event) throws IOException {
