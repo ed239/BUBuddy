@@ -19,7 +19,10 @@ public class Database {
         // Replace string with our db connection
         String uri = "mongodb+srv://amiyev:BuBuddy2024@bubuddyv1.kups6t4.mongodb.net/?retryWrites=true&w=majority&appName=BuBuddyV1";
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         MongoClient mongoClient = MongoClients.create(uri);
