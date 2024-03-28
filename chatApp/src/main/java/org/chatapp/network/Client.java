@@ -4,7 +4,6 @@ import org.chatapp.ChatPageController;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Scanner;
 
 public class Client {
 
@@ -13,7 +12,6 @@ public class Client {
     private BufferedWriter bufferedWriter;
     private String userName;
 
-    //private static int portNumber = 6667;
     public Client(Socket socket, String userName) {
         try {
             this.socket = socket;
@@ -28,29 +26,10 @@ public class Client {
         }
     }
 
-    public void sendMessage() {
-        try {
-            bufferedWriter.write(userName);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
-
-            Scanner input = new Scanner(System.in);
-
-            while (socket.isConnected()) {
-                String message = input.nextLine();
-                bufferedWriter.write(userName + ": " + message);
-                bufferedWriter.newLine();
-                bufferedWriter.flush();
-            }
-        } catch (IOException e) {
-            closeAll(socket, bufferedWriter, bufferedReader);
-        }
-    }
-
-    //Overloading method for GUI ChatPageController
+    //sendMessage method for GUI ChatPageController
     public void sendMessage(String message) {
         try {
-            bufferedWriter.write(message);
+            bufferedWriter.write(userName + ": " + message);
             bufferedWriter.newLine();
             bufferedWriter.flush();
         } catch (IOException e) {
@@ -58,25 +37,7 @@ public class Client {
         }
     }
 
-    public void readMessage() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String messageFromGroupChat;
-                while (socket.isConnected()) {
-                    try {
-                        messageFromGroupChat = bufferedReader.readLine();
-                        System.out.println(messageFromGroupChat);
-                    } catch (IOException e) {
-                        closeAll(socket, bufferedWriter, bufferedReader);
-                        break;
-                    }
-                }
-            }
-        }).start();
-    }
-
-    //Overloading method for GUI ChatPageController
+    //readMessage method for GUI ChatPageController
     public void readMessage(VBox vBox) {
         new Thread(new Runnable() {
             @Override
