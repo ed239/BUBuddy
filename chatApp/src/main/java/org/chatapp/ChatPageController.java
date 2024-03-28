@@ -65,9 +65,12 @@ public class ChatPageController {
 
   private List<Document> displayedMessages = new ArrayList<>();
   private Date lastDisplayedTimestamp;
-
+  @FXML
+  private ScrollPane sp_secret;
   private Client client;
   private static final int portNumber = 6667;
+
+  private boolean isGroupChat; //for separating send button between main chat and secret group chat
 
   @FXML
   private void initialize() {
@@ -79,10 +82,7 @@ public class ChatPageController {
 
     // tested to see if Listview would become scrollable with a lot of users + show difference
     // in secret chat and main chat
-    String[] temp = {"Mock 1", "Mock 2", "Mock 3", "Mock 4", "Mock 5", "Mock 6", "Mock 7", "Mock 8",
-        "Mock 9", "Mock 10", "Mock 11", "Mock 12", "Mock 13", "Mock 14", "Mock 15", "Mock 16",
-        "Mock 17", "Mock 18", "Mock 19", "Mock 20",
-        "Mock 21", "Mock 22", "Mock 23", "Mock 24"};
+    String[] temp = {"Group Chat"};
     secretListView.getItems().addAll(temp);
 
 
@@ -93,16 +93,9 @@ public class ChatPageController {
         chatContainer.getChildren().clear();
         displayAllMessages(curUser.getId(), toUserObj.getId(),"");
         toUser.setText(newValue);
+        isGroupChat = false;  //for separating send button between main chat and secret group chat
       }
     });
-
-    // makes secret chats menu operate like main chat user selection listener
-//    secretListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
-//      @Override
-//      public void changed(ObservableValue observable, String oldValue, String newValue) {
-//        toUser.setText(newValue);
-//      }
-//    });
 
     chatTabs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
       @Override
@@ -116,55 +109,31 @@ public class ChatPageController {
       }
     });
 
+    //creates client socket for server
     try {
       Socket socket = new Socket("localhost", portNumber);
       client = new Client(socket, curUser.getName());
     }catch (IOException e) {
       e.printStackTrace();
     }
-//    secretListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
-//      @Override
-//      public void changed(ObservableValue observable, String oldValue, String newValue) {
-//        chatContainer.getChildren().clear();
-//        toUser.setText(newValue);
-//
-//
-//        chatContainer.heightProperty().addListener(new ChangeListener<Number>() {
-//          @Override
-//          public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-//            sp_secret.setVvalue((Double) newValue);
-//          }
-//        });
-//
-//        client.readMessage(chatContainer);
-//
-//        send_button.setOnAction(new EventHandler<ActionEvent>() {
-//          @Override
-//          public void handle(ActionEvent event) {
-//            String messageToSend = txtmessage.getText();
-//            if (!messageToSend.isEmpty()) {
-//              HBox hBox = new HBox();
-//              hBox.setAlignment(Pos.TOP_RIGHT);
-//
-//              hBox.setPadding(new Insets(5, 5, 5, 10));
-//              Text text = new Text(messageToSend);
-//              TextFlow textFlow = new TextFlow(text);
-//              textFlow.setStyle("-fx-color: #ffffff; -fx-background-color: #bd1111;  -fx-background-radius: 20px;");
-//
-//              textFlow.setPadding(new Insets(5, 5, 5, 10));
-//              text.setFill(Color.color(0.934, 0.945, 0.996));
-//
-//              hBox.getChildren().add(textFlow);
-//              chatContainer.getChildren().add(hBox);
-//
-//              client.sendMessage(messageToSend);
-//              txtmessage.clear();
-//            }
-//          }
-//        });
-//
-//      }
-//    });
+
+    // makes secret chats menu operate like main chat user selection listener
+    secretListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
+      @Override
+      public void changed(ObservableValue observable, String oldValue, String newValue) {
+        chatContainer.getChildren().clear();
+        toUser.setText(newValue);
+        isGroupChat = true; //for separating send button between main chat and secret group chat
+        client.readMessage(chatContainer);
+      }});
+
+    //for scrolling down when new messages come
+    chatContainer.heightProperty().addListener(new ChangeListener<Number>() {
+      @Override
+      public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+        sp_secret.setVvalue((Double) newValue);
+      }
+    });
   }
 
   public static void addLabel(String messageFromUser, VBox vBox, boolean isSent) {
@@ -177,7 +146,7 @@ public class ChatPageController {
     hBox.setPadding(new Insets(10, 40, 10, 40));
     hBox.setMinWidth(Label.USE_PREF_SIZE);
     hBox.setMinHeight(Label.USE_PREF_SIZE);
-    hBox.setAlignment(isSent ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
+    hBox.setAlignment(isSent ? Pos.CENTER_LEFT : Pos.CENTER_RIGHT);
     String backgroundColor = isSent ? "#FFCCCC" : "#E0E0E0";
     String borderRadius = "12px";
     messageLabel.setStyle("-fx-background-color: " + backgroundColor + ";" + "-fx-background-radius: " + borderRadius + ";" + "-fx-padding: 10px;");
@@ -197,7 +166,6 @@ public class ChatPageController {
       hBox.setMinWidth(vBox.getWidth());
       hBox.setMaxWidth(vBox.getWidth());
     }
-
   }
 
   public void backToLogIn(ActionEvent event) throws IOException {
@@ -216,17 +184,24 @@ public class ChatPageController {
     return SceneController.database;
   }
   public void sendMessage(ActionEvent event) throws IOException {
-    ObjectId toId = toUserObj.getId();
-    String text = txtmessage.getText();
-    Date currentTime = new Date();
-    if(text.length() > 1) {
-      boolean done = database.addNewmessage(toId, curUser.getId(), text, currentTime);
-      if (done) {
-        displayNewMessages(toId, curUser.getId(),text);
-        System.out.println("Message added successfully.");
-        txtmessage.setText("");
-      } else {
-        System.out.println("Failed to add message.");
+    String messageToSend = txtmessage.getText();
+    if (!messageToSend.isEmpty()) {
+      if (isGroupChat) {
+        addLabel(messageToSend, chatContainer, false);
+        client.sendMessage(messageToSend);
+        txtmessage.clear();
+      }
+      else {
+        ObjectId toId = toUserObj.getId();
+        Date currentTime = new Date();
+        boolean done = database.addNewmessage(toId, curUser.getId(), messageToSend, currentTime);
+          if (done) {
+            displayNewMessages(toId, curUser.getId(), messageToSend);
+            System.out.println("Message added successfully.");
+            txtmessage.setText("");
+          } else {
+            System.out.println("Failed to add message.");
+        }
       }
     }
   }
