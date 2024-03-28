@@ -23,7 +23,6 @@ public class BUBuddyApp extends Application {
 
         //creates new client each time your run
         SceneController sceneController = fxmlLoader.getController();
-        chatClient newChatClient = new chatClient(sceneController);
 //        sceneController.setChatClient(newChatClient);
 
         stage.setScene(scene);
@@ -38,13 +37,4 @@ public class BUBuddyApp extends Application {
             System.exit(0);
         });
     }
-
-    public static void main(String[] args) {
-        //comment these two out if running them independently
-        new Thread(chatServer::main).start();
-        new Thread(chatClient::main).start();
-        launch();
-    }
-
-
 }

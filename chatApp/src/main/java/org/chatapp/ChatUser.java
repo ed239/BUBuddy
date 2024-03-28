@@ -28,5 +28,9 @@ public class ChatUser {
     }
 
     public String getDOB() { return dob;}
+
+    public String toString(){
+        return getName();
+    }
 }
 
