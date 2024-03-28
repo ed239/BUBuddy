@@ -13,11 +13,8 @@
 
 <BorderPane maxHeight="700.0" maxWidth="850.0" minHeight="533.0" minWidth="550.0" prefHeight="600.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
    <center>
-<<<<<<< Updated upstream
-         <VBox alignment="CENTER" minHeight="500.0" minWidth="0.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
-=======
+      <VBox alignment="CENTER" minHeight="500.0" minWidth="0.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
          <VBox alignment="CENTER" minHeight="500.0" minWidth="0.0" prefHeight="600.0" prefWidth="368.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
->>>>>>> Stashed changes
             <children>
                <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="BU BUDDY" textAlignment="CENTER" wrappingWidth="341.9046630859375">
                   <font>
@@ -34,6 +31,7 @@
                <Insets bottom="350.0" left="20.0" right="20.0" />
             </padding>
          </VBox>
+      </VBox>
    </center>
    <right>
       <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="35.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
