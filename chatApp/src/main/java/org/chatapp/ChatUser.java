@@ -12,7 +12,6 @@ public class ChatUser {
         this.name = name;
         this.username = username;
         this.dob = dateOfBirth;
-
     }
 
     public ObjectId getId() {

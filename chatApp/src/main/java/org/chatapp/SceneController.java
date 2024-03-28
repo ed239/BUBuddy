@@ -3,15 +3,13 @@ package org.chatapp;
 import java.time.LocalDate;
 import java.util.Objects;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
+
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import org.bson.types.ObjectId;
@@ -48,10 +46,6 @@ public class SceneController {
     @FXML
     private DatePicker dateOfBirth;
 
-    // Forgot Password
-    @FXML
-    private Hyperlink forgor_password;
-
 
     static Database database = Database.getInstance();
     public Boolean Login() throws IOException{
@@ -80,13 +74,11 @@ public class SceneController {
                 System.out.println("Not Authenticated");
                 return false;
             }
-
         } else {
             errorMessage.setText("Not valid credentials");
             System.out.println("Username does not exist.");
             return false;
         }
-
     }
 
     public void loginPageToSignUpPage(ActionEvent event) throws IOException {
@@ -95,7 +87,6 @@ public class SceneController {
         stage.getScene().setRoot(root);
         stage.show();
     }
-
     public Boolean signUp() throws IOException {
         String fullname = txtfullname.getText();
         String username = txtusername.getText();
@@ -111,13 +102,13 @@ public class SceneController {
         }
     }
 
+
     public void backToLogIn(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();
     }
-
     public void backToLogInAccountCreated(ActionEvent event) throws IOException {
         if (signUp()) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
@@ -126,7 +117,6 @@ public class SceneController {
             stage.show();
         }
     }
-
     public void loginPageToChatPage(ActionEvent event) throws IOException {
         if (Login()) {
             ChatPageController chatPageController = new ChatPageController();
@@ -135,5 +125,11 @@ public class SceneController {
             stage.getScene().setRoot(root);
             stage.show();
         }
+    }
+    public void forgotPassword(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ForgotPassword.fxml")));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.getScene().setRoot(root);
+        stage.show();
     }
 }
