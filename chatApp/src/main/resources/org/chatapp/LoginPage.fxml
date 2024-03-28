@@ -1,22 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="533.0" minWidth="550.0" prefHeight="714.0" prefWidth="1073.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
+<BorderPane maxHeight="700.0" maxWidth="850.0" minHeight="533.0" minWidth="550.0" prefHeight="600.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
    <center>
-         <VBox alignment="CENTER" minHeight="522.0" minWidth="0.0" prefHeight="630.0" prefWidth="434.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
+         <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="500.0" minWidth="350.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
             <children>
-               <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="BU BUDDY" textAlignment="CENTER">
+               <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="BU BUDDY" textAlignment="CENTER" wrappingWidth="341.9046630859375">
                   <font>
-                     <Font name="System Bold" size="85.0" />
+                     <Font name="System Bold" size="58.0" />
                   </font>
                </Text>
                <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Where you, can BU! " textAlignment="CENTER">
                   <font>
-                     <Font size="35.0" />
+                     <Font size="27.0" />
                   </font>
                </Text>
             </children>
@@ -26,15 +32,12 @@
          </VBox>
    </center>
    <right>
-      <VBox alignment="CENTER" minHeight="471.0" minWidth="361.0" prefHeight="714.0" prefWidth="550.0" scaleZ="2.0" spacing="45.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
+      <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="35.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
          <children>
-            <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" textAlignment="CENTER">
+            <Text fill="#cc0000" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN">
                <font>
-                  <Font name="System Bold" size="55.0" />
+                  <Font name="System Bold" size="40.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
             </Text>
             <TextField fx:id="txtusername" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
                <font>
@@ -46,10 +49,13 @@
                   <Font size="25.0" />
                </font>
             </PasswordField>
-            <Hyperlink alignment="CENTER_RIGHT" onAction="#forgotPassword" text="Forgot Password?" textAlignment="CENTER" textFill="#3048ff" underline="true">
+            <Hyperlink alignment="CENTER_RIGHT" maxHeight="35.0" maxWidth="170.0" minHeight="35.0" minWidth="155.0" onAction="#forgotPassword" prefHeight="35.0" prefWidth="152.0" text="Forgot Password?" textAlignment="CENTER" textFill="#3048ff" underline="true">
                <font>
                   <Font size="18.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="250.0" />
+               </VBox.margin>
             </Hyperlink>
             <Label fx:id="errorMessage" textFill="#e80d0d" />
             <Button mnemonicParsing="false" onAction="#loginPageToChatPage" style="-fx-background-color: #CC0000;" text="LOGIN" textAlignment="CENTER" textFill="#faf9f6">
@@ -64,7 +70,7 @@
             </Hyperlink>
          </children>
          <padding>
-            <Insets bottom="50.0" left="50.0" right="50.0" top="10.0" />
+            <Insets bottom="50.0" left="50.0" right="50.0" top="60.0" />
          </padding>
       </VBox>
    </right>

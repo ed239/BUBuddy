@@ -13,11 +13,11 @@ import org.chatapp.network.chatServer;
 
 
 public class BUBuddyApp extends Application {
-    private final int sceneWidth = 1100;
+    private final int sceneWidth = 1000;
     private final int sceneHeight = 700;
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(BUBuddyApp.class.getResource("LogInPage.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(BUBuddyApp.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), sceneWidth, sceneHeight);
 //        Scene scene = new Scene(fxmlLoader.load(), 640, 450);
 
@@ -27,7 +27,7 @@ public class BUBuddyApp extends Application {
 //        sceneController.setChatClient(newChatClient);
 
         stage.setScene(scene);
-        stage.setMinHeight(600);
+        stage.setMinHeight(533);
         stage.setMinWidth(550);
         stage.show();
 
