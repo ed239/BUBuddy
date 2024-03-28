@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import javafx.fxml.FXML;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import java.io.IOException;
 import javafx.event.ActionEvent;
@@ -46,6 +47,11 @@ public class SceneController {
 
     @FXML
     private DatePicker dateOfBirth;
+
+    // Forgot Password
+    @FXML
+    private Hyperlink forgor_password;
+
 
     static Database database = Database.getInstance();
     public Boolean Login() throws IOException{
