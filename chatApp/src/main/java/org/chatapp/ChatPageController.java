@@ -1,11 +1,5 @@
 package org.chatapp;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-
 import com.mongodb.client.FindIterable;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,12 +13,19 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 public class ChatPageController {
 
   private static ChatUser curUser = getCurUser();
@@ -58,9 +59,12 @@ public class ChatPageController {
 
   @FXML
   private VBox chatContainer;
+  @FXML
+  private GridPane user_icon;
 
   private List<Document> displayedMessages = new ArrayList<>();
   private Date lastDisplayedTimestamp;
+
 
   @FXML
   private void initialize() {
@@ -77,6 +81,8 @@ public class ChatPageController {
         "Mock 17", "Mock 18", "Mock 19", "Mock 20",
         "Mock 21", "Mock 22", "Mock 23", "Mock 24"};
     secretListView.getItems().addAll(temp);
+
+
 
 
     userListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
@@ -113,6 +119,12 @@ public class ChatPageController {
   public void backToLogIn(ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.getScene().setRoot(root);
+    stage.show();
+  }
+  public void goToProfile(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ProfilePage.fxml")));
+    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     stage.getScene().setRoot(root);
     stage.show();
   }
@@ -193,6 +205,5 @@ public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
       }
     }
   }
-
 
 }

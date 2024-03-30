@@ -1,21 +1,19 @@
 package org.chatapp;
 
-import java.time.LocalDate;
-import java.util.Objects;
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
-import java.io.IOException;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.chatClient;
-import org.chatapp.ChatUser;
+
+import java.io.IOException;
+import java.util.Objects;
 
 public class SceneController {
     private Stage stage;
@@ -152,4 +150,5 @@ public class SceneController {
         stage.getScene().setRoot(root);
         stage.show();
     }
+
 }
