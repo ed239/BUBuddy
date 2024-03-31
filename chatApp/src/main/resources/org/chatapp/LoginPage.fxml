@@ -59,7 +59,7 @@
                   <Insets left="250.0" />
                </VBox.margin>
             </Hyperlink>
-            <Label fx:id="errorMessage" textFill="#e80d0d" />
+            <Label fx:id="errorMessage" prefHeight="18.0" prefWidth="83.0" textFill="#e80d0d" />
             <Button mnemonicParsing="false" onAction="#loginPageToChatPage" style="-fx-background-color: #CC0000;" text="LOGIN" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />

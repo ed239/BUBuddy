@@ -1,16 +1,15 @@
 package org.chatapp.com.mongodb;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import com.mongodb.client.*;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.chatapp.ChatUser;
 
-import static com.mongodb.client.model.Filters.eq;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 public class Database {
 
     private static Database instance = null;
@@ -48,6 +47,15 @@ public class Database {
             String storedPassword = userDoc.getString("password");
             String hashedPassword = hashPassword(password);
             return storedPassword.equals(hashedPassword);
+        }
+        return false;
+    }
+    // VERIFY WHETHER THE DATE OF BIRTH IS MATCH?
+    public boolean verifyDateOfBirth(String username,String dateOfBirth){
+        Document userDoc = userCollection.find(new Document("username", username)).first();
+        if(userDoc!= null){
+            String storeDateOfBirth = userDoc.getString("dob");
+            return storeDateOfBirth.equals(dateOfBirth);
         }
         return false;
     }
@@ -103,7 +111,6 @@ public class Database {
                 usersList.add(user.getName());
             }
         }
-
         return usersList.toArray(new String[0]);
     }
     public List<ChatUser> getAllChatUsersFromDatabase() {

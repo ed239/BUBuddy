@@ -79,6 +79,33 @@ public class SceneController {
             return false;
         }
     }
+    public Boolean checkUserName() throws IOException{
+        String username =  txtusername.getText();
+        String userdob = dateOfBirth.getId();
+        String dob = "";
+        boolean exists = database.userExists(username);
+        if(exists){
+            System.out.println("User exists");
+            boolean validUserName = database.verifyDateOfBirth(username, userdob);
+            System.out.println("validUsername");
+            if(validUserName){
+                dob = database.getDOB(username);
+                curUser = database.getChatUser(dob);
+                System.out.println("SceneController");
+                System.out.println(curUser);
+                System.out.println("Authenticated");
+                return true;
+            }else {
+                errorMessage.setText("Incorrect Date of Brith");
+                System.out.println("Try again!");
+                return false;
+            }
+        }else {
+            errorMessage.setText("Not valid credentials");
+            System.out.println("User not exists... try again!");
+            return false;
+        }
+    }
 
     public void loginPageToSignUpPage(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUpPage.fxml")));
@@ -121,6 +148,15 @@ public class SceneController {
             ChatPageController chatPageController = new ChatPageController();
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.show();
+        }
+    }
+
+    public void forgotPasswordToResetPassword(ActionEvent event) throws IOException{
+        if (checkUserName()){
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ResetPassword.fxml")));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.getScene().setRoot(root);
             stage.show();
         }
