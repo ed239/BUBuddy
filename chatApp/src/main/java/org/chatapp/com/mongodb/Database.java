@@ -10,6 +10,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 public class Database {
 
     private static Database instance = null;
@@ -202,6 +205,17 @@ public class Database {
                 )).append("timestamp", new Document("$gt", lastDisplayedTimestamp));
         return messagesCollection.find(query).sort(new Document("timestamp", 1));
     }
+
+    public boolean updatePassword(String username, String newPassword){
+        try{
+            userCollection.updateOne(eq("username", username), set("password", hashPassword(newPassword)));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
 }

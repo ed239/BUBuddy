@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.chatapp.com.mongodb.Database;
@@ -18,35 +19,33 @@ import java.util.Objects;
 public class SceneController {
     private Stage stage;
     private Parent root;
-
     private chatClient client;
-
     static ChatUser curUser = null;
-
 //    public void setChatClient(chatClient client) {
 //        this.client = client;
 //    }
     @FXML
     private Label errorMessage;
-
     @FXML
     private Label errorMessageSignUp;
-
     @FXML
     private TextField txtusername;
-
     @FXML
     private TextField txtpassword;
-
     @FXML
     private TextField txtfullname;
-
     @FXML
     private DatePicker dateOfBirth;
 
-
+    @FXML
+    private PasswordField newPasswordField;
+    @FXML
+    private PasswordField verifyNewPasswordField;
+    @FXML
+    private Label errorMessagePassword;
 
     static Database database = Database.getInstance();
+
     public Boolean Login() throws IOException{
         // Provide username and password
 //        curUser = null;
@@ -79,6 +78,8 @@ public class SceneController {
             return false;
         }
     }
+
+    // CHECK THE USERNAME AND DATE OF BIRTH WHETHER THEY ARE MATCH OR NOT:
     public Boolean checkUserName() throws IOException{
         String username =  txtusername.getText();
         String userdob = dateOfBirth.getValue().toString();
@@ -106,10 +107,31 @@ public class SceneController {
             }
         }else {
             errorMessage.setText("Not valid credentials");
-            System.out.println("User not exists... try again!");
+            System.out.println("USER NOT EXISTS, PLEASE,TRY AGAIN!");
             return false;
         }
     }
+
+    // RESET NEW PASSWORD AND UPDATED
+    public void resetPassword(ActionEvent event) throws IOException{
+        String newPassword = newPasswordField.getText();
+        String verifyNewPassword = verifyNewPasswordField.getText();
+        if(!newPassword.equals(verifyNewPassword)){
+            errorMessagePassword.setText("Passwords do not match!");
+        }
+        // GET CURRENT LOGGED-IN USER:
+        String username = curUser.getUsername();
+        //UPDATE THE PASSWORD IN THE DATABASE:
+        boolean passwordUpdated = database.updatePassword(username, newPassword);
+        if(passwordUpdated){
+            System.out.println("PASSWORD UPDATE SUCCESSFULLY!");
+        }else {
+            // FAILED TO UPDATE PASSWORD
+            errorMessagePassword.setText("Failed to update password!");
+            System.out.println("FAILED TO UPDATE PASSWORD!");
+        }
+    }
+
 
     public void loginPageToSignUpPage(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUpPage.fxml")));
@@ -117,6 +139,7 @@ public class SceneController {
         stage.getScene().setRoot(root);
         stage.show();
     }
+
     public Boolean signUp() throws IOException {
         String fullname = txtfullname.getText();
         String username = txtusername.getText();
@@ -189,13 +212,11 @@ public class SceneController {
         stage.getScene().setRoot(root);
         stage.show();
     }
-
-    // GO TO --> RESET PASSWORD PAGE <-- BY CLICKING >> RESET PASSWORD << BUTTON
-    public void resetPassword(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ResetPassword.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.getScene().setRoot(root);
-        stage.show();
+    public void resetPasswordToLogInPage(ActionEvent event) throws IOException{
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.show();
     }
 
 }
