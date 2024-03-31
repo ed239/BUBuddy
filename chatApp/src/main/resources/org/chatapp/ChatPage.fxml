@@ -101,15 +101,18 @@
                   <Insets right="50.0" />
                </GridPane.margin>
                <font>
-                  <Font size="23.0" />
+                  <Font name="System Bold" size="23.0" />
                </font>
             </Button>
-            <Hyperlink fx:id="your_profile" onAction="#goToProfile" text="YOUR PROFILE" textFill="WHITE">
+            <Hyperlink fx:id="your_profile" onAction="#goToProfile" prefHeight="47.0" prefWidth="120.0" style="-fx-background-color: #faf9f6; -fx-background-radius: 5px;" text="PROFILE" textFill="#cc0000">
                <font>
                   <Font name="System Bold" size="23.0" />
                </font>
+               <GridPane.margin>
+                  <Insets left="45.0" />
+               </GridPane.margin>
                <padding>
-                  <Insets left="25.0" />
+                  <Insets left="13.0" />
                </padding>
             </Hyperlink>
          </children>

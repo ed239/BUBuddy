@@ -45,6 +45,7 @@ public class SceneController {
     private DatePicker dateOfBirth;
 
 
+
     static Database database = Database.getInstance();
     public Boolean Login() throws IOException{
         // Provide username and password
@@ -124,19 +125,16 @@ public class SceneController {
             stage.show();
         }
     }
-    public void forgotPassword(ActionEvent event) throws IOException{
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ForgotTest.fxml")));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.getScene().setRoot(root);
-        stage.show();
-    }
 
+    // GO TO LOG-IN-PAGE, IF YOU ALREADY HAVE AN ACCOUNT
     public void backToSignInPage(ActionEvent event) throws IOException{
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();
     }
+
+    // GO TO SIGN-UP-PAGE  FROM  FORGOT-PASSWORD-PAGE,  IF YOU WANT TO CREATE ACCOUNT
     public void loginPageToCreateAccount(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUpPage.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -144,6 +142,15 @@ public class SceneController {
         stage.show();
     }
 
+    // GO TO --> FORGOT PASSWORD PAGE <--
+    public void forgotPassword(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ForgotTest.fxml")));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.getScene().setRoot(root);
+        stage.show();
+    }
+
+    // GO TO --> RESET PASSWORD PAGE <-- BY CLICKING >> RESET PASSWORD << BUTTON
     public void resetPassword(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ResetPassword.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();

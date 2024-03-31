@@ -13,7 +13,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -60,7 +59,7 @@ public class ChatPageController {
   @FXML
   private VBox chatContainer;
   @FXML
-  private GridPane user_icon;
+  private Hyperlink backToChatPage;
 
   private List<Document> displayedMessages = new ArrayList<>();
   private Date lastDisplayedTimestamp;
@@ -123,7 +122,7 @@ public class ChatPageController {
     stage.show();
   }
   public void goToProfile(ActionEvent event) throws IOException {
-    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ProfilePage.fxml")));
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Profile.fxml")));
     Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     stage.getScene().setRoot(root);
     stage.show();
