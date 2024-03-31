@@ -23,13 +23,17 @@
                   <Insets top="20.0" />
                </VBox.margin>
                <children>
-                  <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#getImages" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/qwe.png" />
+                     </image>
+                  </ImageView>
                   <Label text="Azamat Omirzak" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" prefHeight="30.0" prefWidth="100.0" text="Edit Profile" textFill="WHITE">
+                  <Button mnemonicParsing="false" onMouseClicked="#getImages" prefHeight="31.0" prefWidth="146.0" text="Edit Profile Photo" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -135,7 +139,7 @@
                   <Insets bottom="60.0" />
                </VBox.margin>
             </VBox>
-            <Hyperlink onAction="#backToChatPage" prefHeight="34.0" prefWidth="122.0" style="-fx-border-width: 2px; -fx-border-color: #00002A; -fx-border-radius: 15px;" text="&lt; Prev page" textFill="WHITE">
+            <Hyperlink onAction="#backToChatPage" prefHeight="34.0" prefWidth="122.0" style="-fx-border-width: 2px; -fx-border-color: #00002A; -fx-border-radius: 15px;" stylesheets="@../../values/ProfileStyle.css" text="&lt; Prev page" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -260,7 +264,7 @@
                   <Insets bottom="20.0" left="10.0" top="10.0" />
                </padding>
             </VBox>
-            <Button mnemonicParsing="false" prefHeight="60.0" prefWidth="140.0" style="-fx-border-color: #C20000; -fx-border-width: 2px; -fx-border-radius: 15;" text="Save Changes" textFill="RED">
+            <Button mnemonicParsing="false" onMouseClicked="#saveChanges" prefHeight="60.0" prefWidth="140.0" style="-fx-border-color: #C20000; -fx-border-width: 2px; -fx-border-radius: 15;" text="Save Changes" textFill="RED">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
