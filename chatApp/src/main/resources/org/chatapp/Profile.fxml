@@ -23,11 +23,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
                <children>
-                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../img/pfofilephoto.png" />
-                     </image>
-                  </ImageView>
+                  <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
                   <Label text="Azamat Omirzak" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="15.0" />
