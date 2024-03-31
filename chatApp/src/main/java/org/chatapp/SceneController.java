@@ -81,23 +81,27 @@ public class SceneController {
     }
     public Boolean checkUserName() throws IOException{
         String username =  txtusername.getText();
-        String userdob = dateOfBirth.getId();
+        String userdob = dateOfBirth.getValue().toString();
         String dob = "";
         boolean exists = database.userExists(username);
         if(exists){
             System.out.println("User exists");
             boolean validUserName = database.verifyDateOfBirth(username, userdob);
-            System.out.println("validUsername");
+//            System.out.println("Check validUsername");
             if(validUserName){
-                dob = database.getDOB(username);
-                curUser = database.getChatUser(dob);
-                System.out.println("SceneController");
+//                dob = database.getDOB(username);    CURRENT CHAT USER: -> {USERNAME = 'null'}
+                curUser = database.getChatUser(username);   // CURRENT CHAT USER: -> {USERNAME = 'ggg12'}
+                System.out.println();
+                System.out.println("FROM SCENE CONTROLLER:");
                 System.out.println(curUser);
-                System.out.println("Authenticated");
+                System.out.print("RESET PASSWORD PAGE IS OPEN: -> ");
+                System.out.println("RESET YOUR PASSWORD!");
+                System.out.println();
                 return true;
             }else {
                 errorMessage.setText("Incorrect Date of Brith");
-                System.out.println("Try again!");
+                System.out.println("Incorrect Date of Brith");
+                System.out.println("Please, Try again!");
                 return false;
             }
         }else {

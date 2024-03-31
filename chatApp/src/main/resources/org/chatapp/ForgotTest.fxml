@@ -52,13 +52,13 @@
                   <Font size="18.0" />
                </font>
             </Hyperlink>
-            <DatePicker fx:id="dateOfBirth" layoutX="159.0" layoutY="193.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" prefHeight="50.0" prefWidth="400.0" style="-fx-border-color: #ADADAD; -fx-border-width: 1px; -fx-border-radius: 5px;" />
+            <DatePicker fx:id="dateOfBirth" layoutX="159.0" layoutY="193.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" prefHeight="50.0" prefWidth="400.0" promptText="Enter date" style="-fx-border-color: #ADADAD; -fx-border-width: 1px; -fx-border-radius: 5px;" styleClass="input" stylesheets="@../../values/DateTextStyle.css" />
             <Label layoutX="159.0" layoutY="166.0" text="Date of Birth">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="errorMessage" layoutX="222.0" layoutY="251.0" prefHeight="20.0" prefWidth="265.0" textFill="#ff0101">
+            <Label fx:id="errorMessage" alignment="CENTER" layoutX="222.0" layoutY="251.0" prefHeight="20.0" prefWidth="265.0" textFill="#ff0101" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>

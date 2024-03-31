@@ -14,6 +14,12 @@ public class ChatUser {
         this.dob = dateOfBirth;
     }
 
+    @Override
+    public String toString(){
+        return "CURRENT CHAT USER: -> {" + "USERNAME = '" + username + '\'' + '}';
+    }
+
+
     public ObjectId getId() {
         return id;
     }
