@@ -13,7 +13,7 @@
    <center>
       <AnchorPane maxHeight="450.0" maxWidth="700.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #ADADAD; -fx-border-width: 2px; -fx-border-radius: 5px;" BorderPane.alignment="CENTER">
          <children>
-            <Button layoutX="160.0" layoutY="283.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" mnemonicParsing="false" onAction="#forgotPasswordToResetPassword" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #C20000; -fx-background-radius: 0px;" text="Reset Password" textFill="WHITE">
+            <Button layoutX="160.0" layoutY="283.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" mnemonicParsing="false" onAction="#forgotPasswordToResetPassword" prefHeight="50.0" prefWidth="400.0" stylesheets="@../../values/ForgorButton.css" text="Reset Password" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -23,7 +23,7 @@
                   <Font name="System Bold" size="22.0" />
                </font>
             </Label>
-            <TextField fx:id="txtusername" layoutX="159.0" layoutY="105.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" prefHeight="50.0" prefWidth="400.0" promptText="Your email" style="-fx-background-color: transparent; -fx-border-color: #ADADAD; -fx-border-width: 2px; -fx-border-radius: 5px;">
+            <TextField fx:id="txtusername" layoutX="159.0" layoutY="105.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" prefHeight="50.0" prefWidth="400.0" promptText="Your email" styleClass="input" stylesheets="@../../values/DateTextStyle.css">
                <font>
                   <Font size="15.0" />
                </font></TextField>
@@ -52,13 +52,13 @@
                   <Font size="18.0" />
                </font>
             </Hyperlink>
-            <DatePicker fx:id="dateOfBirth" layoutX="159.0" layoutY="193.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" prefHeight="50.0" prefWidth="400.0" promptText="Enter date" style="-fx-border-color: #ADADAD; -fx-border-width: 1px; -fx-border-radius: 5px;" styleClass="input" stylesheets="@../../values/DateTextStyle.css" />
+            <DatePicker fx:id="dateOfBirth" layoutX="159.0" layoutY="193.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" prefHeight="50.0" prefWidth="400.0" promptText="Enter date" styleClass="input" stylesheets="@../../values/DateTextStyle.css" />
             <Label layoutX="159.0" layoutY="166.0" text="Date of Birth">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="errorMessage" alignment="CENTER" layoutX="222.0" layoutY="251.0" prefHeight="20.0" prefWidth="265.0" textFill="#ff0101" wrapText="true">
+            <Label fx:id="errorMessagePassword" alignment="CENTER" layoutX="222.0" layoutY="251.0" prefHeight="20.0" prefWidth="265.0" textFill="#ff0101" wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>

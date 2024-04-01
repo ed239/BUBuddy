@@ -86,7 +86,7 @@ public class SceneController {
         String dob = "";
         boolean exists = database.userExists(username);
         if(exists){
-            System.out.println("User exists");
+            System.out.println("USER EXISTS");
             boolean validUserName = database.verifyDateOfBirth(username, userdob);
 //            System.out.println("Check validUsername");
             if(validUserName){
@@ -100,13 +100,13 @@ public class SceneController {
                 System.out.println();
                 return true;
             }else {
-                errorMessage.setText("Incorrect Date of Brith");
-                System.out.println("Incorrect Date of Brith");
-                System.out.println("Please, Try again!");
+                errorMessagePassword.setText("Incorrect Date of Brith");
+                System.out.println("INCORRECT DATE OF BIRTH");
+                System.out.println("PLEASE TRY AGAIN!");
                 return false;
             }
         }else {
-            errorMessage.setText("Not valid credentials");
+            errorMessagePassword.setText("Not valid credentials");
             System.out.println("USER NOT EXISTS, PLEASE,TRY AGAIN!");
             return false;
         }
