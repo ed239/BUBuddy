@@ -132,13 +132,20 @@ public class SceneController {
         }
         return passwordUpdated;
     }
-    public void resetPasswordToLogInPage(ActionEvent event) throws IOException{
+    public void resetPasswordToSuccesMessage(ActionEvent event) throws IOException{
         if(resetPassword()){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccesMessages.fxml")));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.getScene().setRoot(root);
             stage.show();
         }
+    }
+
+    public void SuccessMessagesToLogInPage(ActionEvent event) throws IOException{
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.show();
     }
 
 

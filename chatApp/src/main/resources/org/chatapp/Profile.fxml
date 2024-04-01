@@ -139,7 +139,7 @@
                   <Insets bottom="60.0" />
                </VBox.margin>
             </VBox>
-            <Hyperlink onAction="#backToChatPage" prefHeight="34.0" prefWidth="122.0" style="-fx-border-width: 2px; -fx-border-color: #00002A; -fx-border-radius: 15px;" stylesheets="@../../values/ProfileStyle.css" text="&lt; Prev page" textFill="WHITE">
+            <Hyperlink alignment="CENTER" contentDisplay="CENTER" onAction="#backToChatPage" prefHeight="34.0" prefWidth="137.0" style="-fx-border-width: 2px; -fx-border-color: #00002A; -fx-border-radius: 15px;" stylesheets="@../../values/ProfileStyle.css" text="Prev page" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
@@ -149,9 +149,6 @@
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
-               <padding>
-                  <Insets left="15.0" />
-               </padding>
             </Hyperlink>
          </children>
          <BorderPane.margin>
