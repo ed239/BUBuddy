@@ -14,9 +14,9 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
    <children>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="wall" stylesheets="@../../values/SuccesMessages.css" StackPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" styleClass="wall" stylesheets="@../../values/SuccessMessages.css" StackPane.alignment="CENTER">
          <children>
-            <Pane layoutX="214.0" layoutY="144.0" prefHeight="290.0" prefWidth="472.0" styleClass="anchor" stylesheets="@../../values/SuccesMessages.css">
+            <Pane layoutX="214.0" layoutY="144.0" prefHeight="290.0" prefWidth="472.0" styleClass="anchor" stylesheets="@../../values/SuccessMessages.css">
                <children>
                   <Label layoutX="17.0" layoutY="17.0" prefHeight="39.0" prefWidth="179.0" text="Congratulations">
                      <font>
@@ -30,7 +30,7 @@
                      </image>
                   </ImageView>
                   <Line endX="357.0" endY="-1.52587890625E-5" layoutX="116.0" layoutY="229.0" startX="-115.00003051757812" startY="-1.52587890625E-5" stroke="#7c7d7d" />
-                  <Button layoutX="415.0" layoutY="241.0" mnemonicParsing="false" onAction="#SuccessMessagesToLogInPage" prefHeight="39.0" prefWidth="46.0" stylesheets="@../../values/SuccesMessages.css" text="OK" textFill="WHITE">
+                  <Button layoutX="415.0" layoutY="241.0" mnemonicParsing="false" onAction="#SuccessMessagesToLogInPage" prefHeight="39.0" prefWidth="46.0" stylesheets="@../../values/SuccessMessages.css" text="OK" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="17.0" />
                      </font>
