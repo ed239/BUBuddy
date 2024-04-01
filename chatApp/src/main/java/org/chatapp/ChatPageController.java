@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Objects;
 
 import com.mongodb.client.FindIterable;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,6 +26,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
@@ -71,7 +74,8 @@ public class ChatPageController {
   private static final int portNumber = 6667;
 
   private boolean isGroupChat; //for separating send button between main chat and secret group chat
-
+  private boolean isAutoUpdating = false;
+  private Timeline timeline;
   @FXML
   private void initialize() {
 //    String[] users = {curUser.getName(), "Contact 2", "Contact 3", "Contact 4"};
@@ -85,14 +89,24 @@ public class ChatPageController {
     String[] temp = {"Group Chat"};
     secretListView.getItems().addAll(temp);
 
+    timeline = new Timeline( //to update message view for new messages every second
+            new KeyFrame(Duration.seconds(1), event -> {
+              displayNewMessages(curUser.getId(), toUserObj.getId());
+            })
+    );
+    timeline.setCycleCount(Timeline.INDEFINITE);
 
     userListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
       @Override
       public void changed(ObservableValue observable, String oldValue, String newValue) {
+        if(isAutoUpdating){
+          stopDisplayingNewMessages();
+          isAutoUpdating = false;
+        }
+        toUser.setText(newValue);
         toUserObj = database.getChatUser(newValue);
         chatContainer.getChildren().clear();
         displayAllMessages(curUser.getId(), toUserObj.getId(),"");
-        toUser.setText(newValue);
         isGroupChat = false;  //for separating send button between main chat and secret group chat
       }
     });
@@ -196,7 +210,7 @@ public class ChatPageController {
         Date currentTime = new Date();
         boolean done = database.addNewmessage(toId, curUser.getId(), messageToSend, currentTime);
           if (done) {
-            displayNewMessages(toId, curUser.getId(), messageToSend);
+            displayNewMessages(toId, curUser.getId());
             System.out.println("Message added successfully.");
             txtmessage.setText("");
           } else {
@@ -215,6 +229,8 @@ public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
       displayedMessages.add(message);
     }
   }
+  startDisplayingNewMessages(toId,fromId);
+  isAutoUpdating = true;
 }
 
 
@@ -249,7 +265,14 @@ public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
 
   }
 
-  public void displayNewMessages(ObjectId toId, ObjectId fromId, String text) {
+  public void startDisplayingNewMessages(ObjectId toId, ObjectId fromId) {
+    timeline.play(); // Start the Timeline
+  }
+
+  public void stopDisplayingNewMessages() {
+    timeline.stop(); // Stop the Timeline
+  }
+  public void displayNewMessages(ObjectId toId, ObjectId fromId) {
     FindIterable<Document> newMessages = database.getNewMessagesBetweenUsers(toId, fromId, lastDisplayedTimestamp);
     for (Document message : newMessages) {
       if (!displayedMessages.contains(message)) {
