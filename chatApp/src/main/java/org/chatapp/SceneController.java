@@ -203,7 +203,7 @@ public class SceneController {
         String dOB = dateOfBirth.getValue().toString();
         String password = txtpassword.getText();
         if(fullname.length() > 2 && username.length() > 4 && password.length() > 3 && !dOB.isEmpty()) {
-            return database.createUser(fullname, username, password, dOB);
+            return database.createUser(fullname, username, password, dOB, null);
         }
         else{
             System.out.println("Invalid Length");

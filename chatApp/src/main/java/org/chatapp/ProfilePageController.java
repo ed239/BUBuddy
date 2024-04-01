@@ -14,16 +14,15 @@ import java.io.*;
 import java.util.Objects;
 import java.util.Scanner;
 
+import static org.chatapp.SceneController.curUser;
+import static org.chatapp.SceneController.database;
 
 public class ProfilePageController {
     FileChooser fileChooser = new FileChooser();
     private final File imagePathsFile = new File("D:\\JAVA_CLASS\\BUBuddy\\chatApp\\src\\main\\resources\\img\\image_paths.txt");
     private String selectedImagePath; // Stores the selected image path
-
-
     @FXML
     private ImageView imageView;
-
     @FXML
     private void initialize(){
         loadImages();
@@ -36,22 +35,22 @@ public class ProfilePageController {
             imageView.setImage(image);
             selectedImagePath = file.getPath(); // Store the selected image path
             // Save Images path to text file
-            //saveImagesPath(file.getPath());
+            saveImagesPath(selectedImagePath);
         }
     }
     // Method to save changes when "Save Changes" button is clicked
     @FXML
     void saveChanges(){
         if(selectedImagePath != null){
-            saveImagesPath(selectedImagePath);
+            String username = curUser.getUsername();
+            database.updateProfileImages(username, selectedImagePath);
             System.out.println("Changes saved successfully");
             System.out.println("Changes saved successfully");
-            System.out.println("Changes saved successfully");
+            System.out.println("Changes saved successfully\n");
         }else {
             System.out.println("No image selected to save changes.");
         }
     }
-
     // Method to load images from saved paths
     private void loadImages(){
         try {
@@ -63,7 +62,7 @@ public class ProfilePageController {
                     Image image = new Image(file.toURI().toString());
                     imageView.setImage(image);
                     selectedImagePath = imagesPath;
-                    break; // Load only the first image for demonstration
+                    // Load only the first image for demonstration
                 }
             }
             scanner.close();
@@ -72,12 +71,11 @@ public class ProfilePageController {
         }
     }
     private void saveImagesPath(String path){
-        try{
-            FileWriter fileWriterwriter = new FileWriter(imagePathsFile, true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriterwriter);
-            PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            System.out.println(path);
-        }catch (IOException e){
+        try(PrintWriter printWriter = new PrintWriter(imagePathsFile)) {
+            printWriter.println(path);
+            System.out.println("\nImage path saved: " + path);
+            // Provide user feedback here, e.g., display a success message
+        } catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -87,6 +85,4 @@ public class ProfilePageController {
         stage.getScene().setRoot(root);
         stage.show();
     }
-
-
 }

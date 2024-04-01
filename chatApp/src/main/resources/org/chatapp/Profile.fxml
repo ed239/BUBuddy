@@ -67,23 +67,6 @@
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
-                              <Image url="@../../img/notification.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="32.0" prefWidth="196.0" text="Notifications" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="selected">
-                     <children>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
                               <Image url="@../../img/security.png" />
                            </image>
                         </ImageView>
@@ -97,40 +80,8 @@
                         </Label>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="selected">
-                     <children>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../img/setting.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="32.0" prefWidth="196.0" text="Settings" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="selected">
-                     <children>
-                        <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../img/padlock.png" />
-                           </image>
-                        </ImageView>
-                        <Label prefHeight="32.0" prefWidth="196.0" text="Pravacy Policy" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
-                     </children>
-                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="selected" />
+                  <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="selected" />
                </children>
                <padding>
                   <Insets bottom="10.0" />
@@ -261,7 +212,7 @@
                   <Insets bottom="20.0" left="10.0" top="10.0" />
                </padding>
             </VBox>
-            <Button mnemonicParsing="false" onMouseClicked="#saveChanges" prefHeight="60.0" prefWidth="140.0" style="-fx-border-color: #C20000; -fx-border-width: 2px; -fx-border-radius: 15;" text="Save Changes" textFill="RED">
+            <Button mnemonicParsing="false" onAction="#saveChanges" onMouseClicked="#saveChanges" prefHeight="60.0" prefWidth="140.0" style="-fx-border-color: #C20000; -fx-border-width: 2px; -fx-border-radius: 15;" text="Save Changes" textFill="RED">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>

@@ -26,14 +26,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 public class ChatPageController {
-
   private static ChatUser curUser = getCurUser();
-
   private static ChatUser toUserObj;
-
   private static Database database = getDb();
-
-
 
   @FXML
   private ListView<String> userListView;

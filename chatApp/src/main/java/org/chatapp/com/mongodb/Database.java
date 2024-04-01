@@ -91,11 +91,15 @@ public class Database {
 
 
 
-    public Boolean createUser(String fullname, String username, String password, String dateOfBirth){
+    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, String profileImagePath){
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
         if(!exists){
-            Document newDoc = new Document("username", username).append("password", hashedPassword).append("fullname", fullname).append("dob", dateOfBirth);
+            Document newDoc = new Document("username", username)
+                    .append("password", hashedPassword)
+                    .append("fullname", fullname)
+                    .append("dob", dateOfBirth)
+                    .append("profileImagePath",profileImagePath);
             userCollection.insertOne(newDoc);
             System.out.println("Created New User");
             return true;
@@ -129,7 +133,8 @@ public class Database {
                 //System.out.println(name);
                 String username = userDoc.getString("username");
                 String dob = userDoc.getString("dob");
-                ChatUser user = new ChatUser(id, name, username,dob);
+                String profileImagesPath = userDoc.getString("profileImagePath");
+                ChatUser user = new ChatUser(id, name, username,dob,profileImagesPath);
                 allChatUsers.add(user);
             }
         } finally {
@@ -166,7 +171,7 @@ public class Database {
                 return user;
             }
         }
-        return new ChatUser(null,null,null,null);
+        return new ChatUser(null,null,null,null, null);
 
     }
 
@@ -209,6 +214,15 @@ public class Database {
     public boolean updatePassword(String username, String newPassword){
         try{
             userCollection.updateOne(eq("username", username), set("password", hashPassword(newPassword)));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean updateProfileImages(String username, String profileImagesPath){
+        try{
+            userCollection.updateOne(eq("username", username), set("profileImagesPath", profileImagesPath));
             return true;
         }catch (Exception e){
             e.printStackTrace();
