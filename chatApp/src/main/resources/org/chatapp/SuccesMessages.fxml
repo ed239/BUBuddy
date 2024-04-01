@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SuccesMessages">
+   <children>
+      <AnchorPane layoutX="162.0" layoutY="128.0" prefHeight="345.0" prefWidth="546.0">
+         <children>
+            <Line endX="406.00006103515625" endY="-1.52587890625E-5" layoutX="136.0" layoutY="74.0" startX="-132.00001525878906" startY="-1.52587890625E-5" />
+            <Line endX="406.00006103515625" endY="-1.52587890625E-5" layoutX="136.0" layoutY="285.0" startX="-132.00001525878906" startY="-1.52587890625E-5" />
+            <Label layoutX="14.0" layoutY="18.0" text="Congratulations">
+               <font>
+                  <Font name="System Bold" size="27.0" />
+               </font>
+            </Label>
+            <Label layoutX="80.0" layoutY="238.0" text="Your changes have been successfully saved!">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <FontAwesomeIconView fill="#4aa54b" glyphName="CHECK" layoutX="198.0" layoutY="206.0" selectionFill="#4aa54b" size="150">
+               <font>
+                  <Font size="96.0" />
+               </font>
+            </FontAwesomeIconView>
+            <Button alignment="CENTER" layoutX="467.0" layoutY="295.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="61.0" stylesheets="@../../values/SuccesMessages.css" text="OK" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="20.0" />
+               </font>
+               <padding>
+                  <Insets right="2.0" />
+               </padding>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

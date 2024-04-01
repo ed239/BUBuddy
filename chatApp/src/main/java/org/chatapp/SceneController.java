@@ -113,7 +113,7 @@ public class SceneController {
     }
 
     // RESET NEW PASSWORD AND UPDATED
-    public void resetPassword(ActionEvent event) throws IOException{
+    public boolean resetPassword() throws IOException{
         String newPassword = newPasswordField.getText();
         String verifyNewPassword = verifyNewPasswordField.getText();
         if(!newPassword.equals(verifyNewPassword)){
@@ -129,6 +129,15 @@ public class SceneController {
             // FAILED TO UPDATE PASSWORD
             errorMessagePassword.setText("Failed to update password!");
             System.out.println("FAILED TO UPDATE PASSWORD!");
+        }
+        return passwordUpdated;
+    }
+    public void resetPasswordToLogInPage(ActionEvent event) throws IOException{
+        if(resetPassword()){
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccesMessages.fxml")));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.show();
         }
     }
 
@@ -211,12 +220,6 @@ public class SceneController {
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();
-    }
-    public void resetPasswordToLogInPage(ActionEvent event) throws IOException{
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.show();
     }
 
 }
