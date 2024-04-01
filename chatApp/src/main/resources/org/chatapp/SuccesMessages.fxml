@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="600.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SuccesMessages">
    <children>
@@ -25,11 +25,6 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <FontAwesomeIconView fill="#4aa54b" glyphName="CHECK" layoutX="198.0" layoutY="206.0" selectionFill="#4aa54b" size="150">
-               <font>
-                  <Font size="96.0" />
-               </font>
-            </FontAwesomeIconView>
             <Button alignment="CENTER" layoutX="467.0" layoutY="295.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="61.0" stylesheets="@../../values/SuccesMessages.css" text="OK" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="20.0" />
@@ -38,6 +33,11 @@
                   <Insets right="2.0" />
                </padding>
             </Button>
+            <ImageView fitHeight="180.0" fitWidth="130.0" layoutX="196.0" layoutY="110.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../img/free-check-mark-icon-10126-thumb.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </children>
