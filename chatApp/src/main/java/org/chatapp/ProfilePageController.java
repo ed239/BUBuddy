@@ -16,10 +16,15 @@ import java.util.Scanner;
 
 import static org.chatapp.SceneController.curUser;
 import static org.chatapp.SceneController.database;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class ProfilePageController {
     FileChooser fileChooser = new FileChooser();
-    private final File imagePathsFile = new File("D:\\JAVA_CLASS\\BUBuddy\\chatApp\\src\\main\\resources\\img\\image_paths.txt");
+    Path currRelativePath = Paths.get("");
+    String currAbsolutePathString = currRelativePath.toAbsolutePath().toString();
+//    System.out.println("Current absolute path is - " + currAbsolutePathString);
+    private final File imagePathsFile = new File(currAbsolutePathString + "images.txt");
     private String selectedImagePath; // Stores the selected image path
     @FXML
     private ImageView imageView;

@@ -43,9 +43,6 @@ public class ChatUser {
 
     public void setProfileImagePath(String profileImagePath) {
         this.profileImagePath = profileImagePath;
-
-    public String toString(){
-        return getName();
     }
 }
 

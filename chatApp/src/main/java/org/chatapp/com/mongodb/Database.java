@@ -21,7 +21,7 @@ public class Database {
 
     private Database() {
         // Replace string with our db connection
-        String uri = "mongodb+srv://amiyev:BuBuddy2024@bubuddyv1.kups6t4.mongodb.net/?retryWrites=true&w=majority&appName=BuBuddyV1";
+        String uri = "";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
@@ -133,8 +133,8 @@ public class Database {
                 //System.out.println(name);
                 String username = userDoc.getString("username");
                 String dob = userDoc.getString("dob");
-                String profileImagesPath = userDoc.getString("profileImagePath");
-                ChatUser user = new ChatUser(id, name, username,dob,profileImagesPath);
+                String profileImagePath = userDoc.getString("profileImagePath");
+                ChatUser user = new ChatUser(id, name, username,dob,profileImagePath);
                 allChatUsers.add(user);
             }
         } finally {

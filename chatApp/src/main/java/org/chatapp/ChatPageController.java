@@ -30,13 +30,12 @@ import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.Client;
 
-public class ChatPageController {
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
+
 public class ChatPageController {
   private static ChatUser curUser = getCurUser();
   private static ChatUser toUserObj;

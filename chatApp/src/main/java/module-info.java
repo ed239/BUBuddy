@@ -4,7 +4,6 @@ module org.example.chatapp {
     requires org.mongodb.driver.core;
     requires org.mongodb.driver.sync.client;
     requires org.mongodb.bson;
-    requires fontawesomefx;
 
 
     opens org.chatapp to javafx.fxml;
