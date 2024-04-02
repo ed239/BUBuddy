@@ -114,6 +114,7 @@ public class ChatPageController {
     chatTabs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
       @Override
       public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab newTab) {
+        chatContainer.getChildren().clear();
         if(newTab.equals(secretChatTab)) {
           System.out.print(secretChatTab.isSelected());
           toUser.setText("Secret Chat");
