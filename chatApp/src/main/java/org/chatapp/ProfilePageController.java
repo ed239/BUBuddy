@@ -12,6 +12,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.lang.invoke.StringConcatFactory;
 import java.nio.file.Files;
 import java.util.Objects;
 import java.util.Scanner;
@@ -26,7 +27,6 @@ public class ProfilePageController {
     private TextField fullNameTextField;
     @FXML
     private TextField usernameTextField;
-
     @FXML
     private TextField dateOfBirthTextField;
     @FXML
@@ -42,15 +42,16 @@ public class ProfilePageController {
     private ImageView imageView;
     @FXML
     private void initialize() throws FileNotFoundException {
+        // THIS IS LOAD FOR IMAGES
         loadImages();
 
-        // Retrieve user profile information from database or any other source
-        String fullName = "adf adf";
-        String username = "adfadf";
-        String dateOfBirth = "04.09.1997";
-        String email = "eeeeeeee";
+        // RETRIEVE USER PROFILE INFORMATION FROM DATABASE
+        String fullName = database.getName(curUser.getUsername());
+        String username = curUser.getUsername();
+        String dateOfBirth = database.getDOB(curUser.getUsername());
+        String email = "";
 
-        // Set initial values for text fields
+        //SET INITIAL VALUE FOR TEXT FIELDS
         fullNameTextField.setText(fullName);
         usernameTextField.setText(username);
         dateOfBirthTextField.setText(dateOfBirth);
@@ -71,19 +72,31 @@ public class ProfilePageController {
     // Method to save changes when "Save Changes" button is clicked
     @FXML
     void saveChanges(){
+        String fullName = fullNameTextField.getText();
+        String username = usernameTextField.getText();
+        String dateOfBirth = dateOfBirthTextField.getText();
+        String email = emailTextField.getText();
+
+        boolean success = database.updateProfileDetails(username, fullName, dateOfBirth, email);
+        // SAVE PROFILE IMAGE IF SELECTED FROM PC
         if(selectedImagePath != null){
             try{
                 byte[] imageData = Files.readAllBytes(Paths.get(selectedImagePath));
-                String username = curUser.getUsername();
+//                String username = curUser.getUsername();
                 database.updateProfileImages(username, imageData);
-                System.out.println("\nCHANGES SAVED SUCCESSFULLY!\n");
+//                System.out.println("\nIMAGES CHANGES SAVED SUCCESSFULLY!\n");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        }
+        if(success){
+            System.out.println("\nCHANGES SAVED SUCCESSFULLY!\n");
         }else {
-            System.out.println("\nNO IMAGES SELECTED TO SAVE CHANGES\n");
+            System.out.println("\nFAILED TO SAVE CHANGES\n");
         }
     }
+
+
     // Method to load images from saved paths
     private void loadImages() throws FileNotFoundException {
         byte[] imageData = database.getProfileImage(curUser.getUsername());

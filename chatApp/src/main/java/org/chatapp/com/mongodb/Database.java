@@ -1,6 +1,7 @@
 package org.chatapp.com.mongodb;
 
 import com.mongodb.client.*;
+import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.types.Binary;
 import org.bson.types.ObjectId;
@@ -26,8 +27,8 @@ public class Database {
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
         messagesCollection = database.getCollection("messages");
-
     }
+
     public static Database getInstance() {
         if (instance == null) {
             instance = new Database();
@@ -60,7 +61,7 @@ public class Database {
         return false;
     }
 
-    public String getName(String username, String password){
+    public String getName(String username){
         Document userDoc = userCollection.find(new Document("username", username)).first();
         if (userDoc != null) {
             String name = userDoc.getString("fullname");
@@ -237,5 +238,21 @@ public class Database {
             }
         }
         return null;
+    }
+    public boolean updateProfileDetails(String username, String fullName, String dateOfBirth, String email){
+        try{
+            userCollection.updateOne(eq("username", username),
+                    Updates.combine(
+                            Updates.set("fullname", fullName),
+                            Updates.set("dob", dateOfBirth),
+                            Updates.set("email", email)
+                            )
+            );
+            System.out.println("\nPROFILE DETAILS UPDATED SUCCESSFULLY!\n");
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 }

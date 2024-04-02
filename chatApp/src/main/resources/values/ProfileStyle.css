@@ -7,6 +7,11 @@
     -fx-border-color: #242551;
     -fx-text-inner-color: #fff;
 }
+.textHeader{
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-border-width: 0 0 1 0;
+    -fx-text-inner-color: #a40606;
+}
 .selected-border{
     -fx-border-color:#fff;
     -fx-border-width: 0 3 0 0;

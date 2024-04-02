@@ -63,7 +63,7 @@ public class SceneController {
             System.out.println("User exists.");
             boolean validUser = database.verifyPassword(username, password);
             if(validUser){
-                name = database.getName(username, password);
+                name = database.getName(username);
 //                id = database.getUserObjectId(username);
 //                dob = database.getDOB(username);
                 curUser = database.getChatUser(name);
