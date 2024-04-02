@@ -1,12 +1,10 @@
 package org.chatapp;
-
 import java.io.IOException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
 import com.mongodb.client.FindIterable;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -34,13 +32,15 @@ import org.chatapp.network.Client;
 
 public class ChatPageController {
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+public class ChatPageController {
   private static ChatUser curUser = getCurUser();
-
   private static ChatUser toUserObj;
-
   private static Database database = getDb();
-
-
 
   @FXML
   private ListView<String> userListView;
@@ -65,6 +65,8 @@ public class ChatPageController {
 
   @FXML
   private VBox chatContainer;
+  @FXML
+  private Hyperlink backToChatPage;
 
   private List<Document> displayedMessages = new ArrayList<>();
   private Date lastDisplayedTimestamp;
@@ -95,6 +97,8 @@ public class ChatPageController {
             })
     );
     timeline.setCycleCount(Timeline.INDEFINITE);
+
+
 
     userListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
       @Override
@@ -185,6 +189,12 @@ public class ChatPageController {
   public void backToLogIn(ActionEvent event) throws IOException {
     Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
     Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+    stage.getScene().setRoot(root);
+    stage.show();
+  }
+  public void goToProfile(ActionEvent event) throws IOException {
+    Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Profile.fxml")));
+    Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
     stage.getScene().setRoot(root);
     stage.show();
   }
@@ -281,6 +291,5 @@ public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
       }
     }
   }
-
 
 }
