@@ -220,9 +220,9 @@ public class Database {
             return false;
         }
     }
-    public boolean updateProfileImages(String username, String profileImagesPath){
+    public boolean updateProfileImages(String username, String profileImagePath){
         try{
-            userCollection.updateOne(eq("username", username), set("profileImagesPath", profileImagesPath));
+            userCollection.updateOne(eq("username", username), set("profileImagePath", profileImagePath));
             return true;
         }catch (Exception e){
             e.printStackTrace();
