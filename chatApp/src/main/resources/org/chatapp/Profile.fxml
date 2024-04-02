@@ -25,7 +25,7 @@
                <children>
                   <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#getImages" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../img/qwe.png" />
+                        <Image url="@../../img/userimages.png" />
                      </image>
                   </ImageView>
                   <Label text="Azamat Omirzak" textFill="WHITE">
