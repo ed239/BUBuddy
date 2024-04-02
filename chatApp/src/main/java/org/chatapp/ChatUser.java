@@ -36,12 +36,16 @@ public class ChatUser {
 
     public String getDOB() { return dob;}
 
+
     public String getProfileImagePath() {
         return profileImagePath;
     }
 
     public void setProfileImagePath(String profileImagePath) {
         this.profileImagePath = profileImagePath;
+
+    public String toString(){
+        return getName();
     }
 }
 
