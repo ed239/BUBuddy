@@ -200,7 +200,7 @@ public class ChatPageController {
   }
 
   public static ChatUser getCurUser() {
-    System.out.println("CHAT PAGE getCurUser");
+    System.out.println("\nCHAT PAGE getCurUser() METHOD");
     System.out.println(SceneController.curUser);
     return SceneController.curUser;
   }

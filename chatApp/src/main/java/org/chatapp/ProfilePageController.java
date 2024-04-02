@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
+import java.nio.file.Files;
 import java.util.Objects;
 import java.util.Scanner;
 
@@ -47,36 +48,30 @@ public class ProfilePageController {
     @FXML
     void saveChanges(){
         if(selectedImagePath != null){
-            String username = curUser.getUsername();
-            database.updateProfileImages(username, selectedImagePath);
-            System.out.println("Changes saved successfully");
-            System.out.println("Changes saved successfully");
-            System.out.println("Changes saved successfully\n");
+            try{
+                byte[] imageData = Files.readAllBytes(Paths.get(selectedImagePath));
+                String username = curUser.getUsername();
+                database.updateProfileImages(username, imageData);
+                System.out.println("\nCHANGES SAVED SUCCESSFULLY!\n");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }else {
-            System.out.println("No image selected to save changes.");
+            System.out.println("\nNO IMAGES SELECTED TO SAVE CHANGES\n");
         }
     }
     // Method to load images from saved paths
     private void loadImages() throws FileNotFoundException {
-        if (curUser.getProfileImagePath() != null) {
-            Scanner scanner = new Scanner(SceneController.curUser.getProfileImagePath());
-            while (scanner.hasNextLine()) {
-                String imagesPath = scanner.nextLine();
-                File file = new File(imagesPath);
-                if (file.exists()) {
-                    Image image = new Image(file.toURI().toString());
-                    imageView.setImage(image);
-                    selectedImagePath = imagesPath;
-                    // Load only the first image for demonstration
-                }
-            }
-            scanner.close();
+        byte[] imageData = database.getProfileImage(curUser.getUsername());
+        if(imageData != null){
+            Image image = new Image(new ByteArrayInputStream(imageData));
+            imageView.setImage(image);
         }
     }
     private void saveImagesPath(String path){
         try(PrintWriter printWriter = new PrintWriter(imagePathsFile)) {
             printWriter.println(path);
-            System.out.println("\nImage path saved: " + path);
+            System.out.println("\nIMAGE PATH SAVED: " + path + "\n");
             // Provide user feedback here, e.g., display a success message
         } catch (IOException e){
             e.printStackTrace();

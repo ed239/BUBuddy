@@ -2,6 +2,7 @@ package org.chatapp.com.mongodb;
 
 import com.mongodb.client.*;
 import org.bson.Document;
+import org.bson.types.Binary;
 import org.bson.types.ObjectId;
 import org.chatapp.ChatUser;
 
@@ -14,28 +15,25 @@ import java.util.List;
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
 public class Database {
-
     private static Database instance = null;
     private final MongoCollection<Document> userCollection;
     private final MongoCollection<Document> messagesCollection;
 
     private Database() {
         // Replace string with our db connection
-        String uri = "";
+        String uri = "mongodb+srv://amiyev:BuBuddy2024@bubuddyv1.kups6t4.mongodb.net/?retryWrites=true&w=majority&appName=BuBuddyV1";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
         messagesCollection = database.getCollection("messages");
 
     }
-
     public static Database getInstance() {
         if (instance == null) {
             instance = new Database();
         }
         return instance;
     }
-
     public boolean userExists(String username) {
         Document doc = userCollection.find(new Document("username", username)).first();
         if(doc != null) {
@@ -43,7 +41,6 @@ public class Database {
         }
         return false;
     }
-
     public boolean verifyPassword(String username, String password) {
         Document userDoc = userCollection.find(new Document("username", username)).first();
         if (userDoc != null) {
@@ -80,6 +77,7 @@ public class Database {
             return null; 
         }
     }
+
     public String getDOB(String username){
         Document userDoc = userCollection.find(new Document("username", username)).first();
         if (userDoc != null) {
@@ -89,22 +87,24 @@ public class Database {
         }
     }
 
-
-
-    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, String profileImagePath){
+    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, byte[] profileImageData){
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
+
+        Document newDoc = new Document("username", username)
+                .append("password", hashedPassword)
+                .append("fullname", fullname)
+                .append("dob", dateOfBirth);
+
+        if(profileImageData != null && profileImageData.length > 0){
+            newDoc.append("profileImage",new Binary(profileImageData));
+        }
         if(!exists){
-            Document newDoc = new Document("username", username)
-                    .append("password", hashedPassword)
-                    .append("fullname", fullname)
-                    .append("dob", dateOfBirth)
-                    .append("profileImagePath",profileImagePath);
             userCollection.insertOne(newDoc);
-            System.out.println("Created New User");
+            System.out.println("\nCREATED NEW USER\n");
             return true;
         } else {
-            System.out.println("User already exists");
+            System.out.println("\nUSER ALREADY EXISTS!\n");
             return false;
         }
     }
@@ -133,8 +133,7 @@ public class Database {
                 //System.out.println(name);
                 String username = userDoc.getString("username");
                 String dob = userDoc.getString("dob");
-                String profileImagePath = userDoc.getString("profileImagePath");
-                ChatUser user = new ChatUser(id, name, username,dob,profileImagePath);
+                ChatUser user = new ChatUser(id, name, username,dob);
                 allChatUsers.add(user);
             }
         } finally {
@@ -171,8 +170,7 @@ public class Database {
                 return user;
             }
         }
-        return new ChatUser(null,null,null,null, null);
-
+        return new ChatUser(null,null,null,null);
     }
 
     private String hashPassword(String password) {
@@ -211,6 +209,7 @@ public class Database {
         return messagesCollection.find(query).sort(new Document("timestamp", 1));
     }
 
+    //UPDATED PASSWORD AND HASHING IT
     public boolean updatePassword(String username, String newPassword){
         try{
             userCollection.updateOne(eq("username", username), set("password", hashPassword(newPassword)));
@@ -220,16 +219,23 @@ public class Database {
             return false;
         }
     }
-    public boolean updateProfileImages(String username, String profileImagePath){
+    public boolean updateProfileImages(String username, byte[] imageData){
         try{
-            userCollection.updateOne(eq("username", username), set("profileImagePath", profileImagePath));
+            userCollection.updateOne(eq("username", username), set("profileImage", new Binary(imageData)));
             return true;
         }catch (Exception e){
             e.printStackTrace();
             return false;
         }
     }
-
-
-
+    public byte[] getProfileImage(String username){
+        Document userDoc = userCollection.find(eq("username", username)).first();
+        if(userDoc != null){
+            Binary imageDate = userDoc.get("profileImage", Binary.class);
+            if(imageDate != null){
+                return imageDate.getData();
+            }
+        }
+        return null;
+    }
 }
