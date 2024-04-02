@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane minHeight="600.0" minWidth="550.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
+<BorderPane minHeight="600.0" minWidth="550.0" prefHeight="700.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
    <center>
-         <VBox alignment="CENTER" minHeight="600.0" minWidth="0.0" prefHeight="700.0" prefWidth="550.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
+         <VBox alignment="CENTER" minHeight="600.0" minWidth="0.0" prefHeight="665.0" prefWidth="1046.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
             <children>
                <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="BU BUDDY" textAlignment="CENTER">
                   <font>
@@ -33,7 +33,7 @@
          </VBox>
    </center>
    <right>
-      <VBox alignment="CENTER" minHeight="600.0" minWidth="550.0" prefHeight="700.0" prefWidth="550.0" scaleZ="2.0" spacing="30.0" style="-fx-background-color: #faf9f6;" translateZ="1.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" minHeight="600.0" minWidth="490.0" prefHeight="714.0" prefWidth="500.0" scaleZ="2.0" spacing="30.0" style="-fx-background-color: #faf9f6;" translateZ="1.0" BorderPane.alignment="CENTER">
          <children>
             <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP" textAlignment="CENTER">
                <font>

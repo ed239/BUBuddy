@@ -1,16 +1,18 @@
 package org.chatapp.com.mongodb;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 import com.mongodb.client.*;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import org.chatapp.ChatUser;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import static com.mongodb.client.model.Filters.eq;
+import static com.mongodb.client.model.Updates.set;
 public class Database {
 
     private static Database instance = null;
@@ -19,7 +21,7 @@ public class Database {
 
     private Database() {
         // Replace string with our db connection
-        String uri = "";
+        String uri = "mongodb+srv://amiyev:BuBuddy2024@bubuddyv1.kups6t4.mongodb.net/?retryWrites=true&w=majority&appName=BuBuddyV1";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
@@ -48,6 +50,15 @@ public class Database {
             String storedPassword = userDoc.getString("password");
             String hashedPassword = hashPassword(password);
             return storedPassword.equals(hashedPassword);
+        }
+        return false;
+    }
+    // VERIFY WHETHER THE DATE OF BIRTH IS MATCH?
+    public boolean verifyDateOfBirth(String username,String dateOfBirth){
+        Document userDoc = userCollection.find(new Document("username", username)).first();
+        if(userDoc!= null){
+            String storeDateOfBirth = userDoc.getString("dob");
+            return storeDateOfBirth.equals(dateOfBirth);
         }
         return false;
     }
@@ -80,11 +91,15 @@ public class Database {
 
 
 
-    public Boolean createUser(String fullname, String username, String password, String dateOfBirth){
+    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, String profileImagePath){
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
         if(!exists){
-            Document newDoc = new Document("username", username).append("password", hashedPassword).append("fullname", fullname).append("dob", dateOfBirth);
+            Document newDoc = new Document("username", username)
+                    .append("password", hashedPassword)
+                    .append("fullname", fullname)
+                    .append("dob", dateOfBirth)
+                    .append("profileImagePath",profileImagePath);
             userCollection.insertOne(newDoc);
             System.out.println("Created New User");
             return true;
@@ -103,7 +118,6 @@ public class Database {
                 usersList.add(user.getName());
             }
         }
-
         return usersList.toArray(new String[0]);
     }
     public List<ChatUser> getAllChatUsersFromDatabase() {
@@ -119,7 +133,8 @@ public class Database {
                 //System.out.println(name);
                 String username = userDoc.getString("username");
                 String dob = userDoc.getString("dob");
-                ChatUser user = new ChatUser(id, name, username,dob);
+                String profileImagesPath = userDoc.getString("profileImagePath");
+                ChatUser user = new ChatUser(id, name, username,dob,profileImagesPath);
                 allChatUsers.add(user);
             }
         } finally {
@@ -156,7 +171,7 @@ public class Database {
                 return user;
             }
         }
-        return new ChatUser(null,null,null,null);
+        return new ChatUser(null,null,null,null, null);
 
     }
 
@@ -195,6 +210,26 @@ public class Database {
                 )).append("timestamp", new Document("$gt", lastDisplayedTimestamp));
         return messagesCollection.find(query).sort(new Document("timestamp", 1));
     }
+
+    public boolean updatePassword(String username, String newPassword){
+        try{
+            userCollection.updateOne(eq("username", username), set("password", hashPassword(newPassword)));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+    public boolean updateProfileImages(String username, String profileImagesPath){
+        try{
+            userCollection.updateOne(eq("username", username), set("profileImagesPath", profileImagesPath));
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
 
 
 }
