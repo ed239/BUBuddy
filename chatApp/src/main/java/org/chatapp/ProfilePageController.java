@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
@@ -21,18 +22,41 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ProfilePageController {
+    @FXML
+    private TextField fullNameTextField;
+    @FXML
+    private TextField usernameTextField;
+
+    @FXML
+    private TextField dateOfBirthTextField;
+    @FXML
+    private TextField emailTextField;
+
     FileChooser fileChooser = new FileChooser();
     Path currRelativePath = Paths.get("");
     String currAbsolutePathString = currRelativePath.toAbsolutePath().toString();
 //    System.out.println("Current absolute path is - " + currAbsolutePathString);
-    private final File imagePathsFile = new File(currAbsolutePathString + "images.txt");
+    private final File imagePathsFile = new File(currAbsolutePathString + File.separator + "images.txt");
     private String selectedImagePath; // Stores the selected image path
     @FXML
     private ImageView imageView;
     @FXML
     private void initialize() throws FileNotFoundException {
         loadImages();
+
+        // Retrieve user profile information from database or any other source
+        String fullName = "adf adf";
+        String username = "adfadf";
+        String dateOfBirth = "04.09.1997";
+        String email = "eeeeeeee";
+
+        // Set initial values for text fields
+        fullNameTextField.setText(fullName);
+        usernameTextField.setText(username);
+        dateOfBirthTextField.setText(dateOfBirth);
+        emailTextField.setText(email);
     }
+
     @FXML
     void getImages() {
         File file = fileChooser.showOpenDialog(new Stage());

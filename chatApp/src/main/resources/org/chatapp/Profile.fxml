@@ -12,35 +12,42 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="600.0" maxWidth="900.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" styleClass="third-color" stylesheets="@../../values/ProfileStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.ProfilePageController">
+<BorderPane maxHeight="700.0" maxWidth="1000.0" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="900.0" styleClass="wall" stylesheets="@../../values/ProfileStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.ProfilePageController">
    <left>
-      <VBox maxHeight="600.0" prefHeight="700.0" prefWidth="289.0" style="-fx-background-color: #C20000; -fx-background-radius: 10px;" styleClass="primary-color" stylesheets="@../../values/ProfileStyle.css" BorderPane.alignment="CENTER">
+      <VBox maxHeight="600.0" maxWidth="289.0" minWidth="289.0" prefHeight="700.0" prefWidth="289.0" styleClass="leftSidePane" stylesheets="@../../values/ProfileStyle.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="207.0" prefWidth="290.0" spacing="10.0">
+            <VBox alignment="CENTER" maxHeight="290.0" maxWidth="290.0" minHeight="290.0" minWidth="290.0" prefHeight="207.0" prefWidth="290.0" spacing="10.0">
                <VBox.margin>
-                  <Insets top="20.0" />
+                  <Insets bottom="10.0" top="25.0" />
                </VBox.margin>
                <children>
-                  <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="100.0" onMouseClicked="#getImages" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="imageView" fitHeight="195.0" fitWidth="199.0" onMouseClicked="#getImages" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../img/userimages.png" />
                      </image>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
                   </ImageView>
-                  <Label text="Azamat Omirzak" textFill="WHITE">
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Azamat Omirzak" textFill="#0b0a0a">
                      <font>
-                        <Font name="System Bold" size="15.0" />
+                        <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Button mnemonicParsing="false" onMouseClicked="#getImages" prefHeight="31.0" prefWidth="146.0" text="Edit Profile Photo" textFill="WHITE">
+                  <Button mnemonicParsing="false" onMouseClicked="#getImages" prefHeight="31.0" prefWidth="146.0" stylesheets="@../../values/ProfileStyle.css" text="Edit Profile Image" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
                </children>
+               <padding>
+                  <Insets bottom="10.0" />
+               </padding>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="246.0" prefWidth="290.0" spacing="10.0">
+            <VBox alignment="CENTER" maxHeight="90.0" maxWidth="286.0" minHeight="90.0" prefHeight="87.0" prefWidth="286.0" spacing="10.0">
                <children>
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" stylesheets="@../../values/ProfileStyle.css">
                      <children>
@@ -48,8 +55,11 @@
                            <image>
                               <Image url="@../../img/account.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="32.0" prefWidth="196.0" text="Profile" textFill="WHITE">
+                        <Label prefHeight="32.0" prefWidth="196.0" text="Profile" textFill="#0b0b0b">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -69,8 +79,11 @@
                            <image>
                               <Image url="@../../img/security.png" />
                            </image>
+                           <HBox.margin>
+                              <Insets left="21.0" />
+                           </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="32.0" prefWidth="196.0" text="Password" textFill="WHITE">
+                        <Label prefHeight="32.0" prefWidth="196.0" text="Password" textFill="#101010">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -83,19 +96,19 @@
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="selected" />
                   <HBox alignment="CENTER" prefHeight="40.0" prefWidth="200.0" styleClass="selected" />
                </children>
-               <padding>
-                  <Insets bottom="10.0" />
-               </padding>
                <VBox.margin>
-                  <Insets bottom="60.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
             </VBox>
-            <Hyperlink alignment="CENTER" contentDisplay="CENTER" onAction="#backToChatPage" prefHeight="34.0" prefWidth="137.0" style="-fx-border-width: 2px; -fx-border-color: #00002A; -fx-border-radius: 15px;" stylesheets="@../../values/ProfileStyle.css" text="Prev page" textFill="WHITE">
+            <Hyperlink alignment="CENTER" contentDisplay="CENTER" maxHeight="35.0" maxWidth="137.0" minHeight="35.0" minWidth="137.0" onAction="#backToChatPage" prefHeight="35.0" prefWidth="137.0" styleClass="button" stylesheets="@../../values/ProfileStyle.css" text="Prev page" textFill="RED">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="25.0" left="80.0" />
+                  <Insets left="80.0" top="100.0" />
                </VBox.margin>
                <opaqueInsets>
                   <Insets />
@@ -103,19 +116,30 @@
             </Hyperlink>
          </children>
          <BorderPane.margin>
-            <Insets left="10.0" right="10.0" />
+            <Insets left="40.0" right="10.0" />
          </BorderPane.margin>
+         <padding>
+            <Insets top="15.0" />
+         </padding>
       </VBox>
    </left>
    <center>
-      <VBox alignment="CENTER" maxHeight="600.0" prefHeight="600.0" prefWidth="627.0" spacing="35.0" style="-fx-background-radius: 10px;" styleClass="secondary-color" stylesheets="@../../values/ProfileStyle.css" BorderPane.alignment="CENTER">
+      <VBox maxHeight="600.0" maxWidth="579.0" minHeight="570.0" minWidth="579.0" prefHeight="570.0" prefWidth="579.0" spacing="15.0" styleClass="rightSidePane" stylesheets="@../../values/ProfileStyle.css" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="18.0" prefWidth="676.0" text="Profile Settings" textFill="WHITE">
+            <Label text="Profile Settings">
                <font>
-                  <Font name="System Bold" size="23.0" />
+                  <Font name="System Bold" size="25.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="11.0" />
+               </VBox.margin>
             </Label>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #C20000; -fx-background-radius: 10px;">
+            <Line endX="378.0" startX="-100.0" strokeWidth="2.0">
+               <VBox.margin>
+                  <Insets left="12.0" />
+               </VBox.margin>
+            </Line>
+            <VBox maxWidth="495.0" minWidth="100.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #C20000; -fx-background-radius: 10px;">
                <children>
                   <Label prefHeight="18.0" prefWidth="676.0" text="Profile details" textFill="WHITE">
                      <font>
@@ -124,13 +148,13 @@
                   </Label>
                   <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="530.0">
                      <children>
-                        <Label prefHeight="28.0" prefWidth="87.0" text="Name" textFill="WHITE">
+                        <Label prefHeight="28.0" prefWidth="87.0" text="Full Name" textFill="WHITE">
                            <font>
                               <Font size="15.0" />
                            </font>
                         </Label>
                         <Pane prefHeight="42.0" prefWidth="100.0" />
-                        <TextField prefHeight="26.0" prefWidth="272.0" text="Azamat">
+                        <TextField fx:id="fullNameTextField" prefHeight="26.0" prefWidth="272.0" text="adf adf">
                            <font>
                               <Font size="15.0" />
                            </font></TextField>
@@ -144,7 +168,7 @@
                            </font>
                         </Label>
                         <Pane prefHeight="42.0" prefWidth="100.0" />
-                        <TextField prefHeight="26.0" prefWidth="272.0" text="Omirzak@bu.edu">
+                        <TextField fx:id="usernameTextField" prefHeight="26.0" prefWidth="272.0" text="adddd">
                            <font>
                               <Font size="15.0" />
                            </font></TextField>
@@ -158,33 +182,7 @@
                            </font>
                         </Label>
                         <Pane prefHeight="42.0" prefWidth="100.0" />
-                        <TextField prefHeight="26.0" prefWidth="272.0" text="04.09.1998">
-                           <font>
-                              <Font size="15.0" />
-                           </font></TextField>
-                     </children>
-                  </HBox>
-               </children>
-               <padding>
-                  <Insets bottom="30.0" left="10.0" top="10.0" />
-               </padding>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" spacing="7.0" style="-fx-background-color: #C20000; -fx-background-radius: 10px;">
-               <children>
-                  <Label prefHeight="18.0" prefWidth="676.0" text="Contact info" textFill="WHITE">
-                     <font>
-                        <Font name="System Bold" size="19.0" />
-                     </font>
-                  </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="530.0">
-                     <children>
-                        <Label prefHeight="28.0" prefWidth="87.0" text="Phone" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Pane prefHeight="42.0" prefWidth="100.0" />
-                        <TextField prefHeight="26.0" prefWidth="272.0" text="617-685-9628">
+                        <TextField fx:id="dateOfBirthTextField" prefHeight="26.0" prefWidth="272.0" text="04.09.1998">
                            <font>
                               <Font size="15.0" />
                            </font></TextField>
@@ -198,31 +196,35 @@
                            </font>
                         </Label>
                         <Pane prefHeight="42.0" prefWidth="100.0" />
-                        <TextField prefHeight="26.0" prefWidth="272.0" text="Omirzak@bu.edu">
+                        <TextField fx:id="emailTextField" prefHeight="26.0" prefWidth="272.0" text="azazaa">
                            <font>
                               <Font size="15.0" />
-                           </font></TextField>
+                           </font>
+                        </TextField>
                      </children>
                   </HBox>
                </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
                <padding>
-                  <Insets bottom="20.0" left="10.0" top="10.0" />
+                  <Insets bottom="30.0" left="15.0" top="10.0" />
                </padding>
+               <VBox.margin>
+                  <Insets left="10.0" top="20.0" />
+               </VBox.margin>
             </VBox>
-            <Button mnemonicParsing="false" onAction="#saveChanges" onMouseClicked="#saveChanges" prefHeight="60.0" prefWidth="140.0" style="-fx-border-color: #C20000; -fx-border-width: 2px; -fx-border-radius: 15;" text="Save Changes" textFill="RED">
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveChanges" onMouseClicked="#saveChanges" prefHeight="35.0" prefWidth="140.0" stylesheets="@../../values/ProfileStyle.css" text="Save Changes" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="180.0" top="150.0" />
+               </VBox.margin>
             </Button>
          </children>
          <BorderPane.margin>
             <Insets right="10.0" />
          </BorderPane.margin>
          <padding>
-            <Insets bottom="30.0" left="30.0" right="50.0" top="40.0" />
+            <Insets bottom="20.0" left="30.0" right="50.0" top="40.0" />
          </padding>
       </VBox>
    </center>
