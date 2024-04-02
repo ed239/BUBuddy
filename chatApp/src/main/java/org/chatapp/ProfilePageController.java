@@ -29,7 +29,7 @@ public class ProfilePageController {
     @FXML
     private ImageView imageView;
     @FXML
-    private void initialize(){
+    private void initialize() throws FileNotFoundException {
         loadImages();
     }
     @FXML
@@ -57,13 +57,13 @@ public class ProfilePageController {
         }
     }
     // Method to load images from saved paths
-    private void loadImages(){
-        try {
-            Scanner scanner = new Scanner(imagePathsFile);
-            while (scanner.hasNextLine()){
+    private void loadImages() throws FileNotFoundException {
+        if (curUser.getProfileImagePath() != null) {
+            Scanner scanner = new Scanner(SceneController.curUser.getProfileImagePath());
+            while (scanner.hasNextLine()) {
                 String imagesPath = scanner.nextLine();
                 File file = new File(imagesPath);
-                if(file.exists()){
+                if (file.exists()) {
                     Image image = new Image(file.toURI().toString());
                     imageView.setImage(image);
                     selectedImagePath = imagesPath;
@@ -71,8 +71,6 @@ public class ProfilePageController {
                 }
             }
             scanner.close();
-        }catch (FileNotFoundException e){
-            e.printStackTrace();
         }
     }
     private void saveImagesPath(String path){
