@@ -185,7 +185,7 @@
                            </font>
                         </Label>
                         <Pane prefHeight="42.0" prefWidth="100.0" />
-                        <TextField fx:id="emailTextField" prefHeight="33.0" prefWidth="266.0" text="azazaa">
+                        <TextField fx:id="emailTextField" prefHeight="33.0" prefWidth="266.0" promptText="Enter your email">
                            <font>
                               <Font size="15.0" />
                            </font>

@@ -22,7 +22,7 @@ public class Database {
 
     private Database() {
         // Replace string with our db connection
-        String uri = "";
+        String uri = "mongodb+srv://amiyev:BuBuddy2024@bubuddyv1.kups6t4.mongodb.net/?retryWrites=true&w=majority&appName=BuBuddyV1";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
@@ -88,14 +88,15 @@ public class Database {
         }
     }
 
-    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, byte[] profileImageData){
+    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, byte[] profileImageData, String email){
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
 
         Document newDoc = new Document("username", username)
                 .append("password", hashedPassword)
                 .append("fullname", fullname)
-                .append("dob", dateOfBirth);
+                .append("dob", dateOfBirth)
+                .append("email",email);
 
         if(profileImageData != null && profileImageData.length > 0){
             newDoc.append("profileImage",new Binary(profileImageData));
@@ -239,6 +240,26 @@ public class Database {
         }
         return null;
     }
+    public boolean updatedUserEmail(String username, String email){
+        try{
+            userCollection.updateOne(eq("username", username), set("email", email));
+            System.out.println("\nEMAIL UPDATED SUCCESSFULLY!\n");
+            return true;
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public String getEmail(String username){
+        Document userDoc = userCollection.find(new Document("username", username)).first();
+        if(userDoc != null){
+            return userDoc.getString("email");
+        }else {
+            return null;
+        }
+    }
+
     public boolean updateProfileDetails(String username, String fullName, String dateOfBirth, String email){
         try{
             userCollection.updateOne(eq("username", username),
