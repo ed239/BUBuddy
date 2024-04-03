@@ -6,19 +6,17 @@ public class ChatUser {
     private String name;
     private String username;
     private String dob;
-    private String profileImagePath;
 
-    public ChatUser(ObjectId id, String name, String username, String dateOfBirth, String profileImagePath) {
+    public ChatUser(ObjectId id, String name, String username, String dateOfBirth) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.dob = dateOfBirth;
-        this.profileImagePath = profileImagePath;
     }
 
     @Override
     public String toString(){
-        return "CURRENT CHAT USER: -> {" + "USERNAME = '" + username + '\'' + '}';
+        return "CURRENT CHAT USER: -> { " + "USERNAME = '" + username + '\'' + " }\n";
     }
 
 
@@ -36,13 +34,5 @@ public class ChatUser {
 
     public String getDOB() { return dob;}
 
-
-    public String getProfileImagePath() {
-        return profileImagePath;
-    }
-
-    public void setProfileImagePath(String profileImagePath) {
-        this.profileImagePath = profileImagePath;
-    }
 }
 

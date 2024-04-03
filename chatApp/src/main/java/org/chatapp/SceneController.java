@@ -63,11 +63,11 @@ public class SceneController {
             System.out.println("User exists.");
             boolean validUser = database.verifyPassword(username, password);
             if(validUser){
-                name = database.getName(username, password);
+                name = database.getName(username);
 //                id = database.getUserObjectId(username);
 //                dob = database.getDOB(username);
                 curUser = database.getChatUser(name);
-                System.out.println("SCENECONTROLLER");
+                System.out.println("\n\nSCENECONTROLLER");
                 System.out.println(curUser);
                 System.out.println("Authenticated!");
                 return true;
@@ -202,8 +202,9 @@ public class SceneController {
         String username = txtusername.getText();
         String dOB = dateOfBirth.getValue().toString();
         String password = txtpassword.getText();
+        byte[] profileImageDate = null; // SET TO NULL INITIALLY, USER CAN PROVIDE IT LATER
         if(fullname.length() > 2 && username.length() > 4 && password.length() > 3 && !dOB.isEmpty()) {
-            return database.createUser(fullname, username, password, dOB, null);
+            return database.createUser(fullname, username, password, dOB, profileImageDate);
         }
         else{
             System.out.println("Invalid Length");
