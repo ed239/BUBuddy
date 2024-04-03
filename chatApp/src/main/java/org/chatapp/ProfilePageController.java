@@ -49,7 +49,7 @@ public class ProfilePageController {
         String fullName = database.getName(curUser.getUsername());
         String username = curUser.getUsername();
         String dateOfBirth = database.getDOB(curUser.getUsername());
-        String email = "";
+        String email = database.getEmail(curUser.getUsername());
 
         //SET INITIAL VALUE FOR TEXT FIELDS
         fullNameTextField.setText(fullName);
@@ -95,8 +95,6 @@ public class ProfilePageController {
             System.out.println("\nFAILED TO SAVE CHANGES\n");
         }
     }
-
-
     // Method to load images from saved paths
     private void loadImages() throws FileNotFoundException {
         byte[] imageData = database.getProfileImage(curUser.getUsername());
