@@ -1,0 +1,19 @@
+.button{
+    -fx-background-color: #C20000;
+    -fx-background-radius: 30;
+    -fx-text-fill: #fff;
+}
+.leftSidePane{
+    -fx-background-color: #F2F2F2;
+    -fx-background-radius: 10px;
+    -fx-border-color: #C20000;
+    -fx-border-width: 2px;
+    -fx-border-radius:10px;
+}
+.selected-border{
+    -fx-border-color: #C20000;
+    -fx-border-width: 0 3 0 0;
+}
+.selected:hover{
+    -fx-background-color: rgba(157, 86, 86, 0.98);
+}

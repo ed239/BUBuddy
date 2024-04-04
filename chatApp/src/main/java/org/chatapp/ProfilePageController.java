@@ -5,19 +5,18 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.lang.invoke.StringConcatFactory;
 import java.nio.file.Files;
 import java.util.Objects;
-import java.util.Scanner;
 
 import static org.chatapp.SceneController.curUser;
 import static org.chatapp.SceneController.database;
@@ -33,6 +32,14 @@ public class ProfilePageController {
     private TextField dateOfBirthTextField;
     @FXML
     private TextField emailTextField;
+    @FXML
+    private Label button_form_1;
+    @FXML
+    private Label button_form_2;
+    @FXML
+    private AnchorPane form_1;
+    @FXML
+    private AnchorPane form_2;
 
     FileChooser fileChooser = new FileChooser();
     Path currRelativePath = Paths.get("");
@@ -59,7 +66,15 @@ public class ProfilePageController {
         dateOfBirthTextField.setText(dateOfBirth);
         emailTextField.setText(email);
     }
-
+    public void switchForm(ActionEvent event){
+        if(event.getSource() == button_form_1){
+            form_1.setVisible(true);
+            form_2.setVisible(false);
+        } else if (event.getSource() == button_form_2) {
+            form_1.setVisible(false);
+            form_2.setVisible(true);
+        }
+    }
     @FXML
     void getImages() {
         File file = fileChooser.showOpenDialog(new Stage());

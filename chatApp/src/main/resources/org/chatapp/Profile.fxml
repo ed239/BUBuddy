@@ -8,17 +8,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="700.0" maxWidth="1000.0" minHeight="700.0" minWidth="1000.0" prefHeight="700.0" prefWidth="900.0" styleClass="wall" stylesheets="@../../values/ProfileStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.ProfilePageController">
+<BorderPane prefHeight="651.0" prefWidth="934.0" styleClass="wall" stylesheets="@../../values/ProfileStyle.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.ProfilePageController">
    <left>
-      <VBox maxHeight="600.0" maxWidth="289.0" minWidth="289.0" prefHeight="700.0" prefWidth="289.0" styleClass="leftSidePane" stylesheets="@../../values/ProfileStyle.css" BorderPane.alignment="CENTER">
+      <VBox styleClass="leftSidePane" stylesheets="@../../values/ProfileStyle.css" BorderPane.alignment="CENTER">
          <children>
             <VBox alignment="CENTER" maxHeight="309.0" maxWidth="290.0" minHeight="290.0" minWidth="290.0" prefHeight="309.0" prefWidth="290.0" spacing="5.0">
                <VBox.margin>
@@ -63,7 +63,7 @@
                               <Insets left="20.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="32.0" prefWidth="196.0" text="Profile" textFill="#0b0b0b">
+                        <Label fx:id="button_form_1" onMouseClicked="#switchForm" prefHeight="32.0" prefWidth="196.0" text="Profile" textFill="#0b0b0b">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -87,7 +87,7 @@
                               <Insets left="21.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label prefHeight="32.0" prefWidth="196.0" text="Password" textFill="#101010">
+                        <Label fx:id="button_form_2" onMouseClicked="#switchForm" prefHeight="32.0" prefWidth="196.0" text="Password" textFill="#101010">
                            <font>
                               <Font size="15.0" />
                            </font>
@@ -128,94 +128,44 @@
       </VBox>
    </left>
    <center>
-      <VBox maxHeight="600.0" maxWidth="579.0" minHeight="570.0" minWidth="579.0" prefHeight="570.0" prefWidth="579.0" spacing="15.0" styleClass="rightSidePane" stylesheets="@../../values/ProfileStyle.css" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Label text="Profile Settings">
-               <font>
-                  <Font name="System Bold" size="25.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="11.0" />
-               </VBox.margin>
-            </Label>
-            <Line endX="378.0" startX="-100.0" strokeWidth="2.0">
-               <VBox.margin>
-                  <Insets left="12.0" />
-               </VBox.margin>
-            </Line>
-            <VBox maxWidth="495.0" minWidth="100.0" prefHeight="214.0" prefWidth="485.0" spacing="10.0" style="-fx-background-color: #C20000; -fx-background-radius: 10px;">
+            <AnchorPane fx:id="form_1" layoutX="1.0" prefHeight="651.2" prefWidth="588.8" styleClass="form1" stylesheets="@../../values/ProfileStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-0.20000000000004547" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label prefHeight="18.0" prefWidth="676.0" text="Profile details" textFill="WHITE">
+                  <Label layoutY="6.0" prefHeight="27.0" prefWidth="590.0" text="Profile Settings">
                      <font>
-                        <Font name="System Bold" size="19.0" />
+                        <Font name="System Bold" size="22.0" />
                      </font>
                   </Label>
-                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="530.0">
+                  <Line endX="395.60009765625" endY="-7.62939453125E-6" layoutX="150.0" layoutY="59.0" startX="-100.0" strokeWidth="2.0" />
+                  <VBox layoutX="34.0" layoutY="110.0" prefHeight="200.0" prefWidth="514.0">
                      <children>
-                        <Label prefHeight="28.0" prefWidth="87.0" text="Username" textFill="WHITE">
+                        <Label prefHeight="27.0" prefWidth="433.0" text="Profile details1">
                            <font>
-                              <Font size="15.0" />
+                              <Font name="System Bold Italic" size="20.0" />
                            </font>
                         </Label>
-                        <Pane prefHeight="42.0" prefWidth="100.0" />
-                        <TextField fx:id="usernameTextField" prefHeight="33.0" prefWidth="265.0" text="adddd">
-                           <font>
-                              <Font size="15.0" />
-                           </font></TextField>
+                        <HBox prefHeight="31.0" prefWidth="514.0">
+                           <children>
+                              <Label text="lllllll">
+                                 <font>
+                                    <Font size="23.0" />
+                                 </font></Label>
+                           </children>
+                        </HBox>
                      </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="465.0">
-                     <children>
-                        <Label prefHeight="28.0" prefWidth="87.0" text="Date of Birth" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Pane prefHeight="42.0" prefWidth="100.0" />
-                        <TextField fx:id="dateOfBirthTextField" prefHeight="33.0" prefWidth="265.0" text="04.09.1998">
-                           <font>
-                              <Font size="15.0" />
-                           </font></TextField>
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="38.0" prefWidth="530.0">
-                     <children>
-                        <Label prefHeight="28.0" prefWidth="87.0" text="Email" textFill="WHITE">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </Label>
-                        <Pane prefHeight="42.0" prefWidth="100.0" />
-                        <TextField fx:id="emailTextField" prefHeight="33.0" prefWidth="266.0" promptText="Enter your email">
-                           <font>
-                              <Font size="15.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </HBox>
+                  </VBox>
+               </children></AnchorPane>
+            <AnchorPane fx:id="form_2" layoutX="3.0" layoutY="2.0" prefHeight="651.2" prefWidth="588.8" styleClass="form2" visible="false">
+               <children>
+                  <Label layoutX="206.0" layoutY="287.0" text="WELCOME TO FORM 2" textFill="#ec1515">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
                </children>
-               <padding>
-                  <Insets bottom="30.0" left="15.0" top="10.0" />
-               </padding>
-               <VBox.margin>
-                  <Insets left="10.0" top="20.0" />
-               </VBox.margin>
-            </VBox>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#saveChanges" onMouseClicked="#saveChanges" prefHeight="35.0" prefWidth="140.0" stylesheets="@../../values/ProfileStyle.css" text="Save Changes" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets left="180.0" top="175.0" />
-               </VBox.margin>
-            </Button>
+            </AnchorPane>
          </children>
-         <BorderPane.margin>
-            <Insets right="10.0" />
-         </BorderPane.margin>
-         <padding>
-            <Insets bottom="20.0" left="30.0" right="50.0" top="40.0" />
-         </padding>
-      </VBox>
+      </AnchorPane>
    </center>
 </BorderPane>
