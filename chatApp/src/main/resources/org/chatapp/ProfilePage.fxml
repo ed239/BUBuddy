@@ -21,67 +21,61 @@
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="294.0" styleClass="leftSidePane" stylesheets="@../../values/ProfilePageStyle.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+            <VBox alignment="CENTER" prefHeight="297.0" prefWidth="290.0" spacing="10.0">
                <VBox.margin>
                   <Insets top="30.0" />
                </VBox.margin>
                <children>
                   <Circle fx:id="imageView" fill="#c20000" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Label fx:id="fullNameTextField" text="Azamat Omirzak">
+                  <TextField fx:id="fullNameTextField" alignment="CENTER" maxWidth="250.0" prefHeight="35.0" prefWidth="100.0" promptText="full name">
                      <font>
-                        <Font name="System Bold Italic" size="18.0" />
+                        <Font size="14.0" />
                      </font>
-                  </Label>
-                  <Button mnemonicParsing="false" onMouseClicked="#getImages" prefWidth="100.0" stylesheets="@../../values/ProfilePageStyle.css" text="Edit Profile">
+                  </TextField>
+                  <Button mnemonicParsing="false" onMouseClicked="#getImages" prefWidth="100.0" styleClass="buttonSave" stylesheets="@../../values/ProfilePageStyle.css" text="Edit Profile">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
                </children>
             </VBox>
-            <VBox alignment="CENTER" prefHeight="107.0" prefWidth="290.0">
+            <VBox alignment="CENTER" prefHeight="109.0" prefWidth="290.0">
                <children>
-                  <HBox alignment="CENTER" prefHeight="45.0" prefWidth="200.0" stylesheets="@../../values/ProfilePageStyle.css">
+                  <HBox alignment="CENTER" onMouseClicked="#switchForm" prefHeight="45.0" prefWidth="195.0" stylesheets="@../../values/ProfilePageStyle.css">
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../img/account.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="button_form_1" prefHeight="30.0" prefWidth="160.0" text="Profile">
+                        <Button fx:id="button_form_1" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#switchForm" prefHeight="34.0" prefWidth="167.0" styleClass="buttonChange" stylesheets="@../../values/ProfilePageStyle.css" text="Profile">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="15.0" />
                            </font>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
+                        </Button>
                      </children>
                      <styleClass>
                         <String fx:value="selected" />
                         <String fx:value="selected-border" />
                      </styleClass>
                   </HBox>
-                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="45.0" prefWidth="200.0" styleClass="selected">
+                  <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" onMouseClicked="#switchForm" prefHeight="45.0" prefWidth="200.0" styleClass="selected">
                      <children>
                         <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../../img/security.png" />
                            </image>
                         </ImageView>
-                        <Label fx:id="button_form_2" prefHeight="30.0" prefWidth="160.0" text="Password">
+                        <Button fx:id="button_form_2" alignment="BOTTOM_LEFT" mnemonicParsing="false" onAction="#switchForm" prefHeight="34.0" prefWidth="167.0" styleClass="buttonChange" stylesheets="@../../values/ProfilePageStyle.css" text="Password">
                            <font>
-                              <Font size="18.0" />
+                              <Font size="15.0" />
                            </font>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
-                        </Label>
+                        </Button>
                      </children>
                   </HBox>
                </children>
             </VBox>
-            <Hyperlink onAction="#backToChatPage" prefWidth="100.0" styleClass="button" stylesheets="@../../values/ProfilePageStyle.css" text="Previous" textFill="#261f1f">
+            <Hyperlink fx:id="backToChatPage" alignment="CENTER" onAction="#backToChatPage" prefWidth="100.0" styleClass="buttonSave" stylesheets="@../../values/ProfilePageStyle.css" text="Previous" textFill="#261f1f">
                <font>
                   <Font size="15.0" />
                </font>
@@ -92,7 +86,7 @@
    <center>
       <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane fx:id="form_1" layoutX="7.2" layoutY="151.0" prefHeight="600.0" prefWidth="602.0" style="-fx-background-color: green;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane fx:id="form_1" layoutX="7.2" layoutY="151.0" prefHeight="600.0" prefWidth="602.0" style="-fx-background-color: green;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <Label layoutX="13.0" layoutY="32.0" prefHeight="22.0" prefWidth="534.0" text="Profile Settings" textFill="#e6ff07">
                      <font>
@@ -142,14 +136,14 @@
                      </children>
                   </VBox>
                   <Line endX="425.20001220703125" endY="3.814697265625E-6" layoutX="118.0" layoutY="86.0" startX="-100.0" strokeWidth="2.0" />
-                  <Button layoutX="250.0" layoutY="514.0" mnemonicParsing="false" onMouseClicked="#saveChanges" prefHeight="31.0" prefWidth="131.0" stylesheets="@../../values/ProfilePageStyle.css" text="Save Changes">
+                  <Button layoutX="250.0" layoutY="514.0" mnemonicParsing="false" onMouseClicked="#saveChanges" prefHeight="31.0" prefWidth="131.0" styleClass="buttonSave" stylesheets="@../../values/ProfilePageStyle.css" text="Save Changes">
                      <font>
                         <Font size="15.0" />
                      </font>
                   </Button>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="form_2" layoutX="3.0" prefHeight="600.0" prefWidth="605.6" style="-fx-background-color: yellow;">
+            <AnchorPane fx:id="form_2" layoutX="3.0" prefHeight="600.0" prefWidth="605.6" style="-fx-background-color: yellow;" visible="false">
                <children>
                   <Label layoutX="214.0" layoutY="152.0" prefHeight="22.0" prefWidth="110.0" text="Azamat form2">
                      <font>

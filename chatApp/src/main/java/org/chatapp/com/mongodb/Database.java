@@ -64,8 +64,7 @@ public class Database {
     public String getName(String username){
         Document userDoc = userCollection.find(new Document("username", username)).first();
         if (userDoc != null) {
-            String name = userDoc.getString("fullname");
-            return name;
+            return userDoc.getString("fullname");
         }
         return "";
     }

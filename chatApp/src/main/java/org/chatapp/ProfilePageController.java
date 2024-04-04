@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -25,9 +26,9 @@ import java.nio.file.Paths;
 
 public class ProfilePageController {
     @FXML
-    private Label button_form_1;
+    private Button button_form_1;
     @FXML
-    private Label button_form_2;
+    private Button button_form_2;
     @FXML
     private TextField dateOfBirthTextField;
     @FXML
@@ -37,7 +38,7 @@ public class ProfilePageController {
     @FXML
     private AnchorPane form_2;
     @FXML
-    private TextField fullNameTextField;
+    private TextField fullNameTextField; // Corrected to TextField
     @FXML
     private Circle imageView;
     @FXML
