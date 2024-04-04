@@ -8,6 +8,8 @@ import javafx.scene.Parent;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -39,7 +41,7 @@ public class ProfilePageController {
     private final File imagePathsFile = new File(currAbsolutePathString + File.separator + "images.txt");
     private String selectedImagePath; // Stores the selected image path
     @FXML
-    private ImageView imageView;
+    private Circle imageView;
     @FXML
     private void initialize() throws FileNotFoundException {
         // THIS IS LOAD FOR IMAGES
@@ -63,7 +65,7 @@ public class ProfilePageController {
         File file = fileChooser.showOpenDialog(new Stage());
         if (file != null) {
             Image image = new Image(file.toURI().toString());
-            imageView.setImage(image);
+            imageView.setFill(new ImagePattern(image));
             selectedImagePath = file.getPath(); // Store the selected image path
             // Save Images path to text file
             saveImagesPath(selectedImagePath);
@@ -100,7 +102,7 @@ public class ProfilePageController {
         byte[] imageData = database.getProfileImage(curUser.getUsername());
         if(imageData != null){
             Image image = new Image(new ByteArrayInputStream(imageData));
-            imageView.setImage(image);
+            imageView.setFill(new ImagePattern(image));
         }
     }
     private void saveImagesPath(String path){

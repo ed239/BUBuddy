@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -19,19 +20,16 @@
    <left>
       <VBox maxHeight="600.0" maxWidth="289.0" minWidth="289.0" prefHeight="700.0" prefWidth="289.0" styleClass="leftSidePane" stylesheets="@../../values/ProfileStyle.css" BorderPane.alignment="CENTER">
          <children>
-            <VBox alignment="CENTER" maxHeight="290.0" maxWidth="290.0" minHeight="290.0" minWidth="290.0" prefHeight="207.0" prefWidth="290.0" spacing="10.0">
+            <VBox alignment="CENTER" maxHeight="309.0" maxWidth="290.0" minHeight="290.0" minWidth="290.0" prefHeight="309.0" prefWidth="290.0" spacing="5.0">
                <VBox.margin>
-                  <Insets bottom="10.0" top="25.0" />
+                  <Insets bottom="10.0" top="10.0" />
                </VBox.margin>
                <children>
-                  <ImageView fx:id="imageView" fitHeight="195.0" fitWidth="199.0" onMouseClicked="#getImages" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../img/userimages.png" />
-                     </image>
+                  <Circle fx:id="imageView" fill="#c20000" radius="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0">
                      <VBox.margin>
-                        <Insets top="10.0" />
+                        <Insets bottom="5.0" top="10.0" />
                      </VBox.margin>
-                  </ImageView>
+                  </Circle>
                   <TextField fx:id="fullNameTextField" alignment="CENTER" maxHeight="35.0" maxWidth="250.0" minHeight="35.0" minWidth="90.0" prefHeight="35.0" prefWidth="90.0" promptText="Full name" styleClass="textHeader" stylesheets="@../../values/ProfileStyle.css">
                      <font>
                         <Font name="System Bold" size="20.0" />
@@ -44,6 +42,9 @@
                      <font>
                         <Font size="15.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
                   </Button>
                </children>
                <padding>
@@ -111,7 +112,7 @@
                   <Font name="System Bold" size="15.0" />
                </font>
                <VBox.margin>
-                  <Insets left="80.0" top="100.0" />
+                  <Insets left="80.0" top="90.0" />
                </VBox.margin>
                <opaqueInsets>
                   <Insets />
