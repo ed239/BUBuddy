@@ -25,21 +25,24 @@ import java.nio.file.Paths;
 
 public class ProfilePageController {
     @FXML
-    private TextField fullNameTextField;
+    private Label button_form_1;
     @FXML
-    private TextField usernameTextField;
+    private Label button_form_2;
     @FXML
     private TextField dateOfBirthTextField;
     @FXML
     private TextField emailTextField;
     @FXML
-    private Label button_form_1;
-    @FXML
-    private Label button_form_2;
-    @FXML
     private AnchorPane form_1;
     @FXML
     private AnchorPane form_2;
+    @FXML
+    private TextField fullNameTextField;
+    @FXML
+    private Circle imageView;
+    @FXML
+    private TextField usernameTextField;
+
 
     FileChooser fileChooser = new FileChooser();
     Path currRelativePath = Paths.get("");
@@ -47,8 +50,6 @@ public class ProfilePageController {
 //    System.out.println("Current absolute path is - " + currAbsolutePathString);
     private final File imagePathsFile = new File(currAbsolutePathString + File.separator + "images.txt");
     private String selectedImagePath; // Stores the selected image path
-    @FXML
-    private Circle imageView;
     @FXML
     private void initialize() throws FileNotFoundException {
         // THIS IS LOAD FOR IMAGES
