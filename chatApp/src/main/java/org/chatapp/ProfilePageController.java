@@ -5,9 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
@@ -25,6 +23,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class ProfilePageController {
+    private Stage stage;
+    private Parent root;
     @FXML
     private Button button_form_1;
     @FXML
@@ -43,6 +43,19 @@ public class ProfilePageController {
     private Circle imageView;
     @FXML
     private TextField usernameTextField;
+    @FXML
+    private PasswordField newpasswordfield;
+    @FXML
+    private PasswordField verifynewpasswordfield;
+    @FXML
+    private TextField showpasswordtext;
+    @FXML
+    private CheckBox checkboxpassword;
+    @FXML
+    private Label errorMessageProfile;
+    @FXML
+    private Button submit_btn_Profile;
+
 
 
     FileChooser fileChooser = new FileChooser();
@@ -131,9 +144,64 @@ public class ProfilePageController {
             e.printStackTrace();
         }
     }
+    // CHANGE THE VISIBILITY TO THE PASSWORD BY CLICKING SHOW-PASSWORD BUTTON
+    /// newpasswordfield   verifynewpasswordfield showpasswordtext
+    @FXML
+    void showPassword(ActionEvent event){
+        if(checkboxpassword.isSelected()){
+            showpasswordtext.setText(verifynewpasswordfield.getText());
+            showpasswordtext.setVisible(true);
+            verifynewpasswordfield.setVisible(false);
+            return;
+        }
+        verifynewpasswordfield.setText(showpasswordtext.getText());
+        verifynewpasswordfield.setVisible(true);
+        showpasswordtext.setVisible(false);
+    }
+    /// newpasswordfield   verifynewpasswordfield
+    // errorMessageProfile
+    public boolean resetPasswordProfile() throws IOException{
+        String newPassword = newpasswordfield.getText();
+        String verifyNewPassword = verifynewpasswordfield.getText();
+        if(newPassword.isEmpty()){
+            errorMessageProfile.setText("Please provide new password!");
+            System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
+            return false;
+        }
+        if(!newPassword.equals(verifyNewPassword)){
+            errorMessageProfile.setText("Passwords do not match!");
+            System.out.println("\nPASSWORD DO NOT MATCH\n");
+            return false;
+        }
+        // GET CURRENT LOGGED-IN USER:
+        String username = curUser.getUsername();
+        //UPDATE THE PASSWORD IN THE DATABASE:
+        boolean passwordUpdated = database.updatePassword(username, newPassword);
+        if(passwordUpdated){
+            System.out.println();
+            System.out.println("FROM SCENE CONTROLLER:");
+            System.out.println(curUser);
+            System.out.println("PASSWORD UPDATED SUCCESSFULLY!");
+            System.out.println();
+            return true;
+        }else {
+            // FAILED TO UPDATE PASSWORD
+            errorMessageProfile.setText("Failed to update password!");
+            System.out.println("\nFAILED TO UPDATE PASSWORD!\n");
+            return false;
+        }
+    }
+    public void SubmitProfileToSuccesMessage(ActionEvent event) throws IOException{
+        if(resetPasswordProfile()){
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.show();
+        }
+    }
     public void backToChatPage(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();
     }
