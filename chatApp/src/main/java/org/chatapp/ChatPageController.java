@@ -83,6 +83,7 @@ public class ChatPageController {
     curUser= getCurUser(); //this isnt very efficient -- have to fix
     String[] users = database.getAllChatUsersExceptCurrent(curUser);
     ObservableList<String> allChatUsersExceptCurrent = FXCollections.observableArrayList(users);
+    FXCollections.sort(allChatUsersExceptCurrent, String.CASE_INSENSITIVE_ORDER);
     userListView.setItems(allChatUsersExceptCurrent);
 
     // tested to see if Listview would become scrollable with a lot of users + show difference
