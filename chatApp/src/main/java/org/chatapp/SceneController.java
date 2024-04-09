@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.chatClient;
+import java.util.regex.Pattern;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -47,6 +48,8 @@ public class SceneController {
     private Label errorMessagePassword;
     @FXML
     private Label errorResetPassword;
+    private String passwordErrorMsg = "Password needs to have at least 8 characters, 1 capital "
+        + "letter, 1 number and 1 additional symbol.";
 
     static Database database = Database.getInstance();
 
@@ -138,6 +141,11 @@ public class SceneController {
             System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
             return false;
         }
+        if (!validatePassword(newPassword)) {
+            errorResetPassword.setText(passwordErrorMsg);
+            System.out.println(passwordErrorMsg);
+            return false;
+        }
         if(!newPassword.equals(verifyNewPassword)){
             errorResetPassword.setText("Passwords do not match!");
             System.out.println("\nPASSWORD DO NOT MATCH\n");
@@ -204,14 +212,54 @@ public class SceneController {
         String password = txtpassword.getText();
         byte[] profileImageDate = null; // SET TO NULL INITIALLY, USER CAN PROVIDE IT LATER
         String email = "";
-        if(fullname.length() > 2 && username.length() > 4 && password.length() > 3 && !dOB.isEmpty()) {
-            return database.createUser(fullname, username, password, dOB, profileImageDate, email);
-        }
-        else{
+
+        // User Req:
+        // full name needs to be at least 2 characters.
+        // username needs to be longer than 7 characters and contain "@bu.edu".
+        // dOB needs to have a selection.
+        // password needs to have at least 8 characters, 1 capital letter, 1 number and 1 symbol
+
+        if(fullname.length() > 2 && username.length() > 7 && username.contains("@bu.edu") &&
+            !dOB.isEmpty()) {
+            boolean validPass = validatePassword(password);
+            if (validPass) {
+                return database.createUser(fullname, username, password, dOB, profileImageDate,
+                    email);
+            } else {
+                errorMessageSignUp.setText(passwordErrorMsg);
+                return false;
+            }
+        } else {
             System.out.println("Invalid Length");
-            errorMessageSignUp.setText("Fullname must be longer than 2. Username and password longer than 3.");
+            errorMessageSignUp.setText(
+                "Fullname must be longer than 2. Username needs to contain \"@bu.edu\" and password longer than 3.");
             return false;
         }
+    }
+
+    public Boolean validatePassword(String password) {
+        Pattern symbol = Pattern.compile("[^a-zA-Z0-9 ]");
+        Pattern upperCase = Pattern.compile("[A-Z ]");
+        Pattern lowerCase = Pattern.compile("[a-z ]");
+        Pattern number = Pattern.compile("[0-9 ]");
+        boolean isPassValid = true;
+
+        if (password.length() < 8) {
+            isPassValid=false;
+        }
+        if (!symbol.matcher(password).find()) {
+            isPassValid=false;
+        }
+        if (!upperCase.matcher(password).find()) {
+            isPassValid=false;
+        }
+        if (!lowerCase.matcher(password).find()) {
+            isPassValid=false;
+        }
+        if (!number.matcher(password).find()) {
+            isPassValid=false;
+        }
+        return isPassValid;
     }
 
 
