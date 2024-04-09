@@ -59,7 +59,7 @@
                   <Font size="25.0" />
                </font>
             </PasswordField>
-            <Label fx:id="errorMessageSignUp" textFill="#e80d0d" />
+            <Label fx:id="errorMessageSignUp" textFill="#e80d0d" wrapText="true" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#backToLogInAccountCreated" style="-fx-background-color: #CC0000;" text="SIGN UP" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />
