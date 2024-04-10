@@ -32,7 +32,7 @@
             <Label fx:id="toUser" alignment="TOP_CENTER" text="Selected User" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
             <ScrollPane fx:id="sp_secret" fitToHeight="true" fitToWidth="true" maxWidth="838.0" style="-fx-background-color: #faf9f6;" vbarPolicy="ALWAYS" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <content>
-                  <VBox fx:id="chatContainer" alignment="CENTER" fillWidth="false" style="-fx-background-color: #faf9f6;">
+                  <VBox fx:id="chatContainer" alignment="TOP_CENTER" fillWidth="false" style="-fx-background-color: #faf9f6;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets></VBox>
