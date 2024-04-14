@@ -66,24 +66,36 @@ public class ChatPageController {
   private VBox chatContainer;
   @FXML
   private Hyperlink backToChatPage;
-
   private List<Document> displayedMessages = new ArrayList<>();
   private Date lastDisplayedTimestamp;
   @FXML
   private ScrollPane sp_secret;
   private Client client;
   private static final int portNumber = 6667;
-
   private boolean isGroupChat; //for separating send button between main chat and secret group chat
   private boolean isAutoUpdating = false;
   private Timeline timeline;
   @FXML
   private void initialize() {
 //    String[] users = {curUser.getName(), "Contact 2", "Contact 3", "Contact 4"};
-    curUser= getCurUser(); //this isnt very efficient -- have to fix
-    String[] users = database.getAllChatUsersExceptCurrent(curUser);
-    ObservableList<String> allChatUsersExceptCurrent = FXCollections.observableArrayList(users);
-    userListView.setItems(allChatUsersExceptCurrent);
+
+    curUser = getCurUser(); //this isn't very efficient -- have to fix
+    database = getDb();
+    if (curUser != null && database != null) {
+      String[] users = database.getAllChatUsersExceptCurrent(curUser);                                  // Retrieve all chat users except the current user from the database
+      if (users != null) {
+        ObservableList<String> allChatUsersExceptCurrent = FXCollections.observableArrayList(users);    // Create ObservableList of chat users
+        userListView.setItems(allChatUsersExceptCurrent);                                             // Set the items of userListView with the chat users
+      } else {
+        // Handle the case where curUser is null (optional)
+        System.err.println("Current user is null. Initialization failed.");
+        System.out.println("\nCurrent user is null. Initialization failed.\n");
+      }
+    } else {
+      System.err.println("Current user or database is null. Initialization failed.");
+      System.out.println("\nCurrent user or database is null. Initialization failed.\n");
+      // Handle the case where curUser or database is null
+    }
 
     // tested to see if Listview would become scrollable with a lot of users + show difference
     // in secret chat and main chat
@@ -132,6 +144,7 @@ public class ChatPageController {
       Socket socket = new Socket("localhost", portNumber);
       client = new Client(socket, curUser.getName());
     }catch (IOException e) {
+      System.err.println("Error connecting to server: " + e.getMessage());
       e.printStackTrace();
     }
 
@@ -200,9 +213,10 @@ public class ChatPageController {
   }
 
   public static ChatUser getCurUser() {
+    ChatUser user = SceneController.curUser;
     System.out.println("\nCHAT PAGE getCurUser() METHOD");
-    System.out.println(SceneController.curUser);
-    return SceneController.curUser;
+    System.out.println("\nCURRENT CHAT USER: -> { USERNAME = '" + (user != null ? user.getName() : "null") + "' }");
+    return user;
   }
   private static Database getDb() {
     return SceneController.database;

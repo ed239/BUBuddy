@@ -181,9 +181,11 @@ public class Database {
 
             StringBuilder hexString = new StringBuilder();
             for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
+                String hex = String.format("%02x", b);
                 hexString.append(hex);
+//                String hex = Integer.toHexString(0xff & b);
+//                if (hex.length() == 1) hexString.append('0');
+//                hexString.append(hex);
             }
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
@@ -213,7 +215,10 @@ public class Database {
     //UPDATED PASSWORD AND HASHING IT
     public boolean updatePassword(String username, String newPassword){
         try{
-            userCollection.updateOne(eq("username", username), set("password", hashPassword(newPassword)));
+            // Hash the new password before updating
+            String hashedPassword = hashPassword(newPassword);
+            userCollection.updateOne(eq("username", username), set("password", hashedPassword ));
+            System.out.println("\nPassword updated in the database!");
             return true;
         }catch (Exception e){
             e.printStackTrace();

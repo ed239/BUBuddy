@@ -3,6 +3,16 @@
     -fx-background-radius: 30;
     -fx-text-fill: #fff;
 }
+.buttonSave:hover{
+    -fx-background-color: rgba(152, 36, 36, 0.98);
+    -fx-background-radius: 30;
+    -fx-text-fill: #fff;
+}
+.buttonSave:pressed{
+    -fx-background-color: #C20000;
+    -fx-background-radius: 30;
+    -fx-text-fill: #fff;
+}
 .buttonChange{
     -fx-background-color: transparent;
 }

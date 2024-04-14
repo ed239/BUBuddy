@@ -38,7 +38,7 @@ public class ProfilePageController {
     @FXML
     private AnchorPane form_2;
     @FXML
-    private TextField fullNameTextField; // Corrected to TextField
+    private TextField fullNameTextField;
     @FXML
     private Circle imageView;
     @FXML
@@ -76,10 +76,11 @@ public class ProfilePageController {
         String email = database.getEmail(curUser.getUsername());
 
         //SET INITIAL VALUE FOR TEXT FIELDS
-        fullNameTextField.setText(fullName);
-        usernameTextField.setText(username);
-        dateOfBirthTextField.setText(dateOfBirth);
+        fullNameTextField.setText(fullName.toUpperCase());   // not editable in Scene Builder
+        usernameTextField.setText(username);                 // not editable in Scene Builder
+        dateOfBirthTextField.setText(dateOfBirth);           // not editable in Scene Builder
         emailTextField.setText(email);
+
     }
     public void switchForm(ActionEvent event){
         if(event.getSource() == button_form_1){
@@ -145,7 +146,6 @@ public class ProfilePageController {
         }
     }
     // CHANGE THE VISIBILITY TO THE PASSWORD BY CLICKING SHOW-PASSWORD BUTTON
-    /// newpasswordfield   verifynewpasswordfield showpasswordtext
     @FXML
     void showPassword(ActionEvent event){
         if(checkboxpassword.isSelected()){
@@ -158,47 +158,52 @@ public class ProfilePageController {
         verifynewpasswordfield.setVisible(true);
         showpasswordtext.setVisible(false);
     }
-    /// newpasswordfield   verifynewpasswordfield
-    // errorMessageProfile
-    public boolean resetPasswordProfile() throws IOException{
-        String newPassword = newpasswordfield.getText();
-        String verifyNewPassword = verifynewpasswordfield.getText();
-        if(newPassword.isEmpty()){
-            errorMessageProfile.setText("Please provide new password!");
-            System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
-            return false;
-        }
-        if(!newPassword.equals(verifyNewPassword)){
-            errorMessageProfile.setText("Passwords do not match!");
-            System.out.println("\nPASSWORD DO NOT MATCH\n");
-            return false;
-        }
-        // GET CURRENT LOGGED-IN USER:
-        String username = curUser.getUsername();
-        //UPDATE THE PASSWORD IN THE DATABASE:
-        boolean passwordUpdated = database.updatePassword(username, newPassword);
-        if(passwordUpdated){
-            System.out.println();
-            System.out.println("FROM SCENE CONTROLLER:");
-            System.out.println(curUser);
-            System.out.println("PASSWORD UPDATED SUCCESSFULLY!");
-            System.out.println();
-            return true;
-        }else {
-            // FAILED TO UPDATE PASSWORD
-            errorMessageProfile.setText("Failed to update password!");
-            System.out.println("\nFAILED TO UPDATE PASSWORD!\n");
-            return false;
-        }
-    }
-    public void SubmitProfileToSuccesMessage(ActionEvent event) throws IOException{
-        if(resetPasswordProfile()){
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.show();
-        }
-    }
+
+//     //RESET PASSWORD IN PROFILE PAGE
+//
+//    public boolean resetPasswordProfile() throws IOException{
+//        String newPassword = newpasswordfield.getText();
+//        String verifyNewPassword = verifynewpasswordfield.getText();
+//        if(newPassword.isEmpty()){
+//            errorMessageProfile.setText("Please provide new password!");
+//            System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
+//            return false;
+//        }
+//        if(!newPassword.equals(verifyNewPassword)){
+//            errorMessageProfile.setText("Passwords do not match!");
+//            System.out.println("\nPASSWORD DO NOT MATCH\n");
+//            return false;
+//        }
+//        // GET CURRENT LOGGED-IN USER:
+//        String username = curUser.getUsername();
+//        //UPDATE THE PASSWORD IN THE DATABASE:
+//        boolean passwordUpdated = database.updatePassword(username, newPassword);
+//        if(passwordUpdated){
+//            System.out.println();
+//            System.out.println("FROM SCENE CONTROLLER:");
+//            System.out.println(curUser);
+//            System.out.println("PASSWORD UPDATED SUCCESSFULLY!");
+//            System.out.println();
+//            return true;
+//        }else {
+//            // FAILED TO UPDATE PASSWORD
+//            errorMessageProfile.setText("Failed to update password!");
+//            System.out.println("\nFAILED TO UPDATE PASSWORD!\n");
+//            return false;
+//        }
+//    }
+
+
+//     //RESET PASSWORD IN PROFILE PAGE
+//
+//    public void SubmitProfileToSuccesMessage(ActionEvent event) throws IOException{
+//        if(resetPasswordProfile()){
+//            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
+//            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+//            stage.getScene().setRoot(root);
+//            stage.show();
+//        }
+//    }
     public void backToChatPage(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

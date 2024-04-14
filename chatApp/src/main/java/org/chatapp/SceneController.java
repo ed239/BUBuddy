@@ -146,7 +146,9 @@ public class SceneController {
         // GET CURRENT LOGGED-IN USER:
         String username = curUser.getUsername();
         //UPDATE THE PASSWORD IN THE DATABASE:
+        System.out.println("\nAttempting to update password for user: " + username + "\n");
         boolean passwordUpdated = database.updatePassword(username, newPassword);
+        System.out.println("\nPassword updated in database: " + passwordUpdated);
         if(passwordUpdated){
             System.out.println();
             System.out.println("FROM SCENE CONTROLLER:");

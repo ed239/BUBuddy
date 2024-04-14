@@ -41,7 +41,7 @@
                         <Insets bottom="7.0" />
                      </VBox.margin>
                   </Button>
-                  <TextField fx:id="fullNameTextField" alignment="CENTER" maxWidth="264.0" minWidth="100.0" prefHeight="35.0" prefWidth="205.0" promptText="full name" styleClass="fullnameProfile" stylesheets="@../../values/ProfilePageStyle.css">
+                  <TextField fx:id="fullNameTextField" alignment="CENTER" editable="false" maxWidth="264.0" minWidth="100.0" prefHeight="35.0" prefWidth="205.0" promptText="full name" styleClass="fullnameProfile" stylesheets="@../../values/ProfilePageStyle.css">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -138,7 +138,7 @@
                                  </padding>
                               </Label>
                               <Pane prefHeight="47.0" prefWidth="86.0" />
-                              <TextField fx:id="usernameTextField" prefHeight="26.0" prefWidth="220.0" styleClass="detailsTextBox" stylesheets="@../../values/ProfilePageStyle.css">
+                              <TextField fx:id="usernameTextField" editable="false" prefHeight="26.0" prefWidth="220.0" styleClass="detailsTextBox" stylesheets="@../../values/ProfilePageStyle.css">
                                  <font>
                                     <Font size="16.0" />
                                  </font></TextField>
@@ -155,7 +155,7 @@
                                  </padding>
                               </Label>
                               <Pane prefHeight="47.0" prefWidth="86.0" />
-                              <TextField fx:id="dateOfBirthTextField" prefHeight="26.0" prefWidth="220.0" styleClass="detailsTextBox" stylesheets="@../../values/ProfilePageStyle.css">
+                              <TextField fx:id="dateOfBirthTextField" editable="false" prefHeight="26.0" prefWidth="220.0" styleClass="detailsTextBox" stylesheets="@../../values/ProfilePageStyle.css">
                                  <font>
                                     <Font size="16.0" />
                                  </font></TextField>
