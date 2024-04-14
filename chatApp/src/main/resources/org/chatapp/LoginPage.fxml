@@ -36,7 +36,7 @@
    <right>
       <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="35.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
          <children>
-            <Text fill="#cc0000" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN">
+            <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN">
                <font>
                   <Font name="System Bold" size="40.0" />
                </font>
