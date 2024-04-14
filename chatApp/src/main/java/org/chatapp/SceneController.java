@@ -56,7 +56,7 @@ public class SceneController {
     public Boolean Login() throws IOException{
         // Provide username and password
 //        curUser = null;
-        String username = txtusername.getText();
+        String username = txtusername.getText().toLowerCase();
         String password = txtpassword.getText();
         String name = "";
 //        String dob = "";
@@ -88,7 +88,7 @@ public class SceneController {
 
     // CHECK THE USERNAME AND DATE OF BIRTH WHETHER THEY ARE MATCH OR NOT:
     public Boolean checkUserName() throws IOException{
-        String username =  txtusername.getText();
+        String username =  txtusername.getText().toLowerCase();
 //        String userdob = dateOfBirth.getValue().toString();
         LocalDate userDob = dateOfBirth.getValue();
         String dob = "";
@@ -207,7 +207,7 @@ public class SceneController {
 
     public Boolean signUp() throws IOException {
         String fullname = txtfullname.getText();
-        String username = txtusername.getText();
+        String username = txtusername.getText().toLowerCase();
         String dOB = dateOfBirth.getValue().toString();
         String password = txtpassword.getText();
         byte[] profileImageDate = null; // SET TO NULL INITIALLY, USER CAN PROVIDE IT LATER
