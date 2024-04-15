@@ -129,9 +129,9 @@
                   <ListView fx:id="userListView" prefHeight="200.0" prefWidth="200.0" style="-fx-control-inner-background: #faf9f6;" />
                </content>
             </Tab>
-            <Tab fx:id="secretChatTab" closable="false" text="Secret Chats">
+            <Tab fx:id="localChatTab" closable="false" text="Local Chat">
                <content>
-                  <ListView fx:id="secretListView" prefHeight="200.0" prefWidth="200.0" style="-fx-control-inner-background: #faf9f6;" />
+                  <ListView fx:id="localListView" prefHeight="200.0" prefWidth="200.0" style="-fx-control-inner-background: #faf9f6;" />
                </content>
             </Tab>
          </tabs>

@@ -30,12 +30,6 @@ import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.Client;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
-
 public class ChatPageController {
   private static ChatUser curUser = getCurUser();
   private static ChatUser toUserObj;
@@ -45,7 +39,7 @@ public class ChatPageController {
   private ListView<String> userListView;
 
   @FXML
-  private ListView<String> secretListView;
+  private ListView<String> localListView;
 
   @FXML
   private Label toUser;
@@ -54,7 +48,7 @@ public class ChatPageController {
   private TabPane chatTabs;
 
   @FXML
-  private Tab secretChatTab;
+  private Tab localChatTab;
 
   @FXML
   private Tab mainChatTab;
@@ -89,7 +83,7 @@ public class ChatPageController {
     // tested to see if Listview would become scrollable with a lot of users + show difference
     // in secret chat and main chat
     String[] temp = {"Group Chat"};
-    secretListView.getItems().addAll(temp);
+    localListView.getItems().addAll(temp);
 
     timeline = new Timeline( //to update message view for new messages every second
             new KeyFrame(Duration.seconds(1), event -> {
@@ -119,9 +113,9 @@ public class ChatPageController {
       @Override
       public void changed(ObservableValue<? extends Tab> observable, Tab oldTab, Tab newTab) {
         chatContainer.getChildren().clear();
-        if(newTab.equals(secretChatTab)) {
-          System.out.print(secretChatTab.isSelected());
-          toUser.setText("Secret Chat");
+        if(newTab.equals(localChatTab)) {
+          System.out.print(localChatTab.isSelected());
+          toUser.setText("Local Chat");
         } else if (newTab.equals(mainChatTab)) {
           toUser.setText("Main Chat");
         }
@@ -137,7 +131,7 @@ public class ChatPageController {
     }
 
     // makes secret chats menu operate like main chat user selection listener
-    secretListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
+    localListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
       @Override
       public void changed(ObservableValue observable, String oldValue, String newValue) {
         chatContainer.getChildren().clear();
