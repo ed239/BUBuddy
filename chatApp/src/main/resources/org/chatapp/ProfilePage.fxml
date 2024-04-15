@@ -41,7 +41,7 @@
                         <Insets bottom="7.0" />
                      </VBox.margin>
                   </Button>
-                  <TextField fx:id="fullNameTextField" alignment="CENTER" editable="false" maxWidth="264.0" minWidth="100.0" prefHeight="35.0" prefWidth="205.0" promptText="full name" styleClass="fullnameProfile" stylesheets="@../../values/ProfilePageStyle.css">
+                  <TextField fx:id="fullNameTextField" alignment="CENTER" maxWidth="264.0" minWidth="100.0" prefHeight="35.0" prefWidth="205.0" promptText="full name" styleClass="fullnameProfile" stylesheets="@../../values/ProfilePageStyle.css">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -114,7 +114,7 @@
                         <Insets left="15.0" />
                      </padding>
                   </Label>
-                  <VBox layoutX="41.0" layoutY="143.0" prefHeight="218.0" prefWidth="460.0" styleClass="rightSideVBox" stylesheets="@../../values/ProfilePageStyle.css">
+                  <VBox layoutX="41.0" layoutY="143.0" prefHeight="202.0" prefWidth="460.0" styleClass="rightSideVBox" stylesheets="@../../values/ProfilePageStyle.css">
                      <children>
                         <Label prefHeight="32.0" prefWidth="210.0" text="Profile details" textFill="WHITE">
                            <font>
@@ -129,7 +129,7 @@
                         </Label>
                         <HBox alignment="CENTER_LEFT" prefHeight="47.0" prefWidth="566.0">
                            <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="36.0" prefWidth="117.0" text="Username" textFill="WHITE">
+                              <Label alignment="BOTTOM_LEFT" prefHeight="36.0" prefWidth="117.0" text="Email" textFill="WHITE">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -160,23 +160,9 @@
                                     <Font size="16.0" />
                                  </font></TextField>
                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER_LEFT" layoutX="10.0" layoutY="89.0" prefHeight="47.0" prefWidth="566.0">
-                           <children>
-                              <Label alignment="BOTTOM_LEFT" prefHeight="36.0" prefWidth="117.0" text="Email" textFill="WHITE">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets left="15.0" />
-                                 </padding>
-                              </Label>
-                              <Pane prefHeight="47.0" prefWidth="86.0" />
-                              <TextField fx:id="emailTextField" prefHeight="26.0" prefWidth="220.0" styleClass="detailsTextBox" stylesheets="@../../values/ProfilePageStyle.css">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font></TextField>
-                           </children>
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
                         </HBox>
                      </children>
                   </VBox>

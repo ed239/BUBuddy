@@ -73,15 +73,16 @@ public class ProfilePageController {
         String fullName = database.getName(curUser.getUsername());
         String username = curUser.getUsername();
         String dateOfBirth = database.getDOB(curUser.getUsername());
-        String email = database.getEmail(curUser.getUsername());
+//        String email = database.getEmail(curUser.getUsername());
 
         //SET INITIAL VALUE FOR TEXT FIELDS
-        fullNameTextField.setText(fullName.toUpperCase());   // not editable in Scene Builder
+        fullNameTextField.setText(fullName);                 // Editable in Scene Builder
         usernameTextField.setText(username);                 // not editable in Scene Builder
         dateOfBirthTextField.setText(dateOfBirth);           // not editable in Scene Builder
-        emailTextField.setText(email);
+//        emailTextField.setText(email);
 
     }
+    // SWITCH FORM_1 AND FORM_2 IN PROFILE PAGE
     public void switchForm(ActionEvent event){
         if(event.getSource() == button_form_1){
             form_1.setVisible(true);
@@ -108,9 +109,9 @@ public class ProfilePageController {
         String fullName = fullNameTextField.getText();
         String username = usernameTextField.getText();
         String dateOfBirth = dateOfBirthTextField.getText();
-        String email = emailTextField.getText();
+//        String email = emailTextField.getText();
 
-        boolean success = database.updateProfileDetails(username, fullName, dateOfBirth, email);
+        boolean success = database.updateProfileDetails(username, fullName, dateOfBirth);
         // SAVE PROFILE IMAGE IF SELECTED FROM PC
         if(selectedImagePath != null){
             try{

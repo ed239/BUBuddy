@@ -67,9 +67,9 @@ public class SceneController {
                 curUser = database.getChatUser(name);
 //                id = database.getUserObjectId(username);
 //                dob = database.getDOB(username);
-                System.out.println("\n\nSCENECONTROLLER");
+                System.out.println("\n\nSCENECONTROLLER  Login() Method check curUser----->>>>>>>");
                 System.out.println(curUser);
-                System.out.println("Authenticated!");
+                System.out.println("Authenticated!----->>>>>>>");
                 return true;
             }else{
                 errorMessage.setText("Incorrect Password");
@@ -109,9 +109,9 @@ public class SceneController {
             boolean validUserName = database.verifyDateOfBirth(username, userDobStr);
 //            System.out.println("Check validUsername");
             if(validUserName){
-//                dob = database.getDOB(username);    CURRENT CHAT USER: -> {USERNAME = 'null'}
-                curUser = database.getChatUser(username);   // CURRENT CHAT USER: -> {USERNAME = 'ggg12'}
-                System.out.println("\nFROM SCENE CONTROLLER: checkUserName() Method");
+                String name = database.getName(username);  // GET CURRENT USERNAME FROM DATABASE
+                curUser = database.getChatUser(name);   // CURRENT CHAT USER: -> {USERNAME = 'ggg12'}
+                System.out.println("\nFROM SCENE CONTROLLER: checkUserName() Method+++++++++");
                 System.out.println(curUser);
                 System.out.print("-------->>> curUser >>>> RESET PASSWORD PAGE IS OPEN: -> ");
                 System.out.println("-------->>> RESET YOUR PASSWORD!\n");
@@ -213,9 +213,9 @@ public class SceneController {
         String dOB = dateOfBirth.getValue().toString();
         String password = txtpassword.getText();
         byte[] profileImageDate = null; // SET TO NULL INITIALLY, USER CAN PROVIDE IT LATER
-        String email = "";
+//        String email = "";
         if(fullname.length() > 2 && username.length() > 4 && password.length() > 3 && !dOB.isEmpty()) {
-            return database.createUser(fullname, username, password, dOB, profileImageDate, email);
+            return database.createUser(fullname, username, password, dOB, profileImageDate);
         }
         else{
             System.out.println("Invalid Length");

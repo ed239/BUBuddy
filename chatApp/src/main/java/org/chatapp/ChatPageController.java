@@ -214,7 +214,7 @@ public class ChatPageController {
 
   public static ChatUser getCurUser() {
     ChatUser user = SceneController.curUser;
-    System.out.println("\nCHAT PAGE getCurUser() METHOD");
+    System.out.println("\nCHAT PAGE CONTROLLER getCurUser() METHOD");
     System.out.println("\nCURRENT CHAT USER: -> { USERNAME = '" + (user != null ? user.getName() : "null") + "' }");
     return user;
   }

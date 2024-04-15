@@ -87,15 +87,15 @@ public class Database {
         }
     }
 
-    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, byte[] profileImageData, String email){
+    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, byte[] profileImageData){
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
 
         Document newDoc = new Document("username", username)
                 .append("password", hashedPassword)
                 .append("fullname", fullname)
-                .append("dob", dateOfBirth)
-                .append("email",email);
+                .append("dob", dateOfBirth);
+//                .append("email",email);
 
         if(profileImageData != null && profileImageData.length > 0){
             newDoc.append("profileImage",new Binary(profileImageData));
@@ -181,11 +181,11 @@ public class Database {
 
             StringBuilder hexString = new StringBuilder();
             for (byte b : hash) {
-                String hex = String.format("%02x", b);
-                hexString.append(hex);
-//                String hex = Integer.toHexString(0xff & b);
-//                if (hex.length() == 1) hexString.append('0');
+//                String hex = String.format("%02x", b);
 //                hexString.append(hex);
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
             }
             return hexString.toString();
         } catch (NoSuchAlgorithmException e) {
@@ -263,14 +263,13 @@ public class Database {
             return null;
         }
     }
-
-    public boolean updateProfileDetails(String username, String fullName, String dateOfBirth, String email){
+    public boolean updateProfileDetails(String username, String fullName, String dateOfBirth){
         try{
             userCollection.updateOne(eq("username", username),
                     Updates.combine(
                             Updates.set("fullname", fullName),
-                            Updates.set("dob", dateOfBirth),
-                            Updates.set("email", email)
+                            Updates.set("dob", dateOfBirth)
+//                            Updates.set("email", email)
                             )
             );
             System.out.println("\nPROFILE DETAILS UPDATED SUCCESSFULLY!\n");
