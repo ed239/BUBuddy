@@ -159,51 +159,51 @@ public class ProfilePageController {
         showpasswordtext.setVisible(false);
     }
 
-//     //RESET PASSWORD IN PROFILE PAGE
-//
-//    public boolean resetPasswordProfile() throws IOException{
-//        String newPassword = newpasswordfield.getText();
-//        String verifyNewPassword = verifynewpasswordfield.getText();
-//        if(newPassword.isEmpty()){
-//            errorMessageProfile.setText("Please provide new password!");
-//            System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
-//            return false;
-//        }
-//        if(!newPassword.equals(verifyNewPassword)){
-//            errorMessageProfile.setText("Passwords do not match!");
-//            System.out.println("\nPASSWORD DO NOT MATCH\n");
-//            return false;
-//        }
-//        // GET CURRENT LOGGED-IN USER:
-//        String username = curUser.getUsername();
-//        //UPDATE THE PASSWORD IN THE DATABASE:
-//        boolean passwordUpdated = database.updatePassword(username, newPassword);
-//        if(passwordUpdated){
-//            System.out.println();
-//            System.out.println("FROM SCENE CONTROLLER:");
-//            System.out.println(curUser);
-//            System.out.println("PASSWORD UPDATED SUCCESSFULLY!");
-//            System.out.println();
-//            return true;
-//        }else {
-//            // FAILED TO UPDATE PASSWORD
-//            errorMessageProfile.setText("Failed to update password!");
-//            System.out.println("\nFAILED TO UPDATE PASSWORD!\n");
-//            return false;
-//        }
-//    }
+     //RESET PASSWORD IN PROFILE PAGE
+
+    public boolean resetPasswordProfile() throws IOException{
+        String newPassword = newpasswordfield.getText();
+        String verifyNewPassword = verifynewpasswordfield.getText();
+        if(newPassword.isEmpty()){
+            errorMessageProfile.setText("Please provide new password!");
+            System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
+            return false;
+        }
+        if(!newPassword.equals(verifyNewPassword)){
+            errorMessageProfile.setText("Passwords do not match!");
+            System.out.println("\nPASSWORD DO NOT MATCH\n");
+            return false;
+        }
+        // GET CURRENT LOGGED-IN USER:
+        String username = curUser.getUsername();
+        //UPDATE THE PASSWORD IN THE DATABASE:
+        boolean passwordUpdated = database.updatePassword(username, newPassword);
+        if(passwordUpdated){
+            System.out.println();
+            System.out.println("FROM SCENE CONTROLLER:");
+            System.out.println(curUser);
+            System.out.println("PASSWORD UPDATED SUCCESSFULLY!");
+            System.out.println();
+            return true;
+        }else {
+            // FAILED TO UPDATE PASSWORD
+            errorMessageProfile.setText("Failed to update password!");
+            System.out.println("\nFAILED TO UPDATE PASSWORD!\n");
+            return false;
+        }
+    }
 
 
-//     //RESET PASSWORD IN PROFILE PAGE
-//
-//    public void SubmitProfileToSuccesMessage(ActionEvent event) throws IOException{
-//        if(resetPasswordProfile()){
-//            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
-//            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-//            stage.getScene().setRoot(root);
-//            stage.show();
-//        }
-//    }
+     //RESET PASSWORD IN PROFILE PAGE
+
+    public void SubmitProfileToSuccesMessage(ActionEvent event) throws IOException{
+        if(resetPasswordProfile()){
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.show();
+        }
+    }
     public void backToChatPage(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
