@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.chatClient;
@@ -47,6 +49,10 @@ public class SceneController {
     private Label errorMessagePassword;
     @FXML
     private Label errorResetPassword;
+    @FXML
+    private ImageView eye_hide;
+    @FXML
+    private ImageView eye_show;
 
     static Database database = Database.getInstance();
 
@@ -184,6 +190,27 @@ public class SceneController {
         verifyNewPasswordField.setVisible(true);
         passwordText.setVisible(false);
     }
+
+    @FXML
+    void showUp(MouseEvent event) {
+        ImageView clickedImage = (ImageView) event.getSource();
+        if (clickedImage.getId().equals("eye_show")) {
+            // Show the password
+            passwordText.setText(newPasswordField.getText());
+            passwordText.setVisible(true);
+            verifyNewPasswordField.setVisible(false);
+            eye_hide.setVisible(true);
+            eye_show.setVisible(false);
+        } else if (clickedImage.getId().equals("eye_hide")) {
+            // Hide the password
+            passwordText.setVisible(false);
+            verifyNewPasswordField.setVisible(true);
+            eye_show.setVisible(true);
+            eye_hide.setVisible(false);
+        }
+    }
+
+
 
     public void resetPasswordToSuccesMessage(ActionEvent event) throws IOException{
         if(resetPassword()){

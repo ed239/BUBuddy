@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -159,6 +160,7 @@ public class ProfilePageController {
         verifynewpasswordfield.setVisible(true);
         showpasswordtext.setVisible(false);
     }
+
 
      //RESET PASSWORD IN PROFILE PAGE
 
