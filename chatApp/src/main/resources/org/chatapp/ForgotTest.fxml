@@ -1,69 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="700.0" maxWidth="800.0" minHeight="500.0" minWidth="800.0" prefHeight="800.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
+<BorderPane maxHeight="700.0" maxWidth="850.0" minHeight="533.0" minWidth="550.0" prefHeight="600.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
    <center>
-      <AnchorPane maxHeight="450.0" maxWidth="700.0" minHeight="200.0" minWidth="200.0" prefHeight="200.0" prefWidth="200.0" style="-fx-border-color: #ADADAD; -fx-border-width: 2px; -fx-border-radius: 5px;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" minHeight="500.0" minWidth="0.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
+         <VBox alignment="CENTER" minHeight="500.0" minWidth="0.0" prefHeight="600.0" prefWidth="368.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
+            <children>
+               <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="BU BUDDY" textAlignment="CENTER" wrappingWidth="341.9046630859375">
+                  <font>
+                     <Font name="System Bold" size="58.0" />
+                  </font>
+               </Text>
+               <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Where you, can BU! " textAlignment="CENTER">
+                  <font>
+                     <Font size="27.0" />
+                  </font>
+               </Text>
+            </children>
+            <padding>
+               <Insets bottom="350.0" left="20.0" right="20.0" />
+            </padding>
+         </VBox>
+      </VBox>
+   </center>
+   <right>
+      <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="35.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
          <children>
-            <Button layoutX="160.0" layoutY="283.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" mnemonicParsing="false" onAction="#forgotPasswordToResetPassword" prefHeight="50.0" prefWidth="400.0" stylesheets="@../../values/ForgorButton.css" text="Reset Password" textFill="WHITE">
+            <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot Password">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="System Bold" size="40.0" />
+               </font>
+            </Text>
+            <TextField fx:id="txtusername" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </TextField>
+            <DatePicker fx:id="dateOfBirth" prefHeight="38.0" prefWidth="400.0" promptText="Date of Birth" />
+            <Hyperlink alignment="CENTER_RIGHT" maxHeight="35.0" maxWidth="170.0" minHeight="35.0" minWidth="155.0" onAction="#backToSignInPage" prefHeight="35.0" prefWidth="152.0" text="Back To Sign In" textAlignment="CENTER" textFill="#3048ff" underline="true">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="250.0" />
+               </VBox.margin>
+            </Hyperlink>
+            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="18.0" prefWidth="391.0" textFill="#e80d0d" />
+            <Button mnemonicParsing="false" onAction="#forgotPasswordToResetPassword" style="-fx-background-color: #CC0000;" text="Reset Password" textAlignment="CENTER" textFill="#faf9f6">
+               <font>
+                  <Font size="23.0" />
                </font>
             </Button>
-            <Label layoutX="265.0" layoutY="28.0" text="Forgot Password">
+            <Hyperlink onAction="#loginPageToSignUpPage" text="Don't have an account, sign up here! ">
                <font>
-                  <Font name="System Bold" size="22.0" />
-               </font>
-            </Label>
-            <TextField fx:id="txtusername" layoutX="159.0" layoutY="105.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" prefHeight="50.0" prefWidth="400.0" promptText="Your email" styleClass="input" stylesheets="@../../values/DateTextStyle.css">
-               <font>
-                  <Font size="15.0" />
-               </font></TextField>
-            <Label layoutX="159.0" layoutY="78.0" text="Email Address">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="220.0" layoutY="359.0" text="Already have an account?">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="184.0" layoutY="391.0" text="Don't have an account yet?">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Hyperlink layoutX="418.0" layoutY="354.0" onAction="#backToSignInPage" text="Sign In" textFill="#180ced">
-               <font>
-                  <Font size="18.0" />
+                  <Font size="21.0" />
                </font>
             </Hyperlink>
-            <Hyperlink layoutX="396.0" layoutY="387.0" onAction="#loginPageToCreateAccount" text="Create Account" textFill="#180ced">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Hyperlink>
-            <DatePicker fx:id="dateOfBirth" layoutX="159.0" layoutY="193.0" maxHeight="50.0" maxWidth="400.0" minHeight="50.0" minWidth="400.0" prefHeight="50.0" prefWidth="400.0" promptText="Enter date" styleClass="input" stylesheets="@../../values/DateTextStyle.css" />
-            <Label layoutX="159.0" layoutY="166.0" text="Date of Birth">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label fx:id="errorMessagePassword" alignment="CENTER" layoutX="222.0" layoutY="251.0" prefHeight="20.0" prefWidth="265.0" textFill="#ff0101" wrapText="true">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
          </children>
-      </AnchorPane>
-   </center>
+         <padding>
+            <Insets bottom="50.0" left="50.0" right="50.0" top="60.0" />
+         </padding>
+      </VBox>
+   </right>
 </BorderPane>
