@@ -230,6 +230,15 @@ public class Database {
             return false;
         }
     }
+
+    public boolean validEmailDob(String username, String dob) {
+        Document doc = userCollection.find(new Document("username", username)).first();
+        if (doc != null) {
+            return dob.equals(doc.getString("dob"));
+
+        }
+        return false;
+    }
     public boolean updateProfileImages(String username, byte[] imageData){
         try{
             userCollection.updateOne(eq("username", username), set("profileImage", new Binary(imageData)));

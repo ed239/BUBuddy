@@ -134,6 +134,53 @@ public class SceneController {
         }
     }
 
+    public Boolean checkandupdatePass() throws IOException{
+        String username =  txtusername.getText().toLowerCase();
+        String userDob = dateOfBirth.getValue().toString();
+        String newPassword = newPasswordField.getText();
+        String verifyNewPassword = verifyNewPasswordField.getText();
+
+        if(username.isEmpty()){
+            errorMessagePassword.setText("Please provide Username and Date of Birth");
+            return false;
+        } else if (userDob.isEmpty()) {
+            errorMessagePassword.setText("Please provide Date of Birth");
+            return false;
+        }
+        boolean validCred = database.validEmailDob(username,userDob);
+        if(!validCred){
+            errorMessagePassword.setText("Incorrect Credentials");
+            return false;
+        }
+        //CHANGNG THE PASSWORD
+        if(newPassword.isEmpty()){
+            errorResetPassword.setText("Please provide new password!");
+            System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
+            return false;
+        }
+        if (!validatePassword(newPassword)) {
+            errorResetPassword.setText(passwordErrorMsg);
+            System.out.println(passwordErrorMsg);
+            return false;
+        }
+        if(!(newPassword.equals(verifyNewPassword))){
+            errorResetPassword.setText("Passwords do not match!");
+            System.out.println("\nPASSWORD DO NOT MATCH\n");
+            return false;
+        }
+
+        boolean passwordUpdated = database.updatePassword(username, newPassword);
+        if(passwordUpdated){
+            return true;
+        }else {
+//            errorResetPassword.setText("Failed to update password!");
+            System.out.println("RESET FAILED");
+            return false;
+        }
+
+
+    }
+
     // RESET NEW PASSWORD AND UPDATE
     public boolean resetPassword() throws IOException{
         String newPassword = newPasswordField.getText();
@@ -216,6 +263,15 @@ public class SceneController {
 
     public void resetPasswordToSuccesMessage(ActionEvent event) throws IOException{
         if(resetPassword()){
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
+            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(root);
+            stage.show();
+        }
+    }
+
+    public void resetPassNotLoggedIn(ActionEvent event) throws IOException{
+        if(checkandupdatePass()){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.getScene().setRoot(root);
@@ -326,6 +382,8 @@ public class SceneController {
         }
     }
 
+
+
     // GO TO LOG-IN-PAGE, IF YOU ALREADY HAVE AN ACCOUNT
     public void backToSignInPage(ActionEvent event) throws IOException{
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
@@ -345,6 +403,13 @@ public class SceneController {
     // GO TO --> FORGOT PASSWORD PAGE <--
     public void forgotPassword(ActionEvent event) throws IOException{
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ForgotTest.fxml")));
+        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        stage.getScene().setRoot(root);
+        stage.show();
+    }
+
+    public void forgotPasswordLogIn(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ForgotTest2.fxml")));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();

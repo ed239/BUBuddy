@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
@@ -34,9 +35,9 @@
       </VBox>
    </center>
    <right>
-      <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="35.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
+      <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="25.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
          <children>
-            <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN">
+            <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot Password">
                <font>
                   <Font name="System Bold" size="40.0" />
                </font>
@@ -46,12 +47,18 @@
                   <Font size="25.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="txtpassword" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+            <DatePicker fx:id="dateOfBirth" prefHeight="38.0" prefWidth="400.0" promptText="Date of Birth" />
+            <PasswordField fx:id="newPasswordField" promptText="New Password" style="-fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-color: transparent;">
                <font>
                   <Font size="25.0" />
                </font>
             </PasswordField>
-            <Hyperlink alignment="CENTER_RIGHT" maxHeight="35.0" maxWidth="170.0" minHeight="35.0" minWidth="155.0" onAction="#forgotPasswordLogIn" prefHeight="35.0" prefWidth="152.0" text="Forgot Password?" textAlignment="CENTER" textFill="#3048ff" underline="true">
+            <PasswordField fx:id="verifyNewPasswordField" promptText="Enter New Password" style="-fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-color: transparent;">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </PasswordField>
+            <Hyperlink alignment="CENTER_RIGHT" maxHeight="35.0" maxWidth="170.0" minHeight="35.0" minWidth="155.0" onAction="#backToSignInPage" prefHeight="35.0" prefWidth="152.0" text="Back To Sign In" textAlignment="CENTER" textFill="#3048ff" underline="true">
                <font>
                   <Font size="18.0" />
                </font>
@@ -60,7 +67,7 @@
                </VBox.margin>
             </Hyperlink>
             <Label fx:id="errorMessage" alignment="CENTER" prefHeight="18.0" prefWidth="391.0" textFill="#e80d0d" />
-            <Button mnemonicParsing="false" onAction="#loginPageToChatPage" style="-fx-background-color: #CC0000;" text="LOGIN" textAlignment="CENTER" textFill="#faf9f6">
+            <Button mnemonicParsing="false" onAction="#resetPassNotLoggedIn" style="-fx-background-color: #CC0000;" text="Reset Password" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />
                </font>
