@@ -17,6 +17,7 @@ import java.util.Objects;
 
 public class SceneController {
     private Stage stage;
+
     private Parent root;
     private chatClient client;
     static ChatUser curUser = null;
@@ -37,7 +38,7 @@ public class SceneController {
     private DatePicker dateOfBirth;
 
     @FXML
-    private PasswordField newPasswordField;
+    private TextField newPasswordField;
     @FXML
     private PasswordField verifyNewPasswordField;
     @FXML
@@ -59,8 +60,6 @@ public class SceneController {
         String username = txtusername.getText().toLowerCase();
         String password = txtpassword.getText();
         String name = "";
-//        String dob = "";
-//        ObjectId id = new ObjectId();
         boolean exists = database.userExists(username);
         if (exists) {
             System.out.println("User exists.");
@@ -89,53 +88,23 @@ public class SceneController {
     // CHECK THE USERNAME AND DATE OF BIRTH WHETHER THEY ARE MATCH OR NOT:
     public Boolean checkUserName() throws IOException{
         String username =  txtusername.getText().toLowerCase();
-//        String userdob = dateOfBirth.getValue().toString();
-        LocalDate userDob = dateOfBirth.getValue();
-        String dob = "";
-        if(username.isEmpty()){
-            errorMessagePassword.setText("Please provide Username and Date of Birth");
-            System.out.println("\nFROM SCENE CONTROLLER:");
-            System.out.println("USERNAME: -> " + curUser);
-            System.out.println("PLEASE PROVIDE USERNAME ANS DATE OF BIRTH!\n");
-            return false;
-        } else if (userDob == null) {
-            errorMessagePassword.setText("Please provide Date of Birth");
-            System.out.println("\nFROM SCENE CONTROLLER:");
-            System.out.println("USERNAME: -> " + curUser);
-            System.out.println("PLEASE PROVIDE DATE OF BIRTH!\n");
-            return false;
-        }
-        String userDobStr = userDob.toString();
-        boolean exists = database.userExists(username);
-        if(exists){
-            System.out.println("USER EXISTS");
-            boolean validUserName = database.verifyDateOfBirth(username, userDobStr);
-//            System.out.println("Check validUsername");
-            if(validUserName){
-//                dob = database.getDOB(username);    CURRENT CHAT USER: -> {USERNAME = 'null'}
-                curUser = database.getChatUser(username);   // CURRENT CHAT USER: -> {USERNAME = 'ggg12'}
-                System.out.println("\nFROM SCENE CONTROLLER:");
-                System.out.println(curUser);
-                System.out.print("RESET PASSWORD PAGE IS OPEN: -> ");
-                System.out.println("RESET YOUR PASSWORD!\n");
-                return true;
-            }else {
-                errorMessagePassword.setText("Incorrect Date of Brith");
-                System.out.println("\nINCORRECT DATE OF BIRTH");
-                System.out.println("PLEASE TRY AGAIN!\n");
-                return false;
-            }
-        }else {
-            errorMessagePassword.setText("Not valid credentials");
-            System.out.println("\nUSER NOT EXISTS, PLEASE,TRY AGAIN!");
-            return false;
-        }
-    }
-
-    // RESET NEW PASSWORD AND UPDATE
-    public boolean resetPassword() throws IOException{
+        String userDob = dateOfBirth.getValue().toString();
         String newPassword = newPasswordField.getText();
         String verifyNewPassword = verifyNewPasswordField.getText();
+
+        if(username.isEmpty()){
+            errorMessagePassword.setText("Please provide Username and Date of Birth");
+            return false;
+        } else if (userDob.isEmpty()) {
+            errorMessagePassword.setText("Please provide Date of Birth");
+            return false;
+        }
+        boolean validCred = database.validEmailDob(username,userDob);
+        if(!validCred){
+                errorMessagePassword.setText("Incorrect Credentials");
+                return false;
+            }
+        //CHANGNG THE PASSWORD
         if(newPassword.isEmpty()){
             errorResetPassword.setText("Please provide new password!");
             System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
@@ -146,29 +115,57 @@ public class SceneController {
             System.out.println(passwordErrorMsg);
             return false;
         }
-        if(!newPassword.equals(verifyNewPassword)){
+        if(!(newPassword.equals(verifyNewPassword))){
             errorResetPassword.setText("Passwords do not match!");
             System.out.println("\nPASSWORD DO NOT MATCH\n");
             return false;
         }
-        // GET CURRENT LOGGED-IN USER:
-        String username = curUser.getUsername();
-        //UPDATE THE PASSWORD IN THE DATABASE:
+
         boolean passwordUpdated = database.updatePassword(username, newPassword);
         if(passwordUpdated){
-            System.out.println();
-            System.out.println("FROM SCENE CONTROLLER:");
-            System.out.println(curUser);
-            System.out.println("PASSWORD UPDATED SUCCESSFULLY!");
-            System.out.println();
             return true;
         }else {
-            // FAILED TO UPDATE PASSWORD
-            errorResetPassword.setText("Failed to update password!");
-            System.out.println("\nFAILED TO UPDATE PASSWORD!\n");
+//            errorResetPassword.setText("Failed to update password!");
+            System.out.println("RESET FAILED");
             return false;
         }
+
+
     }
+
+
+    // RESET NEW PASSWORD AND UPDATE
+//    public boolean resetPassword() throws IOException{
+//        String username = getUserForPass();
+//        System.out.println("EDEN USe");
+//        System.out.println(username);
+//        String newPassword = newPasswordField.getText();
+//        String verifyNewPassword = verifyNewPasswordField.getText();
+//        if(newPassword.isEmpty()){
+//            errorResetPassword.setText("Please provide new password!");
+//            System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
+//            return false;
+//        }
+//        if (!validatePassword(newPassword)) {
+//            errorResetPassword.setText(passwordErrorMsg);
+//            System.out.println(passwordErrorMsg);
+//            return false;
+//        }
+//        if(!(newPassword.equals(verifyNewPassword))){
+//            errorResetPassword.setText("Passwords do not match!");
+//            System.out.println("\nPASSWORD DO NOT MATCH\n");
+//            return false;
+//        }
+//
+//        boolean passwordUpdated = database.updatePassword("ed@bu.edu", newPassword);
+//        if(passwordUpdated){
+//            return true;
+//        }else {
+////            errorResetPassword.setText("Failed to update password!");
+//            System.out.println("RESET FAILED");
+//            return false;
+//        }
+//    }
     // CHANGE THE VISIBILITY TO THE PASSWORD BY CLICKING SHOW-PASSWORD BUTTON
     @FXML
     void changeVisibility(ActionEvent event){
@@ -184,11 +181,13 @@ public class SceneController {
     }
 
     public void resetPasswordToSuccesMessage(ActionEvent event) throws IOException{
-        if(resetPassword()){
+        if(checkUserName()){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
             stage.getScene().setRoot(root);
             stage.show();
+        }else{
+            errorMessage.setText("Unable to change password: check inputs");
         }
     }
     public void SuccessMessagesToLogInPage(ActionEvent event) throws IOException{
@@ -287,14 +286,14 @@ public class SceneController {
         }
     }
 
-    public void forgotPasswordToResetPassword(ActionEvent event) throws IOException{
-        if (checkUserName()){
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ResetPassword.fxml")));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.show();
-        }
-    }
+//    public void forgotPasswordToResetPassword(ActionEvent event) throws IOException{
+//        if (checkUserName()){
+//            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ResetPassword.fxml")));
+//            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+//            stage.getScene().setRoot(root);
+//            stage.show();
+//        }
+//    }
 
     // GO TO LOG-IN-PAGE, IF YOU ALREADY HAVE AN ACCOUNT
     public void backToSignInPage(ActionEvent event) throws IOException{

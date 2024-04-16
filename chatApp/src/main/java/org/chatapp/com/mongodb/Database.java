@@ -1,6 +1,7 @@
 package org.chatapp.com.mongodb;
 
 import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.Updates;
 import org.bson.Document;
 import org.bson.types.Binary;
@@ -175,6 +176,14 @@ public class Database {
         return new ChatUser(null,null,null,null);
     }
 
+    public boolean validEmailDob(String username, String dob) {
+        Document doc = userCollection.find(new Document("username", username)).first();
+        if (doc != null) {
+            return dob.equals(doc.getString("dob"));
+
+         }
+        return false;
+    }
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -213,13 +222,27 @@ public class Database {
 
     //UPDATED PASSWORD AND HASHING IT
     public boolean updatePassword(String username, String newPassword){
-        try{
-            userCollection.updateOne(eq("username", username), set("password", hashPassword(newPassword)));
+        System.out.println("IN DATABASE");
+        System.out.println(username);
+        System.out.println(newPassword);
+        Document doc = userCollection.find(new Document("username", username)).first();
+        if (doc != null) {
+            doc.put("password", hashPassword(newPassword));
+            userCollection.replaceOne(Filters.eq("username", username), doc);
+
+            System.out.println("Password updated successfully for user: " + username);
             return true;
-        }catch (Exception e){
-            e.printStackTrace();
+        } else {
+            System.out.println("User not found with username: " + username);
             return false;
         }
+//        try{
+//            userCollection.updateOne(eq("username", username), set("password", hashPassword(newPassword)));
+//            return true;
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return false;
+//        }
     }
     public boolean updateProfileImages(String username, byte[] imageData){
         try{
