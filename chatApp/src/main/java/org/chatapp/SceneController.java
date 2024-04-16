@@ -191,26 +191,24 @@ public class SceneController {
         passwordText.setVisible(false);
     }
 
-    @FXML
-    void showUp(MouseEvent event) {
-        ImageView clickedImage = (ImageView) event.getSource();
-        if (clickedImage.getId().equals("eye_show")) {
-            // Show the password
-            passwordText.setText(newPasswordField.getText());
-            passwordText.setVisible(true);
-            verifyNewPasswordField.setVisible(false);
-            eye_hide.setVisible(true);
-            eye_show.setVisible(false);
-        } else if (clickedImage.getId().equals("eye_hide")) {
-            // Hide the password
-            passwordText.setVisible(false);
-            verifyNewPasswordField.setVisible(true);
-            eye_show.setVisible(true);
-            eye_hide.setVisible(false);
-        }
-    }
-
-
+//    @FXML
+//    void showUp(MouseEvent event) {
+//        ImageView clickedImage = (ImageView) event.getSource();
+//        if (clickedImage.getId().equals("eye_show")) {
+//            // Show the password
+//            passwordText.setText(newPasswordField.getText());
+//            passwordText.setVisible(true);
+//            verifyNewPasswordField.setVisible(false);
+//            eye_hide.setVisible(true);
+//            eye_show.setVisible(false);
+//        } else if (clickedImage.getId().equals("eye_hide")) {
+//            // Hide the password
+//            passwordText.setVisible(false);
+//            verifyNewPasswordField.setVisible(true);
+//            eye_show.setVisible(true);
+//            eye_hide.setVisible(false);
+//        }
+//    }
 
     public void resetPasswordToSuccesMessage(ActionEvent event) throws IOException{
         if(resetPassword()){
