@@ -83,11 +83,10 @@ public class ChatPageController {
             socket = new Socket("localhost", portNumber);
             client = new Client(socket, curUser.getName());
         }catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Couldn't connect to the Server");
         }
         // tested to see if Listview would become scrollable with a lot of users + show difference
         // in secret chat and main chat
-        localChatList.addAll(client.getUsernames());
         localListView.setItems(localChatList);
 
         timeline = new Timeline(//to update message view for new messages every second
@@ -119,11 +118,16 @@ public class ChatPageController {
                 chatContainer.getChildren().clear();
                 localListView.getSelectionModel().clearSelection();      //clears ListView selection
                 userListView.getSelectionModel().clearSelection();   //clears ListView selection
-                if(newTab.equals(localChatTab)) {
-                    client.readMessage(chatContainer);
-                    toUser.setText("Local Chat");
-                } else if (newTab.equals(mainChatTab)) {
-                    toUser.setText("Main Chat");
+                try {
+                    if(newTab.equals(localChatTab)) {
+                        client.readMessage(chatContainer);
+                        toUser.setText("Local Chat");
+                    } else if (newTab.equals(mainChatTab)) {
+                        toUser.setText("Main Chat");
+                    }
+                }
+                catch (NullPointerException e) {
+                    System.out.println("Couldn't read message, check the Server");
                 }
             }
         });
@@ -215,8 +219,7 @@ public class ChatPageController {
                 }
             }
         }
-
-      }
+    }
 
     public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
         displayedMessages.clear();
