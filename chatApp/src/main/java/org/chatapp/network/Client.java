@@ -80,6 +80,7 @@ public class Client {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        ChatPageController.updateLocalChatList(getUsernames());
     }
 
     public void updateUserNames(String message) {
