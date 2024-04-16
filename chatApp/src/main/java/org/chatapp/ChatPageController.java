@@ -182,7 +182,7 @@ public class ChatPageController {
         stage.show();
     }
     public void goToProfile(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Profile.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ProfilePage.fxml")));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();
