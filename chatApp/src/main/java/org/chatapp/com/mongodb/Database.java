@@ -15,6 +15,10 @@ import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 import static com.mongodb.client.model.Updates.set;
+
+import ch.qos.logback.classic.Level;  //disables logs from mongoDB
+import ch.qos.logback.classic.LoggerContext;  //disables logs from mongoDB
+import org.slf4j.LoggerFactory; //disables logs from mongoDB
 public class Database {
     private static Database instance = null;
     private final MongoCollection<Document> userCollection;
@@ -22,6 +26,7 @@ public class Database {
 
     private Database() {
         // Replace string with our db connection
+        ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR); //disables logs from mongoDB
         String uri = "";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
