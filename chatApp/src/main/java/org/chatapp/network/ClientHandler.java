@@ -1,14 +1,13 @@
 package org.chatapp.network;
-import org.chatapp.ChatPageController;
-import org.chatapp.SceneController;
 
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
 public class ClientHandler implements Runnable{
-    public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
-    public Socket socket;
+    private static final ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
+    private static final ArrayList<String> userNames = new ArrayList<>();
+    private Socket socket;
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private String userName;
@@ -20,11 +19,17 @@ public class ClientHandler implements Runnable{
             this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             this.userName = bufferedReader.readLine();
             clientHandlers.add(this);
+            userNames.add(userName);
+            broadcastMessage("addUser");
+            broadcastMessage(userName);
             broadcastMessage("Server: " + userName + " connected");
         }
         catch (IOException e) {
             closeAll(socket, bufferedWriter, bufferedReader);
         }
+    }
+    public static ArrayList<String> getUserNames() {
+        return userNames;
     }
 
     public String getUserName() {
@@ -34,7 +39,7 @@ public class ClientHandler implements Runnable{
     @Override
     public void run() {
         String messageFromUser;
-
+        populateUsers("start", null);
         while (socket.isConnected()) {
             try {
                 messageFromUser = bufferedReader.readLine();
@@ -44,6 +49,30 @@ public class ClientHandler implements Runnable{
                 closeAll(socket, bufferedWriter, bufferedReader);
                 break;
             }
+        }
+    }
+
+    public void populateUsers(String message, String userToDelete) {
+        try {
+            String request = bufferedReader.readLine();
+            if (request.equals("get_usernames") || message.equals("delete")) {
+                if (request.equals("get_usernames")) {
+                    bufferedWriter.write("Group Chat\n");
+                    for (String username : userNames) {
+                        bufferedWriter.write(username + "\n");
+                    }
+                    bufferedWriter.write("end\n");
+                    bufferedWriter.flush();
+                }
+                else {
+                    bufferedWriter.write(message + "\n");
+                    bufferedWriter.write(userToDelete + "\n");
+                    bufferedWriter.write("end\n");
+                    bufferedWriter.flush();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -64,6 +93,9 @@ public class ClientHandler implements Runnable{
 
     public void removeClientHandler() {
         clientHandlers.remove(this);
+        userNames.remove(userName);
+        broadcastMessage("removeUser");
+        broadcastMessage(userName);
         broadcastMessage("Server: " + userName + " left chat");
     }
 

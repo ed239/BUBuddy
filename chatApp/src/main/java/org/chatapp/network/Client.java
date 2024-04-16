@@ -1,4 +1,6 @@
 package org.chatapp.network;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 import org.chatapp.ChatPageController;
 
@@ -11,6 +13,7 @@ public class Client {
     private BufferedReader bufferedReader;
     private BufferedWriter bufferedWriter;
     private String userName;
+    private final ObservableList<String> userNames = FXCollections.observableArrayList();
 
     public Client(Socket socket, String userName) {
         try {
@@ -21,15 +24,16 @@ public class Client {
             bufferedWriter.write(userName);
             bufferedWriter.newLine();
             bufferedWriter.flush();
+            setUserNames();
         } catch (IOException e) {
             closeAll(socket, bufferedWriter, bufferedReader);
         }
     }
 
     //sendMessage method for GUI ChatPageController
-    public void sendMessage(String message) {
+    public void sendMessage(String toUser, String message) {
         try {
-            bufferedWriter.write(userName + ": " + message);
+            bufferedWriter.write(userName + " >:> " + toUser + " >:> " + message);
             bufferedWriter.newLine();
             bufferedWriter.flush();
         } catch (IOException e) {
@@ -39,21 +43,56 @@ public class Client {
 
     //readMessage method for GUI ChatPageController
     public void readMessage(VBox vBox) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String messageFromGroupChat;
+        new Thread(() -> {
+                String messageFromServer;
                 while (socket.isConnected()) {
                     try {
-                        messageFromGroupChat = bufferedReader.readLine();
-                        ChatPageController.addLabel(messageFromGroupChat, vBox, true);
+                        messageFromServer = bufferedReader.readLine();
+                        if (messageFromServer.equals("addUser") || messageFromServer.equals("removeUser")) {
+                            updateUserNames(messageFromServer + ":" + bufferedReader.readLine());
+                        } else if (messageFromServer.contains(" >:> " + userName + " >:> ")) {
+                            ChatPageController.addLabel(messageFromServer, vBox, true);
+                        } else if (messageFromServer.contains(" >:> " + "Group Chat" + " >:> ")) {
+                            ChatPageController.addLabel(messageFromServer, vBox, true);
+                        }
                     } catch (IOException e) {
                         closeAll(socket, bufferedWriter, bufferedReader);
                         break;
                     }
                 }
-            }
         }).start();
+    }
+
+    public ObservableList<String> getUsernames() {
+        return userNames;
+    }
+
+    public void setUserNames() {
+        try {
+            bufferedWriter.write("get_usernames\n");
+            bufferedWriter.flush();
+            String nameOfUser;
+            while (!((nameOfUser = bufferedReader.readLine()) == null) && !nameOfUser.equals("end")) {
+                if (!nameOfUser.equals(userName)) {
+                    userNames.add(nameOfUser);
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void updateUserNames(String message) {
+        String[] parts = message.split(":");
+        String action = parts[0].trim();
+        String userName = parts[1].trim();
+
+        if (action.equals("addUser")) {
+            userNames.add(userName);
+        } else if (action.equals("removeUser")) {
+            userNames.remove(userName);
+        }
+        ChatPageController.updateLocalChatList(getUsernames());
     }
 
     public void closeAll(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader) {

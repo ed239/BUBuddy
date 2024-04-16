@@ -30,9 +30,9 @@
          </rowConstraints>
          <children>
             <Label fx:id="toUser" alignment="TOP_CENTER" text="Selected User" textAlignment="CENTER" GridPane.halignment="CENTER" GridPane.valignment="CENTER" />
-            <ScrollPane fx:id="sp_secret" fitToHeight="true" fitToWidth="true" maxWidth="838.0" style="-fx-background-color: #faf9f6;" vbarPolicy="ALWAYS" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <ScrollPane fx:id="sp_local" fitToHeight="true" fitToWidth="true" maxWidth="838.0" style="-fx-background-color: #faf9f6;" vbarPolicy="ALWAYS" GridPane.halignment="CENTER" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                <content>
-                  <VBox fx:id="chatContainer" alignment="CENTER" fillWidth="false" style="-fx-background-color: #faf9f6;">
+                  <VBox fx:id="chatContainer" alignment="TOP_CENTER" fillWidth="false" style="-fx-background-color: #faf9f6;">
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets></VBox>
@@ -122,19 +122,17 @@
       </GridPane>
    </top>
    <left>
-      <TabPane fx:id="chatTabs" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #faf9f6; -fx-border-color: #2d2926; -fx-border-width: 0px 2px 0px 0px;" BorderPane.alignment="CENTER">
-         <tabs>
-            <Tab fx:id="mainChatTab" closable="false" text="Main Chats">
-               <content>
-                  <ListView fx:id="userListView" prefHeight="200.0" prefWidth="200.0" style="-fx-control-inner-background: #faf9f6;" />
-               </content>
-            </Tab>
-            <Tab fx:id="secretChatTab" closable="false" text="Secret Chats">
-               <content>
-                  <ListView fx:id="secretListView" prefHeight="200.0" prefWidth="200.0" style="-fx-control-inner-background: #faf9f6;" />
-               </content>
-            </Tab>
-         </tabs>
+      <TabPane fx:id="chatTabs" nodeOrientation="LEFT_TO_RIGHT"
+               style="-fx-background-color: #faf9f6; -fx-border-color: #2d2926; -fx-border-width: 0px 2px 0px 0px;"
+               BorderPane.alignment="CENTER">
+         <Tab fx:id="mainChatTab" closable="false" text="Main Chats">
+            <ListView fx:id="userListView" prefHeight="200.0" prefWidth="200.0"
+                      style="-fx-control-inner-background: #faf9f6;"/>
+         </Tab>
+         <Tab fx:id="localChatTab" closable="false" text="Secret Chats">
+            <ListView fx:id="localListView" prefHeight="200.0" prefWidth="200.0"
+                      style="-fx-control-inner-background: #faf9f6;"/>
+         </Tab>
       </TabPane>
    </left>
 </BorderPane>
