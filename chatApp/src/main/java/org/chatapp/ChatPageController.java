@@ -127,8 +127,6 @@ public class ChatPageController {
                 }
             }
         });
-
-
         // makes secret chats menu operate like main chat user selection listener
         localListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
             @Override
@@ -219,7 +217,6 @@ public class ChatPageController {
         }
 
       }
-    });
 
     public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
         displayedMessages.clear();
@@ -233,8 +230,6 @@ public class ChatPageController {
         startDisplayingNewMessages(toId,fromId);
         isAutoUpdating = true;
     }
-
-
     private void displayMessage(Document message) {
         String text = message.getString("text");
         ObjectId senderId = message.getObjectId("fromId");

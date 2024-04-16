@@ -254,8 +254,7 @@ public class SceneController {
             !dOB.isEmpty()) {
             boolean validPass = validatePassword(password);
             if (validPass) {
-                return database.createUser(fullname, username, password, dOB, profileImageDate,
-                    email);
+                return database.createUser(fullname, username, password, dOB, profileImageDate);
             } else {
                 errorMessageSignUp.setText(passwordErrorMsg);
                 return false;
