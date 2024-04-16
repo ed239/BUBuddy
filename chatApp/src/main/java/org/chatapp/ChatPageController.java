@@ -217,7 +217,9 @@ public class ChatPageController {
                 }
             }
         }
-    }
+
+      }
+    });
 
     public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
         displayedMessages.clear();
@@ -256,7 +258,8 @@ public class ChatPageController {
         messageContainer.setMaxWidth(chatContainer.getWidth());
 
     }
-
+  
+  
     public void startDisplayingNewMessages(ObjectId toId, ObjectId fromId) {
         timeline.play(); // Start the Timeline
     }

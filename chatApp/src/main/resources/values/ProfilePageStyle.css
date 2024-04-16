@@ -1,0 +1,84 @@
+.buttonSave{
+    -fx-background-color: #C20000;
+    -fx-background-radius: 30;
+    -fx-text-fill: #fff;
+}
+.buttonSave:hover{
+    -fx-background-color: rgba(152, 36, 36, 0.98);
+    -fx-background-radius: 30;
+    -fx-text-fill: #fff;
+}
+.buttonSave:pressed{
+    -fx-background-color: #C20000;
+    -fx-background-radius: 30;
+    -fx-text-fill: #fff;
+}
+.buttonChange{
+    -fx-background-color: transparent;
+}
+.leftSidePane{
+    -fx-background-color: #F2F2F2;
+    -fx-background-radius: 10px;
+    -fx-border-color: #C20000;
+    -fx-border-width: 2px;
+    -fx-border-radius:10px;
+}
+.rightSidePane{
+    -fx-background-radius: 10px;
+    -fx-background-color: #F2F2F2;
+    -fx-border-color: #C20000;
+    -fx-border-width: 2px;
+    -fx-border-radius:10px;
+}
+.rightSideVBox{
+    -fx-background-radius: 10px;
+    -fx-background-color: #C20000;
+}
+.rightSideText{
+    -fx-text-fill: #C20000;
+}
+.selected-border{
+
+}
+.selected:hover{
+    -fx-background-color: rgba(215, 134, 134, 0.98);
+    -fx-border-color: #C20000;
+    -fx-border-width: 0 5 0 0;
+}
+.editImage{
+    -fx-background-color: transparent;
+    -fx-text-fill: #0600c2;
+}
+.fullnameProfile{
+    -fx-background-color: transparent;
+    -fx-border-width: 1 0 1 0;
+    -fx-border-color: #C20000;
+    -fx-text-inner-color: #C20000;
+}
+.detailsTextBox{
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: #000000;
+    -fx-text-inner-color: #fff;
+}
+.inPasswordSubmit{
+    -fx-background-color: #C20000;
+    -fx-background-radius: 0;
+}
+.inPasswordSubmit:hover{
+    -fx-border-width: 1px;
+    -fx-border-color: #fdc9c9;
+}
+.inPasswordSubmit:pressed{
+    -fx-background-color: #b21010;
+}
+.redAnchorPane1{
+    -fx-background-color: #C20000;
+    -fx-background-radius: 10px;
+}
+.redAnchorPane2{
+    -fx-background-color: transparent;
+    -fx-border-width: 1px;
+    -fx-border-color: #911515;
+    -fx-border-radius: 10px;
+}

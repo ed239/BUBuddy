@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.chatClient;
@@ -58,7 +60,7 @@ public class SceneController {
 //        curUser = null;
         String username = txtusername.getText().toLowerCase();
         String password = txtpassword.getText();
-        String name = "";
+//        String name = "";
 //        String dob = "";
 //        ObjectId id = new ObjectId();
         boolean exists = database.userExists(username);
@@ -66,13 +68,13 @@ public class SceneController {
             System.out.println("User exists.");
             boolean validUser = database.verifyPassword(username, password);
             if(validUser){
-                name = database.getName(username);
+                String name = database.getName(username);
+                curUser = database.getChatUser(name);
 //                id = database.getUserObjectId(username);
 //                dob = database.getDOB(username);
-                curUser = database.getChatUser(name);
-                System.out.println("\n\nSCENECONTROLLER");
+                System.out.println("\n\nSCENECONTROLLER  Login() Method check curUser----->>>>>>>");
                 System.out.println(curUser);
-                System.out.println("Authenticated!");
+                System.out.println("Authenticated!----->>>>>>>");
                 return true;
             }else{
                 errorMessage.setText("Incorrect Password");
@@ -94,7 +96,7 @@ public class SceneController {
         String dob = "";
         if(username.isEmpty()){
             errorMessagePassword.setText("Please provide Username and Date of Birth");
-            System.out.println("\nFROM SCENE CONTROLLER:");
+            System.out.println("\n---->>>> checkUserName()>>> FROM SCENE CONTROLLER:");
             System.out.println("USERNAME: -> " + curUser);
             System.out.println("PLEASE PROVIDE USERNAME ANS DATE OF BIRTH!\n");
             return false;
@@ -108,16 +110,16 @@ public class SceneController {
         String userDobStr = userDob.toString();
         boolean exists = database.userExists(username);
         if(exists){
-            System.out.println("USER EXISTS");
+            System.out.println("\nUSER EXISTS\n");
             boolean validUserName = database.verifyDateOfBirth(username, userDobStr);
 //            System.out.println("Check validUsername");
             if(validUserName){
-//                dob = database.getDOB(username);    CURRENT CHAT USER: -> {USERNAME = 'null'}
-                curUser = database.getChatUser(username);   // CURRENT CHAT USER: -> {USERNAME = 'ggg12'}
-                System.out.println("\nFROM SCENE CONTROLLER:");
+                String name = database.getName(username);  // GET CURRENT USERNAME FROM DATABASE
+                curUser = database.getChatUser(name);   // CURRENT CHAT USER: -> {USERNAME = 'ggg12'}
+                System.out.println("\nFROM SCENE CONTROLLER: checkUserName() Method+++++++++");
                 System.out.println(curUser);
-                System.out.print("RESET PASSWORD PAGE IS OPEN: -> ");
-                System.out.println("RESET YOUR PASSWORD!\n");
+                System.out.print("-------->>> curUser >>>> RESET PASSWORD PAGE IS OPEN: -> ");
+                System.out.println("-------->>> RESET YOUR PASSWORD!\n");
                 return true;
             }else {
                 errorMessagePassword.setText("Incorrect Date of Brith");
@@ -152,12 +154,22 @@ public class SceneController {
             return false;
         }
         // GET CURRENT LOGGED-IN USER:
-        String username = curUser.getUsername();
+        String username = (curUser != null) ? curUser.getUsername() : null;
+        if (username == null) {
+            System.out.println("\nUser not logged in or username not available!");
+            // Handle this case appropriately, such as showing an error message to the user.
+            return false; // Or perform other actions based on your application's logic.
+        }
+//        // GET CURRENT LOGGED-IN USER:
+//        username = curUser.getUsername();
+
         //UPDATE THE PASSWORD IN THE DATABASE:
+        System.out.println("\nAttempting to update password for user: " + username + "\n");
         boolean passwordUpdated = database.updatePassword(username, newPassword);
+        System.out.println("\nPassword updated in database: " + passwordUpdated);
         if(passwordUpdated){
             System.out.println();
-            System.out.println("FROM SCENE CONTROLLER:");
+            System.out.println("--->>> FROM SCENE CONTROLLER:");
             System.out.println(curUser);
             System.out.println("PASSWORD UPDATED SUCCESSFULLY!");
             System.out.println();
@@ -182,6 +194,25 @@ public class SceneController {
         verifyNewPasswordField.setVisible(true);
         passwordText.setVisible(false);
     }
+
+//    @FXML
+//    void showUp(MouseEvent event) {
+//        ImageView clickedImage = (ImageView) event.getSource();
+//        if (clickedImage.getId().equals("eye_show")) {
+//            // Show the password
+//            passwordText.setText(newPasswordField.getText());
+//            passwordText.setVisible(true);
+//            verifyNewPasswordField.setVisible(false);
+//            eye_hide.setVisible(true);
+//            eye_show.setVisible(false);
+//        } else if (clickedImage.getId().equals("eye_hide")) {
+//            // Hide the password
+//            passwordText.setVisible(false);
+//            verifyNewPasswordField.setVisible(true);
+//            eye_show.setVisible(true);
+//            eye_hide.setVisible(false);
+//        }
+//    }
 
     public void resetPasswordToSuccesMessage(ActionEvent event) throws IOException{
         if(resetPassword()){

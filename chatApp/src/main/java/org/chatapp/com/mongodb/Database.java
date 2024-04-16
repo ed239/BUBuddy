@@ -69,8 +69,7 @@ public class Database {
     public String getName(String username){
         Document userDoc = userCollection.find(new Document("username", username)).first();
         if (userDoc != null) {
-            String name = userDoc.getString("fullname");
-            return name;
+            return userDoc.getString("fullname");
         }
         return "";
     }
@@ -93,15 +92,15 @@ public class Database {
         }
     }
 
-    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, byte[] profileImageData, String email){
+    public Boolean createUser(String fullname, String username, String password, String dateOfBirth, byte[] profileImageData){
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
 
         Document newDoc = new Document("username", username)
                 .append("password", hashedPassword)
                 .append("fullname", fullname)
-                .append("dob", dateOfBirth)
-                .append("email",email);
+                .append("dob", dateOfBirth);
+//                .append("email",email);
 
         if(profileImageData != null && profileImageData.length > 0){
             newDoc.append("profileImage",new Binary(profileImageData));
@@ -187,6 +186,8 @@ public class Database {
 
             StringBuilder hexString = new StringBuilder();
             for (byte b : hash) {
+//                String hex = String.format("%02x", b);
+//                hexString.append(hex);
                 String hex = Integer.toHexString(0xff & b);
                 if (hex.length() == 1) hexString.append('0');
                 hexString.append(hex);
@@ -219,7 +220,10 @@ public class Database {
     //UPDATED PASSWORD AND HASHING IT
     public boolean updatePassword(String username, String newPassword){
         try{
-            userCollection.updateOne(eq("username", username), set("password", hashPassword(newPassword)));
+            // Hash the new password before updating
+            String hashedPassword = hashPassword(newPassword);
+            userCollection.updateOne(eq("username", username), set("password", hashedPassword ));
+            System.out.println("\nPassword updated in the database!");
             return true;
         }catch (Exception e){
             e.printStackTrace();
@@ -264,14 +268,13 @@ public class Database {
             return null;
         }
     }
-
-    public boolean updateProfileDetails(String username, String fullName, String dateOfBirth, String email){
+    public boolean updateProfileDetails(String username, String fullName, String dateOfBirth){
         try{
             userCollection.updateOne(eq("username", username),
                     Updates.combine(
                             Updates.set("fullname", fullName),
-                            Updates.set("dob", dateOfBirth),
-                            Updates.set("email", email)
+                            Updates.set("dob", dateOfBirth)
+//                            Updates.set("email", email)
                             )
             );
             System.out.println("\nPROFILE DETAILS UPDATED SUCCESSFULLY!\n");
