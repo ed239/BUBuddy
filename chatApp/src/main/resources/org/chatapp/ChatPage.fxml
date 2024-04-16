@@ -122,19 +122,17 @@
       </GridPane>
    </top>
    <left>
-      <TabPane fx:id="chatTabs" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #faf9f6; -fx-border-color: #2d2926; -fx-border-width: 0px 2px 0px 0px;" BorderPane.alignment="CENTER">
-         <tabs>
-            <Tab fx:id="mainChatTab" closable="false" text="Main Chats">
-               <content>
-                  <ListView fx:id="userListView" prefHeight="200.0" prefWidth="200.0" style="-fx-control-inner-background: #faf9f6;" />
-               </content>
-            </Tab>
-            <Tab fx:id="localChatTab" closable="false" text="Local Chat">
-               <content>
-                  <ListView fx:id="localListView" prefHeight="200.0" prefWidth="200.0" style="-fx-control-inner-background: #faf9f6;" />
-               </content>
-            </Tab>
-         </tabs>
+      <TabPane fx:id="chatTabs" nodeOrientation="LEFT_TO_RIGHT"
+               style="-fx-background-color: #faf9f6; -fx-border-color: #2d2926; -fx-border-width: 0px 2px 0px 0px;"
+               BorderPane.alignment="CENTER">
+         <Tab fx:id="mainChatTab" closable="false" text="Main Chats">
+            <ListView fx:id="userListView" prefHeight="200.0" prefWidth="200.0"
+                      style="-fx-control-inner-background: #faf9f6;"/>
+         </Tab>
+         <Tab fx:id="localChatTab" closable="false" text="Secret Chats">
+            <ListView fx:id="localListView" prefHeight="200.0" prefWidth="200.0"
+                      style="-fx-control-inner-background: #faf9f6;"/>
+         </Tab>
       </TabPane>
    </left>
 </BorderPane>
