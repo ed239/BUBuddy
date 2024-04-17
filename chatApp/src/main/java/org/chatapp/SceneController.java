@@ -177,8 +177,6 @@ public class SceneController {
             System.out.println("RESET FAILED");
             return false;
         }
-
-
     }
 
     // RESET NEW PASSWORD AND UPDATE
