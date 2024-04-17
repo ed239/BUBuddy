@@ -1,10 +1,7 @@
 package org.chatapp;
 import java.io.IOException;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 import com.mongodb.client.FindIterable;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -62,7 +59,7 @@ public class ChatPageController {
     private ScrollPane sp_local;
     private List<Document> displayedMessages = new ArrayList<>();
     private Date lastDisplayedTimestamp;
-    private Socket socket;
+    private ClientManager clientManager;
     private Client client;
     private static final int portNumber = 6667;
     private boolean isLocalChat = false; //for separating send button between main chat and Local group chat
@@ -78,13 +75,15 @@ public class ChatPageController {
         FXCollections.sort(allChatUsersExceptCurrent, String.CASE_INSENSITIVE_ORDER);
         userListView.setItems(allChatUsersExceptCurrent);
 
+        clientManager = ClientManager.getInstance();
+        client = clientManager.getClient();
         //creates client socket for server
-        try {
-            socket = new Socket("localhost", portNumber);
-            client = new Client(socket, curUser.getName());
-        }catch (IOException e) {
-            System.out.println("Couldn't connect to the Server");
-        }
+//        try {
+//            socket = new Socket("localhost", portNumber);
+//            client = new Client(socket, curUser.getName());
+//        }catch (IOException e) {
+//            System.out.println("Couldn't connect to the Server");
+//        }
         // tested to see if Listview would become scrollable with a lot of users + show difference
         // in Local chat and main chat
         localListView.setItems(localChatList);
