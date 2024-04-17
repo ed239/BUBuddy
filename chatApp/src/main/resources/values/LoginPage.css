@@ -8,7 +8,9 @@
     /*-fx-effect: null; !* Remove default effect *!*/
 }
 .password:hover{
+    /*Drop shadow*/
     /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 0);*/
+
 }
 .logButton{
     -fx-background-color: #CC0000;
