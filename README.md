@@ -6,7 +6,7 @@ A chat application built with the user in mind, targeting the Boston University 
 
 ## Tech Stack
 
-**Client:** Java, JavaFX
+**Client:** Java, JavaFX, CSS
 
 **Database:** MongoDB
 
@@ -18,12 +18,12 @@ TODO: Insert gif or link to demo
 
 ## Getting Started
 
-Clone the project
+Step 1. Clone the project
 
 ```bash
   git clone https://github.com/ed239/BUBuddy.git
 ```
-
+Step 2.
 ```bash
   TODO: Step 2... To be continued.
 ```
