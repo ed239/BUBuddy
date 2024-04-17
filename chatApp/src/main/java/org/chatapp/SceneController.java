@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.chatClient;
@@ -266,6 +267,7 @@ public class SceneController {
             id_eye_hide.setVisible(true);
         }
     }
+
 //    @FXML
 //    void showUp(MouseEvent event) {
 //        ImageView clickedImage = (ImageView) event.getSource();
