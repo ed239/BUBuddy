@@ -45,15 +45,18 @@ public class Client {
     public void readMessage(VBox vBox) {
         new Thread(() -> {
                 String messageFromServer;
+                String[] parts;
                 while (socket.isConnected()) {
                     try {
                         messageFromServer = bufferedReader.readLine();
                         if (messageFromServer.equals("addUser") || messageFromServer.equals("removeUser")) {
                             updateUserNames(messageFromServer + ":" + bufferedReader.readLine());
                         } else if (messageFromServer.contains(" >:> " + userName + " >:> ")) {
-                            ChatPageController.addLabel(messageFromServer, vBox, true);
+                            parts = messageFromServer.split(" >:> ");
+                            ChatPageController.addLabel(parts[2], vBox, true);
                         } else if (messageFromServer.contains(" >:> " + "Group Chat" + " >:> ")) {
-                            ChatPageController.addLabel(messageFromServer, vBox, true);
+                            parts = messageFromServer.split(" >:> ");
+                            ChatPageController.addLabel(parts[0] + ": " + parts[2], vBox, true);
                         }
                     } catch (IOException e) {
                         closeAll(socket, bufferedWriter, bufferedReader);
