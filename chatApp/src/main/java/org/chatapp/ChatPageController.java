@@ -65,7 +65,7 @@ public class ChatPageController {
     private Socket socket;
     private Client client;
     private static final int portNumber = 6667;
-    private boolean isLocalChat = false; //for separating send button between main chat and secret group chat
+    private boolean isLocalChat = false; //for separating send button between main chat and Local group chat
     private static final ObservableList<String> localChatList = FXCollections.observableArrayList();
     private boolean isMainChat = false;
     private boolean isAutoUpdating = false;
@@ -86,7 +86,7 @@ public class ChatPageController {
             System.out.println("Couldn't connect to the Server");
         }
         // tested to see if Listview would become scrollable with a lot of users + show difference
-        // in secret chat and main chat
+        // in Local chat and main chat
         localListView.setItems(localChatList);
 
         timeline = new Timeline(//to update message view for new messages every second
@@ -107,7 +107,7 @@ public class ChatPageController {
                 toUserObj = database.getChatUser(newValue);
                 chatContainer.getChildren().clear();
                 displayAllMessages(curUser.getId(), toUserObj.getId(),"");
-                isLocalChat = false;  //for separating send button between main chat and secret group chat
+                isLocalChat = false;  //for separating send button between main chat and Local group chat
                 isMainChat = true;
             }
         });
@@ -131,13 +131,13 @@ public class ChatPageController {
                 }
             }
         });
-        // makes secret chats menu operate like main chat user selection listener
+        // makes Local chats menu operate like main chat user selection listener
         localListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue observable, String oldValue, String newValue) {
                 chatContainer.getChildren().clear();
                 toUser.setText(newValue);
-                isLocalChat = true;      //for separating send button between main chat and secret group chat
+                isLocalChat = true;      //for separating send button between main chat and Local group chat
                 isMainChat = false;
             }});
 
