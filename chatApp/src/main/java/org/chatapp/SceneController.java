@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.chatClient;
@@ -50,6 +51,12 @@ public class SceneController {
     private Label errorMessagePassword;
     @FXML
     private Label errorResetPassword;
+    @FXML
+    private ImageView id_eye_hide;
+    @FXML
+    private ImageView id_eye_show;
+    @FXML
+    private TextField txt_field_password;
     private String passwordErrorMsg = "Password needs to have at least 8 characters, 1 capital "
         + "letter, 1 number and 1 additional symbol.";
 
@@ -177,8 +184,6 @@ public class SceneController {
             System.out.println("RESET FAILED");
             return false;
         }
-
-
     }
 
     // RESET NEW PASSWORD AND UPDATE
@@ -229,17 +234,38 @@ public class SceneController {
         }
     }
     // CHANGE THE VISIBILITY TO THE PASSWORD BY CLICKING SHOW-PASSWORD BUTTON
+//    @FXML
+//    void changeVisibility(ActionEvent event){
+//        if(checkBox.isSelected()){
+//            passwordText.setText(verifyNewPasswordField.getText());
+//            passwordText.setVisible(true);
+//            verifyNewPasswordField.setVisible(false);
+//            return;
+//        }
+//        verifyNewPasswordField.setText(passwordText.getText());
+//        verifyNewPasswordField.setVisible(true);
+//        passwordText.setVisible(false);
+//    }
+//    txt_field_password       ;       txtpassword ;      id_eye_hide       ;      id_eye_show
+
     @FXML
-    void changeVisibility(ActionEvent event){
-        if(checkBox.isSelected()){
-            passwordText.setText(verifyNewPasswordField.getText());
-            passwordText.setVisible(true);
-            verifyNewPasswordField.setVisible(false);
-            return;
+    void changeVisibility(MouseEvent event){
+        ImageView clickedImage = (ImageView) event.getSource();
+        if(clickedImage.getId().equals("id_eye_hide")){
+            // Show password
+            txt_field_password.setText(txtpassword.getText());
+            txt_field_password.setVisible(true);
+            txtpassword.setVisible(false);
+            id_eye_show.setVisible(true);
+            id_eye_hide.setVisible(false);
+        }else if (clickedImage.getId().equals("id_eye_show")){
+            // Hide the password
+            txtpassword.setText(txt_field_password.getText());
+            txt_field_password.setVisible(false);
+            txtpassword.setVisible(true);
+            id_eye_show.setVisible(false);
+            id_eye_hide.setVisible(true);
         }
-        verifyNewPasswordField.setText(passwordText.getText());
-        verifyNewPasswordField.setVisible(true);
-        passwordText.setVisible(false);
     }
 
 //    @FXML

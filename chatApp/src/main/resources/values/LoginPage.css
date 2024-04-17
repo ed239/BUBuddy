@@ -1,0 +1,23 @@
+.txtfiled,
+.password{
+    -fx-background-color: #FAF9F6;
+    -fx-background-radius: 5px;
+    -fx-border-color: #CC0000;
+    -fx-border-width: 2px;
+    -fx-border-radius: 5px;
+    /*-fx-effect: null; !* Remove default effect *!*/
+}
+.password:hover{
+    /*Drop shadow*/
+    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 0);*/
+
+}
+.logButton{
+    -fx-background-color: #CC0000;
+}
+.logButton:hover{
+    -fx-background-color: #9d1515;
+}
+.logButton:pressed{
+    -fx-background-color: #C20000;
+}
