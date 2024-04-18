@@ -62,14 +62,15 @@ public class SceneController {
 
     static Database database = Database.getInstance();
 
+    ///////////////////////////////////////////////////////////////////
+    /// Login() button to log in to application                     ///
+    /// Input : takes from the user input on screen...              ///
+    ///  username, password                                         ///
+    /// Output: Boolean - valid credentials - true, else false      ///
+    /// Verifies login and routes user to chat page                 ///
     public Boolean Login() throws IOException{
-        // Provide username and password
-//        curUser = null;
         String username = txtusername.getText().toLowerCase();
         String password = txtpassword.getText();
-//        String name = "";
-//        String dob = "";
-//        ObjectId id = new ObjectId();
         boolean exists = database.userExists(username);
         if (exists) {
             System.out.println("User exists.");
@@ -77,20 +78,13 @@ public class SceneController {
             if(validUser){
                 String name = database.getName(username);
                 curUser = database.getChatUser(name);
-//                id = database.getUserObjectId(username);
-//                dob = database.getDOB(username);
-                System.out.println("\n\nSCENECONTROLLER  Login() Method check curUser----->>>>>>>");
-                System.out.println(curUser);
-                System.out.println("Authenticated!----->>>>>>>");
                 return true;
             }else{
                 errorMessage.setText("Incorrect Password");
-                System.out.println("Not Authenticated");
                 return false;
             }
         } else {
             errorMessage.setText("Not valid credentials");
-            System.out.println("Username does not exist.");
             return false;
         }
     }
@@ -140,13 +134,19 @@ public class SceneController {
             return false;
         }
     }
-
+    ///////////////////////////////////////////////////////////////////
+    /// checkandupdatePass() log in to application                  ///
+    /// Input : takes from the user input on screen...              ///
+    ///  username, dob, newpassword, verified password              ///
+    /// Output: Boolean - true if password reset else false         ///
+    /// calls database to reset the password                        ///
     public Boolean checkandupdatePass() throws IOException{
         String username =  txtusername.getText().toLowerCase();
         String userDob = dateOfBirth.getValue().toString();
         String newPassword = newPasswordField.getText();
         String verifyNewPassword = verifyNewPasswordField.getText();
 
+        // Verifying username and dob are not empty
         if(username.isEmpty()){
             errorMessagePassword.setText("Please provide Username and Date of Birth");
             return false;
@@ -154,15 +154,15 @@ public class SceneController {
             errorMessagePassword.setText("Please provide Date of Birth");
             return false;
         }
+        //veridying username and dob match a user in the db
         boolean validCred = database.validEmailDob(username,userDob);
         if(!validCred){
             errorMessagePassword.setText("Incorrect Credentials");
             return false;
         }
-        //CHANGNG THE PASSWORD
+        //Checking the new password fields are not empty and match
         if(newPassword.isEmpty()){
             errorResetPassword.setText("Please provide new password!");
-            System.out.println("\nPLEASE PROVIDE NEW PASSWORD!\n");
             return false;
         }
         if (!validatePassword(newPassword)) {
@@ -172,10 +172,9 @@ public class SceneController {
         }
         if(!(newPassword.equals(verifyNewPassword))){
             errorResetPassword.setText("Passwords do not match!");
-            System.out.println("\nPASSWORD DO NOT MATCH\n");
             return false;
         }
-
+        //CHANGING THE PASSWORD
         boolean passwordUpdated = database.updatePassword(username, newPassword);
         if(passwordUpdated){
             return true;
@@ -295,7 +294,11 @@ public class SceneController {
             stage.show();
         }
     }
-
+    ///////////////////////////////////////////////////////////////////
+    /// resetPassNotLoggedIn() Reset Password Button                ///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
+    /// Action: if password updated, screen goes to success page    ///
     public void resetPassNotLoggedIn(ActionEvent event) throws IOException{
         if(checkandupdatePass()){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
@@ -434,6 +437,11 @@ public class SceneController {
         stage.show();
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// forgotPasswordLogIn() Go to Forgot Password                 ///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
+    /// Action: used when user is not logged in... from Log in page ///
     public void forgotPasswordLogIn(ActionEvent event) throws IOException{
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ForgotTest2.fxml")));
         stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
