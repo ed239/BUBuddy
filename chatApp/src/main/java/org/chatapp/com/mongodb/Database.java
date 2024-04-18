@@ -24,22 +24,42 @@ public class Database {
     private final MongoCollection<Document> userCollection;
     private final MongoCollection<Document> messagesCollection;
 
+
+    ///////////////////////////////////////////////////////////////////
+    /// Database() creates conection to db                          ///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
+    /// Connects to the database and defines the collections        ///
+    /// Note: change URI to match database link                     ///
     private Database() {
         // Replace string with our db connection
         ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR); //disables logs from mongoDB
-        String uri = "";
+//        String uri = "";
+        String uri = "mongodb+srv://amiyev:BuBuddy2024@bubuddyv1.kups6t4.mongodb.net/?retryWrites=true&w=majority&appName=BuBuddyV1";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
         messagesCollection = database.getCollection("messages");
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// getInstance() pass instance of db to different controllers  ///
+    /// Input : None                                                ///
+    /// Output: instance of the database connection                 ///
+    /// allows access to db from different scene controllers        ///
     public static Database getInstance() {
         if (instance == null) {
             instance = new Database();
         }
+
         return instance;
     }
+    ///////////////////////////////////////////////////////////////////
+    /// userExists() check if user exists                           ///
+    /// Input : String Username                                     ///
+    /// Output: Boolean                                             ///
+    /// Checks if the Username exists in db                               ///
+    /// Used for Login and SignUp                                   ///
     public boolean userExists(String username) {
         Document doc = userCollection.find(new Document("username", username)).first();
         if(doc != null) {
@@ -47,6 +67,12 @@ public class Database {
         }
         return false;
     }
+    ///////////////////////////////////////////////////////////////////
+    /// verifyPassword() compares inputted password to stored      ///
+    /// Input : String Username, password                          ///
+    /// Output: Boolean                                            ///
+    /// Checks if login credentials are valid - authentication     ///
+    /// Have to unhash password from db and verify with user input ///
     public boolean verifyPassword(String username, String password) {
         Document userDoc = userCollection.find(new Document("username", username)).first();
         if (userDoc != null) {
@@ -65,7 +91,11 @@ public class Database {
         }
         return false;
     }
-
+    ///////////////////////////////////////////////////////////////////
+    /// getName() get full name of a user                           ///
+    /// Input : String Username                                     ///
+    /// Output: String fullname                                     ///
+    /// used to populate left chat panel and profile page           ///
     public String getName(String username){
         Document userDoc = userCollection.find(new Document("username", username)).first();
         if (userDoc != null) {
@@ -73,16 +103,11 @@ public class Database {
         }
         return "";
     }
-
-    public ObjectId getUserObjectId(String username) {
-        Document userDoc = userCollection.find(new Document("username", username)).first();
-        if (userDoc != null) {
-            return userDoc.getObjectId("_id");
-        } else {
-            return null; 
-        }
-    }
-
+    ///////////////////////////////////////////////////////////////////
+    /// getDOB() get DOB of a user                                 ///
+    /// Input : String Username                                    ///
+    /// Output: String DOB                                         ///
+    /// displayed in profile page                                  ///
     public String getDOB(String username){
         Document userDoc = userCollection.find(new Document("username", username)).first();
         if (userDoc != null) {
@@ -91,7 +116,11 @@ public class Database {
             return null;
         }
     }
-
+    /////////////////////////////////////////////////////////////////////////
+    /// createUser() new user sign up                                     ///
+    /// Input : String fullanme, username, password, DOB, profileimage    ///
+    /// Output: True if new user created, otherwise false                 ///
+    /// Creates a new User in the db                                      ///
     public Boolean createUser(String fullname, String username, String password, String dateOfBirth, byte[] profileImageData){
         boolean exists = userExists(username);
         String hashedPassword = hashPassword(password);
@@ -115,6 +144,11 @@ public class Database {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////
+    /// getAllChatUsersExceptCurrent()  List of names excluding cur user        ///
+    /// Input : ChatUser currentUser                                            ///
+    /// Output: String array of names of all users not including current user   ///
+    /// String array of names used to populate left chat panel                  ///
     public String[] getAllChatUsersExceptCurrent(ChatUser currentUser) {
         List<String> usersList = new ArrayList<>();
         List<ChatUser> allChatUsers = getAllChatUsersFromDatabase();
@@ -126,6 +160,11 @@ public class Database {
         }
         return usersList.toArray(new String[0]);
     }
+    ///////////////////////////////////////////////////////////////////////////////
+    /// getAllChatUsersFromDatabase()  List of all ChatUser obj                 ///
+    /// Input : None                                                            ///
+    /// Output: List of ChatUser objects                                        ///
+    /// Gives all users in one list -- used in  getAllChatUsersExceptCurrent    ///
     public List<ChatUser> getAllChatUsersFromDatabase() {
         List<ChatUser> allChatUsers = new ArrayList<>();
 
@@ -147,7 +186,11 @@ public class Database {
         }
         return allChatUsers;
     }
-
+    ///////////////////////////////////////////////////////////////////////////////
+    /// addNewmessage()  adds new message to db                                 ///
+    /// Input : ObjectId toId, fromId, String text, Date timestamp              ///
+    /// Output: True if added, otherwise false                                  ///
+    /// All messages are stores in db in main chat... this is how               ///
     public Boolean addNewmessage(ObjectId toId, ObjectId fromId, String text, Date timestamp){
         try {
             Document message = new Document("toId", toId).append("fromId", fromId).append("text", text).append("timestamp", timestamp);
@@ -159,17 +202,12 @@ public class Database {
         }
 
     }
-
+    ///////////////////////////////////////////////////////////////////////////////
+    /// getChatUser() get  current chat user                                    ///
+    /// Input : String name (fullname)                                          ///
+    /// Output: ChatUser obj, if not found then null                            ///
+    /// chatUser obj of the currently logged in user                            ///
     public ChatUser getChatUser(String name){
-//        Document doc = userCollection.find(new Document("fullname", name)).first();
-//        if (doc != null) {
-//            ObjectId id = doc.getObjectId("_id");
-//            String fullname = doc.getString("fullname");
-//            String username = doc.getString("username");
-//            String dob = doc.getString("dob");
-//            return new ChatUser(id, fullname, username, dob);
-//
-//         }
         List<ChatUser> allChatUsers = getAllChatUsersFromDatabase();
         for (ChatUser user : allChatUsers) {
             if (user.getName().equals(name)) {
@@ -178,7 +216,11 @@ public class Database {
         }
         return new ChatUser(null,null,null,null);
     }
-
+    ///////////////////////////////////////////////////////////////////////////////
+    /// hashPassword() encrypt the password                                     ///
+    /// Input : String password                                                 ///
+    /// Output: None                                                            ///
+    /// Encrypt password for storage in db using SHA-256                        ///
     private String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -186,8 +228,6 @@ public class Database {
 
             StringBuilder hexString = new StringBuilder();
             for (byte b : hash) {
-//                String hex = String.format("%02x", b);
-//                hexString.append(hex);
                 String hex = Integer.toHexString(0xff & b);
                 if (hex.length() == 1) hexString.append('0');
                 hexString.append(hex);
@@ -198,8 +238,12 @@ public class Database {
             return null;
         }
     }
-
-    public FindIterable<Document> getMessagesBetweenUsers(ObjectId toId, ObjectId fromId, String text){
+    ///////////////////////////////////////////////////////////////////////////////
+    /// getMessagesBetweenUsers() get all messages between 2 users              ///
+    /// Input : ObjectId toId, ObjectId fromId                                  ///
+    /// Output: FindIterable<Document> of sorted messages                       ///
+    /// Used to populate chat page                                              ///
+    public FindIterable<Document> getMessagesBetweenUsers(ObjectId toId, ObjectId fromId){
         Document query = new Document("$or",
                 List.of(
                     new Document("fromId", fromId).append("toId", toId),
@@ -207,7 +251,11 @@ public class Database {
                 ));
         return messagesCollection.find(query).sort(new Document("timestamp", 1));
     }
-
+    ///////////////////////////////////////////////////////////////////////////////
+    /// getMessagesBetweenUsers() get all messages between 2 users              ///
+    /// Input : ObjectId toId, ObjectId fromId                                  ///
+    /// Output: FindIterable<Document> of sorted messages                       ///
+    /// Used to populate chat page                                              ///
     public FindIterable<Document> getNewMessagesBetweenUsers(ObjectId toId, ObjectId fromId, Date lastDisplayedTimestamp) {
         Document query = new Document("$or",
                 List.of(
@@ -230,7 +278,11 @@ public class Database {
             return false;
         }
     }
-
+    ///////////////////////////////////////////////////////////////////////////////
+    /// validEmailDob() verifies username and dob match a user                  ///
+    /// Input : String username, dob                                            ///
+    /// Output: Boolean - true if match, otherwise false                        ///
+    /// Used to check user info for forgot password                             ///
     public boolean validEmailDob(String username, String dob) {
         Document doc = userCollection.find(new Document("username", username)).first();
         if (doc != null) {
