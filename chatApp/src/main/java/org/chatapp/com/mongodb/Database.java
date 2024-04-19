@@ -82,7 +82,7 @@ public class Database {
         }
         return false;
     }
-    // VERIFY WHETHER THE DATE OF BIRTH IS MATCH?
+    // VERIFY WHETHER THE DATE OF BIRTH IS A MATCH
     public boolean verifyDateOfBirth(String username,String dateOfBirth){
         Document userDoc = userCollection.find(new Document("username", username)).first();
         if(userDoc!= null){
@@ -129,7 +129,6 @@ public class Database {
                 .append("password", hashedPassword)
                 .append("fullname", fullname)
                 .append("dob", dateOfBirth);
-//                .append("email",email);
 
         if(profileImageData != null && profileImageData.length > 0){
             newDoc.append("profileImage",new Binary(profileImageData));
@@ -160,6 +159,7 @@ public class Database {
         }
         return usersList.toArray(new String[0]);
     }
+
     ///////////////////////////////////////////////////////////////////////////////
     /// getAllChatUsersFromDatabase()  List of all ChatUser obj                 ///
     /// Input : None                                                            ///
@@ -251,6 +251,7 @@ public class Database {
                 ));
         return messagesCollection.find(query).sort(new Document("timestamp", 1));
     }
+
     ///////////////////////////////////////////////////////////////////////////////
     /// getMessagesBetweenUsers() get all messages between 2 users              ///
     /// Input : ObjectId toId, ObjectId fromId                                  ///
@@ -278,6 +279,7 @@ public class Database {
             return false;
         }
     }
+
     ///////////////////////////////////////////////////////////////////////////////
     /// validEmailDob() verifies username and dob match a user                  ///
     /// Input : String username, dob                                            ///
@@ -291,6 +293,7 @@ public class Database {
         }
         return false;
     }
+
     public boolean updateProfileImages(String username, byte[] imageData){
         try{
             userCollection.updateOne(eq("username", username), set("profileImage", new Binary(imageData)));
@@ -300,6 +303,7 @@ public class Database {
             return false;
         }
     }
+
     public byte[] getProfileImage(String username){
         Document userDoc = userCollection.find(eq("username", username)).first();
         if(userDoc != null){
@@ -310,6 +314,7 @@ public class Database {
         }
         return null;
     }
+
     public boolean updatedUserEmail(String username, String email){
         try{
             userCollection.updateOne(eq("username", username), set("email", email));
@@ -329,14 +334,13 @@ public class Database {
             return null;
         }
     }
+
     public boolean updateProfileDetails(String username, String fullName, String dateOfBirth){
         try{
             userCollection.updateOne(eq("username", username),
                     Updates.combine(
                             Updates.set("fullname", fullName),
-                            Updates.set("dob", dateOfBirth)
-//                            Updates.set("email", email)
-                            )
+                            Updates.set("dob", dateOfBirth))
             );
             System.out.println("\nPROFILE DETAILS UPDATED SUCCESSFULLY!\n");
             return true;

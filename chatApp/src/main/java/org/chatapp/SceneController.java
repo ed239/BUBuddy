@@ -11,7 +11,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import org.chatapp.com.mongodb.Database;
-import org.chatapp.network.chatClient;
 import java.util.regex.Pattern;
 
 import java.io.IOException;
@@ -21,11 +20,9 @@ import java.util.Objects;
 public class SceneController {
     private Stage stage;
     private Parent root;
-    private chatClient client;
+
     static ChatUser curUser = null;
-//    public void setChatClient(chatClient client) {
-//        this.client = client;
-//    }
+
     @FXML
     private Label errorMessage;
     @FXML
