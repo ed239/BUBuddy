@@ -26,7 +26,7 @@ public class Database {
 
 
     ///////////////////////////////////////////////////////////////////
-    /// Database() creates conection to db                          ///
+    /// Database() creates connection to db                          ///
     /// Input : None                                                ///
     /// Output: None                                                ///
     /// Connects to the database and defines the collections        ///
