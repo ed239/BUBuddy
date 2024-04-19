@@ -1,12 +1,9 @@
 package org.chatapp;
 
 
-
 import org.chatapp.network.Client;
-
 import java.io.IOException;
 import java.net.Socket;
-
 
 
 public class ClientManager {
