@@ -8,9 +8,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import org.chatapp.network.chatClient;
-import org.chatapp.network.chatServer;
-
 
 public class BUBuddyApp extends Application {
     private final int sceneWidth = 1000;
