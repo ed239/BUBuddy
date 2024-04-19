@@ -5,7 +5,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 
@@ -16,11 +15,6 @@ public class BUBuddyApp extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BUBuddyApp.class.getResource("LoginPage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), sceneWidth, sceneHeight);
-//        Scene scene = new Scene(fxmlLoader.load(), 640, 450);
-
-        //creates new client each time your run
-        SceneController sceneController = fxmlLoader.getController();
-//        sceneController.setChatClient(newChatClient);
 
         stage.setScene(scene);
         stage.setMinHeight(533);

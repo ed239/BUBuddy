@@ -19,11 +19,12 @@ import static com.mongodb.client.model.Updates.set;
 import ch.qos.logback.classic.Level;  //disables logs from mongoDB
 import ch.qos.logback.classic.LoggerContext;  //disables logs from mongoDB
 import org.slf4j.LoggerFactory; //disables logs from mongoDB
+
+
 public class Database {
     private static Database instance = null;
     private final MongoCollection<Document> userCollection;
     private final MongoCollection<Document> messagesCollection;
-
 
     ///////////////////////////////////////////////////////////////////
     /// Database() creates connection to db                          ///
@@ -51,14 +52,14 @@ public class Database {
         if (instance == null) {
             instance = new Database();
         }
-
         return instance;
     }
+
     ///////////////////////////////////////////////////////////////////
     /// userExists() check if user exists                           ///
     /// Input : String Username                                     ///
     /// Output: Boolean                                             ///
-    /// Checks if the Username exists in db                               ///
+    /// Checks if the Username exists in db                         ///
     /// Used for Login and SignUp                                   ///
     public boolean userExists(String username) {
         Document doc = userCollection.find(new Document("username", username)).first();
@@ -67,6 +68,7 @@ public class Database {
         }
         return false;
     }
+
     ///////////////////////////////////////////////////////////////////
     /// verifyPassword() compares inputted password to stored      ///
     /// Input : String Username, password                          ///
@@ -82,6 +84,7 @@ public class Database {
         }
         return false;
     }
+
     // VERIFY WHETHER THE DATE OF BIRTH IS A MATCH
     public boolean verifyDateOfBirth(String username,String dateOfBirth){
         Document userDoc = userCollection.find(new Document("username", username)).first();
@@ -91,6 +94,7 @@ public class Database {
         }
         return false;
     }
+
     ///////////////////////////////////////////////////////////////////
     /// getName() get full name of a user                           ///
     /// Input : String Username                                     ///
@@ -103,6 +107,7 @@ public class Database {
         }
         return "";
     }
+
     ///////////////////////////////////////////////////////////////////
     /// getDOB() get DOB of a user                                 ///
     /// Input : String Username                                    ///
@@ -116,6 +121,7 @@ public class Database {
             return null;
         }
     }
+
     /////////////////////////////////////////////////////////////////////////
     /// createUser() new user sign up                                     ///
     /// Input : String fullanme, username, password, DOB, profileimage    ///
@@ -135,10 +141,8 @@ public class Database {
         }
         if(!exists){
             userCollection.insertOne(newDoc);
-            System.out.println("\nCREATED NEW USER\n");
             return true;
         } else {
-            System.out.println("\nUSER ALREADY EXISTS!\n");
             return false;
         }
     }
@@ -152,7 +156,6 @@ public class Database {
         List<String> usersList = new ArrayList<>();
         List<ChatUser> allChatUsers = getAllChatUsersFromDatabase();
         for (ChatUser user : allChatUsers) {
-
             if (!user.getId().equals(currentUser.getId())) {
                 usersList.add(user.getName());
             }
@@ -175,7 +178,6 @@ public class Database {
                 Document userDoc = cursor.next();
                 ObjectId id = userDoc.getObjectId("_id");
                 String name = userDoc.getString("fullname");
-                //System.out.println(name);
                 String username = userDoc.getString("username");
                 String dob = userDoc.getString("dob");
                 ChatUser user = new ChatUser(id, name, username,dob);
@@ -186,6 +188,7 @@ public class Database {
         }
         return allChatUsers;
     }
+
     ///////////////////////////////////////////////////////////////////////////////
     /// addNewmessage()  adds new message to db                                 ///
     /// Input : ObjectId toId, fromId, String text, Date timestamp              ///
@@ -200,8 +203,8 @@ public class Database {
             e.printStackTrace();
             return false;
         }
-
     }
+
     ///////////////////////////////////////////////////////////////////////////////
     /// getChatUser() get  current chat user                                    ///
     /// Input : String name (fullname)                                          ///
@@ -216,6 +219,7 @@ public class Database {
         }
         return new ChatUser(null,null,null,null);
     }
+
     ///////////////////////////////////////////////////////////////////////////////
     /// hashPassword() encrypt the password                                     ///
     /// Input : String password                                                 ///
@@ -238,6 +242,7 @@ public class Database {
             return null;
         }
     }
+
     ///////////////////////////////////////////////////////////////////////////////
     /// getMessagesBetweenUsers() get all messages between 2 users              ///
     /// Input : ObjectId toId, ObjectId fromId                                  ///
@@ -272,7 +277,6 @@ public class Database {
             // Hash the new password before updating
             String hashedPassword = hashPassword(newPassword);
             userCollection.updateOne(eq("username", username), set("password", hashedPassword ));
-            System.out.println("\nPassword updated in the database!");
             return true;
         }catch (Exception e){
             e.printStackTrace();
@@ -289,7 +293,6 @@ public class Database {
         Document doc = userCollection.find(new Document("username", username)).first();
         if (doc != null) {
             return dob.equals(doc.getString("dob"));
-
         }
         return false;
     }
@@ -318,20 +321,10 @@ public class Database {
     public boolean updatedUserEmail(String username, String email){
         try{
             userCollection.updateOne(eq("username", username), set("email", email));
-            System.out.println("\nEMAIL UPDATED SUCCESSFULLY!\n");
             return true;
         }catch (Exception e){
             e.printStackTrace();
             return false;
-        }
-    }
-
-    public String getEmail(String username){
-        Document userDoc = userCollection.find(new Document("username", username)).first();
-        if(userDoc != null){
-            return userDoc.getString("email");
-        }else {
-            return null;
         }
     }
 
@@ -340,9 +333,7 @@ public class Database {
             userCollection.updateOne(eq("username", username),
                     Updates.combine(
                             Updates.set("fullname", fullName),
-                            Updates.set("dob", dateOfBirth))
-            );
-            System.out.println("\nPROFILE DETAILS UPDATED SUCCESSFULLY!\n");
+                            Updates.set("dob", dateOfBirth)));
             return true;
         }catch (Exception e){
             e.printStackTrace();

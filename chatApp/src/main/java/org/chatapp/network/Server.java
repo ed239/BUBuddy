@@ -1,7 +1,10 @@
 package org.chatapp.network;
+
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
 
 public class Server {
 
@@ -19,10 +22,8 @@ public class Server {
                 socket = serverSocket.accept();
 
                 ClientHandler clientHandler = new ClientHandler(socket);
-                System.out.println(clientHandler.getUserName() + " connected");
                 Thread thread = new Thread(clientHandler);
                 thread.start();
-
             }
         }
         catch (IOException e) {

@@ -1,9 +1,10 @@
 package org.chatapp.network;
+
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.VBox;
 import org.chatapp.ChatPageController;
-
 import java.io.*;
 import java.net.Socket;
 
