@@ -15,8 +15,10 @@
 package org.chatapp.network;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 //
 // Class: Server
@@ -37,7 +39,17 @@ public class Server {
     /// Creates Server object with ServerSocket instance            ///
     ///////////////////////////////////////////////////////////////////
     public Server (ServerSocket serverSocket)  {
+        System.out.println("server started");
         this.serverSocket = serverSocket;
+        InetAddress ip;
+        try {
+
+            ip = InetAddress.getLocalHost();
+            System.out.println("Current IP address : " + ip.getHostAddress());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+
+        }
     }
 
     ///////////////////////////////////////////////////////////////////
