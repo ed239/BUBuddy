@@ -23,13 +23,14 @@ public class SceneController {
     private Parent root;
     private chatClient client;
     static ChatUser curUser = null;
-//    public void setChatClient(chatClient client) {
-//        this.client = client;
-//    }
+
+    static String ip = "";
     @FXML
     private Label errorMessage;
     @FXML
     private Label errorMessageSignUp;
+    @FXML
+    private Label errorMessageForgotPass;
     @FXML
     private TextField txtusername;
     @FXML
@@ -38,7 +39,8 @@ public class SceneController {
     private TextField txtfullname;
     @FXML
     private DatePicker dateOfBirth;
-
+    @FXML
+    private TextField serverIP;
     @FXML
     private PasswordField newPasswordField;
     @FXML
@@ -142,44 +144,49 @@ public class SceneController {
     /// calls database to reset the password                        ///
     public Boolean checkandupdatePass() throws IOException{
         String username =  txtusername.getText().toLowerCase();
-        String userDob = dateOfBirth.getValue().toString();
+        String userDob ="";
         String newPassword = newPasswordField.getText();
         String verifyNewPassword = verifyNewPasswordField.getText();
 
         // Verifying username and dob are not empty
         if(username.isEmpty()){
-            errorMessagePassword.setText("Please provide Username and Date of Birth");
+            errorMessageForgotPass.setText("Please provide Username");
             return false;
-        } else if (userDob.isEmpty()) {
-            errorMessagePassword.setText("Please provide Date of Birth");
+        }
+        if(dateOfBirth.getValue() == null){
+            errorMessageForgotPass.setText("Please provide Date of Birth");
             return false;
+        }else{
+            userDob = dateOfBirth.getValue().toString();
         }
         //veridying username and dob match a user in the db
         boolean validCred = database.validEmailDob(username,userDob);
         if(!validCred){
-            errorMessagePassword.setText("Incorrect Credentials");
+            errorMessageForgotPass.setText("Incorrect Credentials Username or DOB");
             return false;
         }
         //Checking the new password fields are not empty and match
         if(newPassword.isEmpty()){
-            errorResetPassword.setText("Please provide new password!");
+            errorMessageForgotPass.setText("Please provide new password!");
             return false;
         }
         if (!validatePassword(newPassword)) {
-            errorResetPassword.setText(passwordErrorMsg);
+            errorMessageForgotPass.setText(passwordErrorMsg);
             System.out.println(passwordErrorMsg);
             return false;
         }
         if(!(newPassword.equals(verifyNewPassword))){
-            errorResetPassword.setText("Passwords do not match!");
+            errorMessageForgotPass.setText("Passwords do not match!");
             return false;
         }
         //CHANGING THE PASSWORD
         boolean passwordUpdated = database.updatePassword(username, newPassword);
         if(passwordUpdated){
+            errorMessageForgotPass.setText("Success!");
             return true;
         }else {
 //            errorResetPassword.setText("Failed to update password!");
+            errorMessageForgotPass.setText("Password Reset Failed");
             System.out.println("RESET FAILED");
             return false;
         }
@@ -394,6 +401,7 @@ public class SceneController {
     }
     public void loginPageToChatPage(ActionEvent event) throws IOException {
         if (Login()) {
+            ip = serverIP.getText();
             ChatPageController chatPageController = new ChatPageController();
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();

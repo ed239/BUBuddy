@@ -35,7 +35,7 @@
       </VBox>
    </center>
    <right>
-      <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="25.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
+      <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="15.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
          <children>
             <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="Forgot Password">
                <font>
@@ -66,7 +66,8 @@
                   <Insets left="250.0" />
                </VBox.margin>
             </Hyperlink>
-            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="18.0" prefWidth="391.0" textFill="#e80d0d" />
+            <Label fx:id="errorMessage" prefHeight="17.0" prefWidth="431.0" textFill="#eb0f0f" />
+            <Label fx:id="errorMessageForgotPass" alignment="CENTER" prefHeight="18.0" prefWidth="391.0" textFill="#e80d0d" />
             <Button mnemonicParsing="false" onAction="#resetPassNotLoggedIn" style="-fx-background-color: #CC0000;" text="Reset Password" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />

@@ -1,7 +1,9 @@
 package org.chatapp.network;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Server {
 
@@ -10,7 +12,17 @@ public class Server {
     private static final int portNumber = 6667;
 
     public Server (ServerSocket serverSocket) throws IOException {
+        System.out.println("server started");
         this.serverSocket = serverSocket;
+        InetAddress ip;
+        try {
+
+            ip = InetAddress.getLocalHost();
+            System.out.println("Current IP address : " + ip.getHostAddress());
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+
+        }
     }
 
     public void startServer() {
@@ -45,5 +57,7 @@ public class Server {
         ServerSocket serverSocket = new ServerSocket(portNumber);
         Server server = new Server(serverSocket);
         server.startServer();
+
+
     }
 }

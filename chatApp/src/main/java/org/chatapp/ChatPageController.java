@@ -67,6 +67,10 @@ public class ChatPageController {
     private boolean isMainChat = false;
     private boolean isAutoUpdating = false;
     private Timeline timeline;
+
+    public static String ip = getIP();
+
+
     @FXML
     private void initialize() {
         curUser= getCurUser(); //this isn't very efficient -- have to fix
@@ -75,17 +79,8 @@ public class ChatPageController {
         FXCollections.sort(allChatUsersExceptCurrent, String.CASE_INSENSITIVE_ORDER);
         userListView.setItems(allChatUsersExceptCurrent);
 
-        clientManager = ClientManager.getInstance();
+        clientManager = ClientManager.getInstance(ip);
         client = clientManager.getClient();
-        //creates client socket for server
-//        try {
-//            socket = new Socket("localhost", portNumber);
-//            client = new Client(socket, curUser.getName());
-//        }catch (IOException e) {
-//            System.out.println("Couldn't connect to the Server");
-//        }
-        // tested to see if Listview would become scrollable with a lot of users + show difference
-        // in Local chat and main chat
         localListView.setItems(localChatList);
 
         timeline = new Timeline(//to update message view for new messages every second
@@ -192,6 +187,10 @@ public class ChatPageController {
         System.out.println(SceneController.curUser);
         return SceneController.curUser;
     }
+
+    public static String getIP(){
+        return SceneController.ip;
+    }
     private static Database getDb() {
         return SceneController.database;
     }
@@ -283,5 +282,6 @@ public class ChatPageController {
             }
         }
     }
+
 
 }
