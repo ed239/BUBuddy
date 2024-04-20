@@ -1,6 +1,9 @@
 package org.chatapp;
 
+
 import org.bson.types.ObjectId;
+
+
 public class ChatUser {
     private ObjectId id;
     private String name;
@@ -18,7 +21,6 @@ public class ChatUser {
     public String toString(){
         return "CURRENT CHAT USER: -> { " + "USERNAME = '" + username + '\'' + " }\n";
     }
-
 
     public ObjectId getId() {
         return id;
