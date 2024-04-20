@@ -40,10 +40,10 @@
                   <Font size="25.0" />
                </font>
                <VBox.margin>
-                  <Insets right="5.0" top="5.0" />
+                  <Insets top="5.0" />
                </VBox.margin>
             </TextField>
-            <PasswordField fx:id="txtpassword" prefHeight="57.0" prefWidth="377.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
+            <PasswordField fx:id="txtpassword" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
                <font>
                   <Font size="25.0" />
                </font>
