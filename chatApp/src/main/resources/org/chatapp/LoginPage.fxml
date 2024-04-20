@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="700.0" maxWidth="850.0" minHeight="533.0" minWidth="550.0" prefHeight="600.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
+<BorderPane maxHeight="700.0" maxWidth="850.0" minHeight="533.0" minWidth="550.0" prefHeight="600.0" prefWidth="870.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.chatapp.SceneController">
    <center>
       <VBox alignment="CENTER" minHeight="500.0" minWidth="0.0" prefHeight="600.0" prefWidth="400.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
          <VBox alignment="CENTER" minHeight="500.0" minWidth="0.0" prefHeight="600.0" prefWidth="368.0" style="-fx-background-color: #CC0000;" BorderPane.alignment="CENTER">
@@ -41,12 +41,12 @@
                   <Font name="System Bold" size="40.0" />
                </font>
             </Text>
-            <TextField fx:id="txtusername" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+            <TextField fx:id="txtusername" promptText="Email" styleClass="txtfiled" stylesheets="@../../values/LoginPage.css">
                <font>
                   <Font size="25.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="txtpassword" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+            <PasswordField fx:id="txtpassword" promptText="Password" styleClass="password" stylesheets="@../../values/LoginPage.css">
                <font>
                   <Font size="25.0" />
                </font>
@@ -61,7 +61,7 @@
             </Hyperlink>
             <Label fx:id="errorMessage" alignment="CENTER" prefHeight="18.0" prefWidth="391.0" textFill="#e80d0d" />
             <TextField fx:id="serverIP" prefHeight="26.0" prefWidth="320.0" promptText="Enter Server IP (leave blank for localhost)" />
-            <Button mnemonicParsing="false" onAction="#loginPageToChatPage" style="-fx-background-color: #CC0000;" text="LOGIN" textAlignment="CENTER" textFill="#faf9f6">
+            <Button mnemonicParsing="false" onAction="#loginPageToChatPage" styleClass="logButton" stylesheets="@../../values/LoginPage.css" text="LOGIN" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />
                </font>
