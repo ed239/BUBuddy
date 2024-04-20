@@ -92,36 +92,6 @@ public class SceneController {
         }
     }
 
-    // CHECK THE USERNAME AND DATE OF BIRTH WHETHER THEY ARE MATCH OR NOT:
-    public Boolean checkUserName() throws IOException{
-        String username =  txtusername.getText().toLowerCase();
-        LocalDate userDob = dateOfBirth.getValue();
-        if(username.isEmpty()){
-            errorMessagePassword.setText("Please provide Username and Date of Birth");
-            return false;
-        } else if (userDob == null) {
-            errorMessagePassword.setText("Please provide Date of Birth");
-            return false;
-        }
-
-        String userDobStr = userDob.toString();
-        boolean exists = database.userExists(username);
-        if(exists){
-            boolean validUserName = database.verifyDateOfBirth(username, userDobStr);
-            if(validUserName){
-                String name = database.getName(username);  // GET CURRENT USERNAME FROM DATABASE
-                curUser = database.getChatUser(name);   // CURRENT CHAT USER: -> {USERNAME = 'ggg12'}
-                return true;
-            }else {
-                errorMessagePassword.setText("Incorrect Date of Brith");
-                return false;
-            }
-        }else {
-            errorMessagePassword.setText("Not valid credentials");
-            return false;
-        }
-    }
-
     ///////////////////////////////////////////////////////////////////
     /// checkandupdatePass() log in to application                  ///
     /// Input : takes from the user input on screen...              ///
@@ -178,8 +148,12 @@ public class SceneController {
         }
     }
 
-
-    // RESET NEW PASSWORD AND UPDATE
+    ///////////////////////////////////////////////////////////////////////////////////////
+    /// resetPassword() reset new password                                              ///
+    /// Input : None                                                                    ///
+    /// Output: Boolean - true if password reset otherwise false                        ///
+    /// Returns true if the password successfully changed in Database, false otherwise  ///
+    ///////////////////////////////////////////////////////////////////////////////////////
     public boolean resetPassword() throws IOException{
         String newPassword = newPasswordField.getText();
         String verifyNewPassword = verifyNewPasswordField.getText();
@@ -214,6 +188,12 @@ public class SceneController {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    /// changeVisibility() show or hide the password in login page                      ///
+    /// Input : None                                                                    ///
+    /// Output: None                                                                    ///
+    /// When you click the Show password button it is show the password otherwise hide  ///
+    ///////////////////////////////////////////////////////////////////////////////////////
     @FXML
     void changeVisibility(MouseEvent event){
         ImageView clickedImage = (ImageView) event.getSource();
@@ -234,6 +214,12 @@ public class SceneController {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// resetPasswordToSuccessMessage() Go to Success page                                                  ///
+    /// Input : None                                                                                        ///
+    /// Output: None                                                                                        ///
+    /// Action: if the password is successfully changed, the screen will go to the Success Message page     ///
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void resetPasswordToSuccesMessage(ActionEvent event) throws IOException{
         if(resetPassword()){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
@@ -242,6 +228,7 @@ public class SceneController {
             stage.show();
         }
     }
+
     ///////////////////////////////////////////////////////////////////
     /// resetPassNotLoggedIn() Reset Password Button                ///
     /// Input : None                                                ///
@@ -256,6 +243,12 @@ public class SceneController {
         }
     }
 
+    //////////////////////////////////////////////////////////////////////////////////////////////
+    /// SuccessMessagesToLogInPage() Go to Success page                                        ///
+    /// Input : None                                                                           ///
+    /// Output: None                                                                           ///
+    /// Action: From Success Message page, the screen will go to the login page                ///
+    //////////////////////////////////////////////////////////////////////////////////////////////
     public void SuccessMessagesToLogInPage(ActionEvent event) throws IOException{
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
             stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -387,31 +380,6 @@ public class SceneController {
         }
     }
 
-    public void forgotPasswordToResetPassword(ActionEvent event) throws IOException{
-        if (checkUserName()){
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ResetPassword.fxml")));
-            stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-            stage.getScene().setRoot(root);
-            stage.show();
-        }
-    }
-
-    // GO TO LOG-IN-PAGE, IF YOU ALREADY HAVE AN ACCOUNT
-    public void backToSignInPage(ActionEvent event) throws IOException{
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        stage.getScene().setRoot(root);
-        stage.show();
-    }
-
-    // GO TO SIGN-UP-PAGE  FROM  FORGOT-PASSWORD-PAGE,  IF YOU WANT TO CREATE ACCOUNT
-    public void loginPageToCreateAccount(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUpPage.fxml")));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        stage.getScene().setRoot(root);
-        stage.show();
-    }
-
     ///////////////////////////////////////////////////////////////////
     /// forgotPasswordLogIn() Go to Forgot Password                 ///
     /// Input : None                                                ///
@@ -423,5 +391,4 @@ public class SceneController {
         stage.getScene().setRoot(root);
         stage.show();
     }
-
 }

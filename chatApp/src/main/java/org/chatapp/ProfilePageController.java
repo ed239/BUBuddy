@@ -21,6 +21,17 @@ import static org.chatapp.SceneController.database;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+//--------------------------------------------------------------------------------------------------------------------//
+//                                                                                                                    //
+// Class: ProfilePageController                                                                                       //
+//                                                                                                                    //
+//                                                                                                                    //
+// Description:                                                                                                       //
+//          The ProfilePageController class manages the user profile page of the chat application. It handles user    //
+//          interactions related to updating profile details, managing profile images, and resetting passwords.       //
+//                                                                                                                    //
+//                                                                                                                    //
+//--------------------------------------------------------------------------------------------------------------------//
 
 public class ProfilePageController {
     private Stage stage;
@@ -52,12 +63,19 @@ public class ProfilePageController {
     @FXML
     private Label errorMessageProfile;
 
-    FileChooser fileChooser = new FileChooser();
+    FileChooser fileChooser = new FileChooser(); // Allows users to select files (e.g., images) from their system.
     Path currRelativePath = Paths.get("");
     String currAbsolutePathString = currRelativePath.toAbsolutePath().toString();
     private final File imagePathsFile = new File(currAbsolutePathString + File.separator + "images.txt");
     private String selectedImagePath; // Stores the selected image path
 
+    ////////////////////////////////////////////////////////////////////////////
+    /// initialize()  sets initial values for text fields                    ///
+    /// Input : None                                                         ///
+    /// Output: None                                                         ///
+    /// Loads user profile information (name, username, DOB) from the        ///
+    //  database and sets initial values for text fields.                    ///
+    ////////////////////////////////////////////////////////////////////////////
     @FXML
     private void initialize() throws FileNotFoundException {
         // THIS IS LOAD FOR IMAGES
@@ -74,7 +92,12 @@ public class ProfilePageController {
         dateOfBirthTextField.setText(dateOfBirth);           // not editable in Scene Builder
     }
 
-    // SWITCH FORM_1 AND FORM_2 IN PROFILE PAGE
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// switchForm()  Switches between two pages                                                            ///
+    /// Input : None                                                                                        ///
+    /// Output: None                                                                                        ///
+    /// Switches between two forms (form_1 and form_2) within the profile page based on button clicks.      ///
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void switchForm(ActionEvent event){
         if(event.getSource() == button_form_1){
             form_1.setVisible(true);
@@ -85,6 +108,12 @@ public class ProfilePageController {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// getImages() Opens a file chooser dialog to select a profile image from the user's system.                    ///
+    /// Input : None                                                                                                 ///
+    /// Output: None                                                                                                 ///
+    /// Displays the selected image in a circular imageView and saves the image path to a text file (imagePathsFile) ///
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @FXML
     void getImages() {
         File file = fileChooser.showOpenDialog(new Stage());
@@ -97,7 +126,12 @@ public class ProfilePageController {
         }
     }
 
-    // Method to save changes when "Save Changes" button is clicked
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// saveChanges() button updates user profile details (name, username, DOB) in the database.                     ///
+    /// Input : None                                                                                                 ///
+    /// Output: None                                                                                                 ///
+    /// If a new profile image is selected, it reads the image data and updates the profile image in the database    ///
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @FXML
     void saveChanges(){
         String fullName = fullNameTextField.getText();
@@ -117,7 +151,12 @@ public class ProfilePageController {
         }
     }
 
-    // Method to load images from saved paths
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// loadImages()                                                                                 ///
+    /// Input : None                                                                                 ///
+    /// Output: None                                                                                 ///
+    /// Action: Loads the user's profile image from the database and displays it in the imageView.   ///
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     private void loadImages() throws FileNotFoundException {
         byte[] imageData = database.getProfileImage(curUser.getUsername());
         if(imageData != null){
@@ -126,6 +165,12 @@ public class ProfilePageController {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// saveImagesPath()                                                                             ///
+    /// Input : String path                                                                          ///
+    /// Output: None                                                                                 ///
+    /// Action: Saves the selected image path to a text file (imagePathsFile).                       ///
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     private void saveImagesPath(String path){
         try(PrintWriter printWriter = new PrintWriter(imagePathsFile)) {
             printWriter.println(path);
@@ -135,7 +180,13 @@ public class ProfilePageController {
         }
     }
 
-    // CHANGE THE VISIBILITY TO THE PASSWORD BY CLICKING SHOW-PASSWORD BUTTON
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// showPassword() button, password section in Profile page                                      ///
+    /// Input : None                                                                                 ///
+    /// Output: None                                                                                 ///
+    /// Action: Toggles password visibility based on the state of a checkbox (checkboxpassword)      ///
+    //          Allows users to view the entered password.                                           ///
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     @FXML
     void showPassword(ActionEvent event){
         if(checkboxpassword.isSelected()){
@@ -149,7 +200,13 @@ public class ProfilePageController {
         showpasswordtext.setVisible(false);
     }
 
-     //RESET PASSWORD IN PROFILE PAGE
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// resetPasswordProfile() resets the password for the current user in Profile page              ///
+    /// Input : None                                                                                 ///
+    /// Output: Boolean - true if password reset otherwise false                                     ///
+    /// Action: Updates the password in the database and displays appropriate                        ///
+    //          error messages (errorMessageProfile) if needed.                                      ///
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     public boolean resetPasswordProfile() throws IOException{
         String newPassword = newpasswordfield.getText();
         String verifyNewPassword = verifynewpasswordfield.getText();
@@ -176,7 +233,12 @@ public class ProfilePageController {
         }
     }
 
-     //RESET PASSWORD IN PROFILE PAGE
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// SubmitProfileToSuccessMessage() Go to Success page                                               ///
+    /// Input : None                                                                                     ///
+    /// Output: None                                                                                     ///
+    /// Action: if the password is successfully changed, the screen will go to the Success Message page  ///
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     public void SubmitProfileToSuccesMessage(ActionEvent event) throws IOException{
         if(resetPasswordProfile()){
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SuccessMessages.fxml")));
@@ -185,7 +247,13 @@ public class ProfilePageController {
             stage.show();
         }
     }
-
+  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    /// backToChatPage(), previous button in Profile page, goes to Chat page                         ///
+    /// Input : None                                                                                 ///
+    /// Output: None                                                                                 ///
+    /// Action: Navigates back to the chat page (ChatPage.fxml) from the profile page.               ///
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     public void backToChatPage(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ChatPage.fxml")));
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

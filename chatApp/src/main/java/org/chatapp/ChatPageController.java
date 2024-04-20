@@ -94,6 +94,7 @@ public class ChatPageController {
         FXCollections.sort(allChatUsersExceptCurrent, String.CASE_INSENSITIVE_ORDER);
         userListView.setItems(allChatUsersExceptCurrent);
         clientManager = ClientManager.getInstance(ip);
+
         client = clientManager.getClient();    // initializing Client socket for this user
 
         localListView.setItems(localChatList); // initializing the name of local chat users

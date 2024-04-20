@@ -85,16 +85,6 @@ public class Database {
         return false;
     }
 
-    // VERIFY WHETHER THE DATE OF BIRTH IS A MATCH
-    public boolean verifyDateOfBirth(String username,String dateOfBirth){
-        Document userDoc = userCollection.find(new Document("username", username)).first();
-        if(userDoc!= null){
-            String storeDateOfBirth = userDoc.getString("dob");
-            return storeDateOfBirth.equals(dateOfBirth);
-        }
-        return false;
-    }
-
     ///////////////////////////////////////////////////////////////////
     /// getName() get full name of a user                           ///
     /// Input : String Username                                     ///
@@ -271,7 +261,12 @@ public class Database {
         return messagesCollection.find(query).sort(new Document("timestamp", 1));
     }
 
-    //UPDATED PASSWORD AND HASHING IT
+    ///////////////////////////////////////////////////////////////////////////////
+    /// updatePassword() updates user's password in Database                    ///
+    /// Input : String password, newPassword                                    ///
+    /// Output: None                                                            ///
+    /// If the user updates their password, it is updated in the Database       ///
+    ////////////////////////////////////////////////////////////////////////////////
     public boolean updatePassword(String username, String newPassword){
         try{
             // Hash the new password before updating
@@ -297,6 +292,12 @@ public class Database {
         return false;
     }
 
+    ///////////////////////////////////////////////////////////////////////////////
+    /// updateProfileImages() update Profile image in Database                  ///
+    /// Input : String username, byte imageDate                                 ///
+    /// Output: Boolean - true if updated, otherwise false                      ///
+    /// Returns updated image in Profile page                                   ///
+    ////////////////////////////////////////////////////////////////////////////////
     public boolean updateProfileImages(String username, byte[] imageData){
         try{
             userCollection.updateOne(eq("username", username), set("profileImage", new Binary(imageData)));
@@ -307,6 +308,12 @@ public class Database {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+    /// getProfileImage() get Profile image from Database                        ///
+    /// Input : String username                                                  ///
+    /// Output: Returns image if not null, otherwise null                        ///
+    /// If the user have Profile image in Database, then get image from Database ///
+    ////////////////////////////////////////////////////////////////////////////////
     public byte[] getProfileImage(String username){
         Document userDoc = userCollection.find(eq("username", username)).first();
         if(userDoc != null){
@@ -318,16 +325,12 @@ public class Database {
         return null;
     }
 
-    public boolean updatedUserEmail(String username, String email){
-        try{
-            userCollection.updateOne(eq("username", username), set("email", email));
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-            return false;
-        }
-    }
-
+    ////////////////////////////////////////////////////////////////////////////////
+    /// updateProfileDetails() update Profile details in Database                ///
+    /// Input : String username, fullName, dateOfBirth                           ///
+    /// Output: Boolean - true if updated, otherwise false                       ///
+    /// If the user updates the profile data, it is updated in the database      ///
+    ////////////////////////////////////////////////////////////////////////////////
     public boolean updateProfileDetails(String username, String fullName, String dateOfBirth){
         try{
             userCollection.updateOne(eq("username", username),
