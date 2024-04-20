@@ -48,7 +48,7 @@
                   <Font size="25.0" />
                </font>
             </PasswordField>
-            <Hyperlink alignment="CENTER_RIGHT" maxHeight="35.0" maxWidth="170.0" minHeight="35.0" minWidth="155.0" onAction="#forgotPasswordLogIn" prefHeight="35.0" prefWidth="152.0" text="Forgot Password?" textAlignment="CENTER" textFill="#3048ff" underline="true">
+            <Hyperlink alignment="CENTER_RIGHT" maxHeight="35.0" maxWidth="170.0" minHeight="35.0" minWidth="155.0" onAction="#forgotPasswordLogIn" prefHeight="35.0" prefWidth="152.0" text="Forgot Password?" textAlignment="CENTER"  underline="true">
                <font>
                   <Font size="18.0" />
                </font>
