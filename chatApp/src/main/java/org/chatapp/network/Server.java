@@ -10,8 +10,6 @@
 //
 //
 
-
-
 package org.chatapp.network;
 
 import java.io.IOException;
