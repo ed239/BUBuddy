@@ -174,6 +174,14 @@ public class ChatPageController {
         return SceneController.ip;
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// addLabel(messageFromUser, vBox, isSent)                     ///
+    /// populates message from Server                               ///
+    /// Input : messageFromUser, vBox, isSent                       ///
+    /// Output: None                                                ///
+    /// Populates message from Server into Client                   ///
+    /// chat page(chatContainer)                                    ///
+    ///////////////////////////////////////////////////////////////////
     public static void addLabel(String messageFromUser, VBox vBox, boolean isSent) {
         Label messageLabel = new Label(messageFromUser);
         messageLabel.setWrapText(true);
