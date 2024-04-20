@@ -17,7 +17,7 @@ public class ClientManager {
             if(ip == "") {
                 System.out.println("Connected to LocalHost");
                 socket = new Socket("localhost", portNumber);
-            }else{
+            }else if(!ip.isEmpty()){
                 System.out.println("Connected with IP Address");
                 socket = new Socket(ip, portNumber);
             }

@@ -35,6 +35,7 @@ public class ChatPageController {
 
     public static String ip = getIP();
 
+
     @FXML
     private ListView<String> userListView;
 
@@ -86,7 +87,7 @@ public class ChatPageController {
 
         timeline = new Timeline(//to update message view for new messages every second
                 new KeyFrame(Duration.seconds(1), event -> {
-                    displayNewMessages(curUser.getId(), toUserObj.getId());
+                    displayNewMessages(curUser.getId(), toUserObj.getId(),"");
                 })
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -208,7 +209,7 @@ public class ChatPageController {
                 Date currentTime = new Date();
                 boolean done = database.addNewmessage(toId, curUser.getId(), messageToSend, currentTime);
                 if (done) {
-                    displayNewMessages(toId, curUser.getId());
+                    displayNewMessages(toId, curUser.getId(), messageToSend);
                     txtmessage.setText("");
                 }
             }
@@ -268,14 +269,15 @@ public class ChatPageController {
         });
     }
 
-    public void displayNewMessages(ObjectId toId, ObjectId fromId) {
+    public void displayNewMessages(ObjectId toId, ObjectId fromId, String text) {
         FindIterable<Document> newMessages = database.getNewMessagesBetweenUsers(toId, fromId, lastDisplayedTimestamp);
-        for (Document message : newMessages) {
-            if (!displayedMessages.contains(message)) {
-                displayMessage(message);
-                displayedMessages.add(message);
+            for (Document message : newMessages) {
+                if (!displayedMessages.contains(message)) {
+                    displayMessage(message);
+                    displayedMessages.add(message);
+                }
             }
-        }
+
     }
 
 }
