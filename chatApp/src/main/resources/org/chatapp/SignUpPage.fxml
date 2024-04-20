@@ -18,12 +18,12 @@
             <children>
                <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="BU BUDDY" textAlignment="CENTER">
                   <font>
-                     <Font name="System Bold" size="85.0" />
+                     <Font name="System Bold" size="58.0" />
                   </font>
                </Text>
                <Text fill="#faf9f6" strokeType="OUTSIDE" strokeWidth="0.0" text="Where you, can BU! " textAlignment="CENTER">
                   <font>
-                     <Font size="35.0" />
+                     <Font size="27.0" />
                   </font>
                </Text>
             </children>
@@ -37,7 +37,7 @@
          <children>
             <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP" textAlignment="CENTER">
                <font>
-                  <Font name="System Bold" size="55.0" />
+                  <Font name="System Bold" size="40.0" />
                </font>
                <VBox.margin>
                   <Insets bottom="10.0" top="45.0" />
