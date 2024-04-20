@@ -72,7 +72,13 @@ public class ChatPageController {
     private boolean isAutoUpdating = false;
     private Timeline timeline;
 
-
+    ///////////////////////////////////////////////////////////////////
+    /// initialize() sets requires vars for page                    ///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
+    /// includes both tabs for the left panel and the two lists of  ///
+    ///  users in the main chat and local chat lists (observers are ///
+    ///  in this method                                             ///
     @FXML
     private void initialize() {
         curUser= getCurUser(); //this isn't very efficient -- have to fix
@@ -145,7 +151,11 @@ public class ChatPageController {
             }
         });
     }
-
+    ///////////////////////////////////////////////////////////////////
+    /// getIP() gets ip from user input in login page               ///
+    /// Input : None                                                ///
+    /// Output: return IP address (String)                          ///
+    /// Used to connect to server -- if empty will connect to local ///
     private static String getIP() {
         return SceneController.ip;
     }
@@ -186,15 +196,29 @@ public class ChatPageController {
         stage.getScene().setRoot(root);
         stage.show();
     }
-
+    ///////////////////////////////////////////////////////////////////
+    /// getCurUser() gets current user obj from login               ///
+    /// Input : None                                                ///
+    /// Output: return current user (ChatUSer)                      ///
+    /// Used to connect to server -- if empty will connect to local ///
     public static ChatUser getCurUser() {
         return SceneController.curUser;
     }
-
+    ///////////////////////////////////////////////////////////////////
+    /// getDb() gets current user obj from login                    ///
+    /// Input : None                                                ///
+    /// Output: return database instance                            ///
+    /// used to not create a new instance                           ///
     private static Database getDb() {
         return SceneController.database;
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// sendMessage() sends message to user                         ///
+    /// Input : gets input from user input                          ///
+    /// Output: None                                                ///
+    /// If in local chat the message is sent through the client     ///
+    /// and server  - in main chat the messsage is added to the db  ///
     public void sendMessage(ActionEvent event) throws IOException {
         String userName = toUser.getText();
         String messageToSend = txtmessage.getText();
@@ -215,7 +239,12 @@ public class ChatPageController {
             }
         }
     }
-
+    ///////////////////////////////////////////////////////////////////
+    /// displayAllMessages() shows all messages (between users)     ///
+    /// Input : ObjectID toId, fromId, String text                  ///
+    /// Output: None                                                ///
+    /// gets all messages and then displays them                    ///
+    /// Auto updating on to see new messages that are sent/recieved ///
     public void displayAllMessages(ObjectId toId, ObjectId fromId, String text) {
         displayedMessages.clear();
         FindIterable<Document> messages = database.getMessagesBetweenUsers(toId, fromId);
@@ -225,10 +254,16 @@ public class ChatPageController {
                 displayedMessages.add(message);
             }
         }
-        startDisplayingNewMessages(toId,fromId);
+        startDisplayingNewMessages();
         isAutoUpdating = true;
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// displayMessage() displays a single message                  ///
+    /// Input : Document message                                    ///
+    /// Output: None                                                ///
+    /// displays message (orientation and color) based on cur user  ///
+    /// and from ID - adds message to chat container                ///
     private void displayMessage(Document message) {
         String text = message.getString("text");
         ObjectId senderId = message.getObjectId("fromId");
@@ -252,10 +287,20 @@ public class ChatPageController {
         messageContainer.setMaxWidth(chatContainer.getWidth());
     }
 
-    public void startDisplayingNewMessages(ObjectId toId, ObjectId fromId) {
+    ///////////////////////////////////////////////////////////////////
+    /// startDisplayingNewMessages() starts autoupdate of chat      ///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
+    /// begins auto updating to see messages in real time           ///
+    public void startDisplayingNewMessages() {
         timeline.play(); // Start the Timeline
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// stopDisplayingNewMessages() stops autoupdate of chat        ///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
+    /// stop auto updating when new user is clicked/or chat changes ///
     public void stopDisplayingNewMessages() {
         timeline.stop(); // Stop the Timeline
     }
@@ -268,7 +313,11 @@ public class ChatPageController {
             }
         });
     }
-
+    ////////////////////////////////////////////////////////////////////////////
+    /// displayNewMessages() displays any new messages on screen             ///
+    /// Input : ObjectId toId, fromId, String text                           ///
+    /// Output: None                                                         ///
+    /// after all messages displayed, any new sent/recieved are also shown   ///
     public void displayNewMessages(ObjectId toId, ObjectId fromId, String text) {
         FindIterable<Document> newMessages = database.getNewMessagesBetweenUsers(toId, fromId, lastDisplayedTimestamp);
             for (Document message : newMessages) {

@@ -6,11 +6,26 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
-
+//----------------------------------------------------------------------------------------------------------------------
+//
+//  BUBuddyApp
+//      Starts the chat Application: run server before running chat application to use local chat
+//
+//  Authors: Eden Dubrovsky, Jacob Kustra, Bolatbek Amiyev, Azamat Omirzak
+//  Date: Spring 2024
+//  Class: MET CS622
+//  Issues: None known
+//
+//
 
 public class BUBuddyApp extends Application {
     private final int sceneWidth = 1000;
     private final int sceneHeight = 700;
+    
+    ///////////////////////////////////////////////////////////////////
+    /// start() Starts the application on the login page            ///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BUBuddyApp.class.getResource("LoginPage.fxml"));
