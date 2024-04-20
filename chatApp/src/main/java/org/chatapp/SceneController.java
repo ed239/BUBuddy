@@ -14,7 +14,13 @@ import java.util.regex.Pattern;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Objects;
-
+//
+// Class: SceneController
+//
+// Description:
+//     This is a Scene Controller between Login, Forgot Password, Sign Up, and the Main Chat Page with related functionality
+//     Actions provided: Create new account, log in, reset password
+//
 
 public class SceneController {
     private Stage stage;
@@ -139,7 +145,7 @@ public class SceneController {
         }else{
             userDob = dateOfBirth.getValue().toString();
         }
-        //veridying username and dob match a user in the db
+        //verifying username and dob match a user in the db
         boolean validCred = database.validEmailDob(username,userDob);
         if(!validCred){
             errorMessageForgotPass.setText("Incorrect Credentials Username or DOB");
@@ -257,6 +263,11 @@ public class SceneController {
             stage.show();
     }
 
+    //////////////////////////////////////////////////////////////////////////
+    /// loginPageToSignUpPage() Go to Sign Up page                         ///
+    /// Input : None                                                       ///
+    /// Output: None                                                       ///
+    /// Action: Brings user to sign up page when clicking sign up button   ///
     public void loginPageToSignUpPage(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("SignUpPage.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -264,11 +275,17 @@ public class SceneController {
         stage.show();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+    /// signUp() Create new Account                                              ///
+    /// Input : User input: fullname, username, DOB, password,                   ///
+    /// Output: True is successful else False                                    ///
+    /// Action: Brings user to Login Page if successful, otherwise shows error   ///
     public Boolean signUp() throws IOException {
         String fullname = txtfullname.getText();
         String username = txtusername.getText().toLowerCase();
         String dOB = dateOfBirth.getValue().toString();
         String password = txtpassword.getText();
+        Boolean created = false;
         byte[] profileImageDate = null; // SET TO NULL INITIALLY, USER CAN PROVIDE IT LATER
 
         // User Req:
@@ -280,7 +297,13 @@ public class SceneController {
             !dOB.isEmpty()) {
             boolean validPass = validatePassword(password);
             if (validPass) {
-                return database.createUser(fullname, username, password, dOB, profileImageDate);
+                created = database.createUser(fullname, username, password, dOB, profileImageDate);
+                if (!created) {
+                    errorMessageSignUp.setText("Failed to Create Account");
+                    return created;
+                }
+                return created;
+
             } else {
                 errorMessageSignUp.setText(passwordErrorMsg);
                 return false;
@@ -290,8 +313,14 @@ public class SceneController {
                 "Fullname must be longer than 2. Username needs to contain \"@bu.edu\" and password longer than 3.");
             return false;
         }
+
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+    /// validatePassword() Validates password                                    ///
+    /// Input : String Password                                                  ///
+    /// Output: True if valid password else False                                ///
+    /// Verifies password meets all security requirements                        ///
     public Boolean validatePassword(String password) {
         Pattern symbol = Pattern.compile("[^a-zA-Z0-9 ]");
         Pattern upperCase = Pattern.compile("[A-Z ]");
@@ -317,6 +346,11 @@ public class SceneController {
         return isPassValid;
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+    /// backToLogIn() Button that Navigates to login page                        ///
+    /// Input : None                                                             ///
+    /// Output: None                                                             ///
+    /// Redirects to Log in page from Sign Up and Forgot Password                ///
     public void backToLogIn(ActionEvent event) throws IOException {
         root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -324,6 +358,11 @@ public class SceneController {
         stage.show();
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+    /// backToLogInAccountCreated() Navigates to login page after creating account///
+    /// Input : None                                                              ///
+    /// Output: None                                                              ///
+    /// If sign up successful the page is redirected to log in                    ///
     public void backToLogInAccountCreated(ActionEvent event) throws IOException {
         if (signUp()) {
             root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
@@ -333,6 +372,11 @@ public class SceneController {
         }
     }
 
+    ////////////////////////////////////////////////////////////////////////////////
+    /// loginPageToChatPage() Log In Button- Navigates to chat page              ///
+    /// Input : None but uses serverIp                                           ///
+    /// Output: None                                                             ///
+    /// If login successful, page redirected to chat page                        ///
     public void loginPageToChatPage(ActionEvent event) throws IOException {
         if (Login()) {
             ip = serverIP.getText();

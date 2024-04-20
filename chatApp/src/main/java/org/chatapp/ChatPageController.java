@@ -28,6 +28,13 @@ import org.bson.types.ObjectId;
 import org.chatapp.com.mongodb.Database;
 import org.chatapp.network.Client;
 
+//
+// Class: ChatPageController
+//
+// Description:
+//     This is a Chat Page Class that is used for all actions in the Main Chat and Local Chat
+//     This class also contains redirections to the profile page and allows logging out
+//
 public class ChatPageController {
     private static ChatUser curUser = getCurUser();
     private static ChatUser toUserObj;
@@ -98,6 +105,9 @@ public class ChatPageController {
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
 
+        /////////////////////////////////////////////////
+        /// listener for selecting user to chat with  ///
+        /////////////////////////////////////////////////
         userListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue observable, String oldValue, String newValue) {
@@ -113,6 +123,10 @@ public class ChatPageController {
                 isMainChat = true;
             }
         });
+
+        /////////////////////////////////////////////////////
+        /// listener for changing chat pages: main/local  ///
+        /////////////////////////////////////////////////////
 
         chatTabs.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Tab>() {
             @Override
@@ -192,6 +206,11 @@ public class ChatPageController {
         });
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// backToLogIn() log out button                                ///
+    /// Input : None                                                ///
+    /// Output: return current user (ChatUSer)                      ///
+    /// logs user out and redirects back to Log In page             ///
     public void backToLogIn(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
