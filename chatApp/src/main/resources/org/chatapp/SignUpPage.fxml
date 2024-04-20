@@ -43,18 +43,18 @@
                   <Insets bottom="10.0" top="45.0" />
                </VBox.margin>
             </Text>
-            <TextField fx:id="txtfullname" promptText="Full Name" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+            <TextField fx:id="txtfullname" promptText="Full Name" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
                <font>
                   <Font size="25.0" />
                </font>
             </TextField>
             <DatePicker fx:id="dateOfBirth" promptText="Date Of Birth" />
-            <TextField fx:id="txtusername" layoutX="60.0" layoutY="270.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+            <TextField fx:id="txtusername" layoutX="60.0" layoutY="270.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
                <font>
                   <Font size="25.0" />
                </font>
             </TextField>
-            <PasswordField fx:id="txtpassword" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+            <PasswordField fx:id="txtpassword" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
                <font>
                   <Font size="25.0" />
                </font>

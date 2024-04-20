@@ -94,9 +94,10 @@ public class ChatPageController {
         FXCollections.sort(allChatUsersExceptCurrent, String.CASE_INSENSITIVE_ORDER);
         userListView.setItems(allChatUsersExceptCurrent);
         clientManager = ClientManager.getInstance(ip);
-        client = clientManager.getClient();
 
-        localListView.setItems(localChatList);
+        client = clientManager.getClient();    // initializing Client socket for this user
+
+        localListView.setItems(localChatList); // initializing the name of local chat users
 
         timeline = new Timeline(//to update message view for new messages every second
                 new KeyFrame(Duration.seconds(1), event -> {
@@ -147,7 +148,9 @@ public class ChatPageController {
             }
         });
 
-        // makes Local chats menu operate like main chat user selection listener
+        ///////////////////////////////////////////////////////////////
+        /// listener for selecting user to chat with in local chat  ///
+        ///////////////////////////////////////////////////////////////
         localListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
             @Override
             public void changed(ObservableValue observable, String oldValue, String newValue) {
@@ -333,6 +336,12 @@ public class ChatPageController {
         timeline.stop(); // Stop the Timeline
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// updateLocalChatList(userNames) updates local chat users     ///
+    /// Input : ObservableList<String> userNames                    ///
+    /// Output: None                                                ///
+    /// Updates (adds/removes) list of local chat users             ///
+    ///////////////////////////////////////////////////////////////////
     public static void updateLocalChatList(ObservableList<String> userNames) {
         Platform.runLater(new Runnable() {
             @Override
@@ -341,6 +350,7 @@ public class ChatPageController {
             }
         });
     }
+
     ////////////////////////////////////////////////////////////////////////////
     /// displayNewMessages() displays any new messages on screen             ///
     /// Input : ObjectId toId, fromId, String text                           ///

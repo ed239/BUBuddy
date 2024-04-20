@@ -1,5 +1,6 @@
 package org.chatapp;
 
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +20,6 @@ import static org.chatapp.SceneController.curUser;
 import static org.chatapp.SceneController.database;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 
 //--------------------------------------------------------------------------------------------------------------------//
 //                                                                                                                    //
@@ -68,7 +68,6 @@ public class ProfilePageController {
     String currAbsolutePathString = currRelativePath.toAbsolutePath().toString();
     private final File imagePathsFile = new File(currAbsolutePathString + File.separator + "images.txt");
     private String selectedImagePath; // Stores the selected image path
-
 
     ////////////////////////////////////////////////////////////////////////////
     /// initialize()  sets initial values for text fields                    ///
@@ -248,6 +247,7 @@ public class ProfilePageController {
             stage.show();
         }
     }
+  
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     /// backToChatPage(), previous button in Profile page, goes to Chat page                         ///
     /// Input : None                                                                                 ///

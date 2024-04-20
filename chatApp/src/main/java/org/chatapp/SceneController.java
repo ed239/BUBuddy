@@ -148,7 +148,6 @@ public class SceneController {
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////////////////
     /// resetPassword() reset new password                                              ///
     /// Input : None                                                                    ///

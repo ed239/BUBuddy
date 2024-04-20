@@ -36,7 +36,7 @@ public class Database {
         // Replace string with our db connection
         ((LoggerContext) LoggerFactory.getILoggerFactory()).getLogger("org.mongodb.driver").setLevel(Level.ERROR); //disables logs from mongoDB
         //Change uri here
-        String uri = "mongodb+srv://amiyev:BuBuddy2024@bubuddyv1.kups6t4.mongodb.net/?retryWrites=true&w=majority&appName=BuBuddyV1";
+        String uri = "";
         MongoClient mongoClient = MongoClients.create(uri);
         MongoDatabase database = mongoClient.getDatabase("sample_chat");
         userCollection = database.getCollection("users");
