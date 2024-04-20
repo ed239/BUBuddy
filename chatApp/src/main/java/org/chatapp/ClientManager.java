@@ -12,18 +12,24 @@ public class ClientManager {
     private Client client;
     private final int portNumber = 6667;
 
-    private ClientManager() {
+    private ClientManager(String ip) {
         try {
-            socket = new Socket("localhost", portNumber);
+            if(ip == "") {
+                System.out.println("Connected to LocalHost");
+                socket = new Socket("localhost", portNumber);
+            }else{
+                System.out.println("Connected with IP Address");
+                socket = new Socket(ip, portNumber);
+            }
             client = new Client(socket, SceneController.curUser.getName());
         }catch (IOException e) {
             System.out.println("Couldn't connect to the Server");
         }
     }
 
-    public static synchronized ClientManager getInstance() {
+    public static synchronized ClientManager getInstance(String ip) {
         if (instance == null) {
-            instance = new ClientManager();
+            instance = new ClientManager(ip);
         }
         return instance;
     }
