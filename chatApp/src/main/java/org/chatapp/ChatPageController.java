@@ -1,8 +1,7 @@
 package org.chatapp;
-
-
 import java.io.IOException;
 import java.util.*;
+
 import com.mongodb.client.FindIterable;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -33,9 +32,6 @@ public class ChatPageController {
     private static ChatUser toUserObj;
     private static Database database = getDb();
 
-    public static String ip = getIP();
-
-
     @FXML
     private ListView<String> userListView;
 
@@ -65,14 +61,12 @@ public class ChatPageController {
     private Date lastDisplayedTimestamp;
     private ClientManager clientManager;
     private Client client;
-
+    private static final int portNumber = 6667;
     private boolean isLocalChat = false; //for separating send button between main chat and Local group chat
     private static final ObservableList<String> localChatList = FXCollections.observableArrayList();
     private boolean isMainChat = false;
     private boolean isAutoUpdating = false;
     private Timeline timeline;
-
-
     @FXML
     private void initialize() {
         curUser= getCurUser(); //this isn't very efficient -- have to fix
@@ -80,14 +74,23 @@ public class ChatPageController {
         ObservableList<String> allChatUsersExceptCurrent = FXCollections.observableArrayList(users);
         FXCollections.sort(allChatUsersExceptCurrent, String.CASE_INSENSITIVE_ORDER);
         userListView.setItems(allChatUsersExceptCurrent);
-        clientManager = ClientManager.getInstance(ip);
-        client = clientManager.getClient();
 
+        clientManager = ClientManager.getInstance();
+        client = clientManager.getClient();
+        //creates client socket for server
+//        try {
+//            socket = new Socket("localhost", portNumber);
+//            client = new Client(socket, curUser.getName());
+//        }catch (IOException e) {
+//            System.out.println("Couldn't connect to the Server");
+//        }
+        // tested to see if Listview would become scrollable with a lot of users + show difference
+        // in Local chat and main chat
         localListView.setItems(localChatList);
 
         timeline = new Timeline(//to update message view for new messages every second
                 new KeyFrame(Duration.seconds(1), event -> {
-                    displayNewMessages(curUser.getId(), toUserObj.getId(),"");
+                    displayNewMessages(curUser.getId(), toUserObj.getId());
                 })
         );
         timeline.setCycleCount(Timeline.INDEFINITE);
@@ -123,10 +126,10 @@ public class ChatPageController {
                     }
                 }
                 catch (NullPointerException e) {
+                    System.out.println("Couldn't read message, check the Server");
                 }
             }
         });
-
         // makes Local chats menu operate like main chat user selection listener
         localListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
             @Override
@@ -146,10 +149,8 @@ public class ChatPageController {
         });
     }
 
-    private static String getIP() {
-        return SceneController.ip;
-    }
     public static void addLabel(String messageFromUser, VBox vBox, boolean isSent) {
+
         Label messageLabel = new Label(messageFromUser);
         messageLabel.setWrapText(true);
         messageLabel.setMaxWidth(0.3 * vBox.getWidth());
@@ -179,7 +180,6 @@ public class ChatPageController {
         stage.getScene().setRoot(root);
         stage.show();
     }
-
     public void goToProfile(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("ProfilePage.fxml")));
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -188,13 +188,13 @@ public class ChatPageController {
     }
 
     public static ChatUser getCurUser() {
+        System.out.println("\nCHAT PAGE getCurUser() METHOD");
+        System.out.println(SceneController.curUser);
         return SceneController.curUser;
     }
-
     private static Database getDb() {
         return SceneController.database;
     }
-
     public void sendMessage(ActionEvent event) throws IOException {
         String userName = toUser.getText();
         String messageToSend = txtmessage.getText();
@@ -209,8 +209,12 @@ public class ChatPageController {
                 Date currentTime = new Date();
                 boolean done = database.addNewmessage(toId, curUser.getId(), messageToSend, currentTime);
                 if (done) {
-                    displayNewMessages(toId, curUser.getId(), messageToSend);
+                    displayNewMessages(toId, curUser.getId());
+                    System.out.println("Message added successfully.");
                     txtmessage.setText("");
+                }
+                else {
+                    System.out.println("Failed to add message.");
                 }
             }
         }
@@ -228,7 +232,6 @@ public class ChatPageController {
         startDisplayingNewMessages(toId,fromId);
         isAutoUpdating = true;
     }
-
     private void displayMessage(Document message) {
         String text = message.getString("text");
         ObjectId senderId = message.getObjectId("fromId");
@@ -250,8 +253,10 @@ public class ChatPageController {
         chatContainer.getChildren().add(messageContainer);
         messageContainer.setMinWidth(chatContainer.getWidth());
         messageContainer.setMaxWidth(chatContainer.getWidth());
-    }
 
+    }
+  
+  
     public void startDisplayingNewMessages(ObjectId toId, ObjectId fromId) {
         timeline.play(); // Start the Timeline
     }
@@ -269,15 +274,14 @@ public class ChatPageController {
         });
     }
 
-    public void displayNewMessages(ObjectId toId, ObjectId fromId, String text) {
+    public void displayNewMessages(ObjectId toId, ObjectId fromId) {
         FindIterable<Document> newMessages = database.getNewMessagesBetweenUsers(toId, fromId, lastDisplayedTimestamp);
-            for (Document message : newMessages) {
-                if (!displayedMessages.contains(message)) {
-                    displayMessage(message);
-                    displayedMessages.add(message);
-                }
+        for (Document message : newMessages) {
+            if (!displayedMessages.contains(message)) {
+                displayMessage(message);
+                displayedMessages.add(message);
             }
-
+        }
     }
 
 }

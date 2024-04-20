@@ -6,6 +6,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -34,23 +37,48 @@
       </VBox>
    </center>
    <right>
-      <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="35.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
+      <VBox alignment="CENTER" maxHeight="700.0" maxWidth="500.0" minHeight="400.0" minWidth="500.0" prefHeight="596.0" prefWidth="439.0" scaleZ="2.0" spacing="15.0" style="-fx-background-color: #faf9f6;" translateZ="1.0">
          <children>
             <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN">
                <font>
                   <Font name="System Bold" size="40.0" />
                </font>
+               <VBox.margin>
+                  <Insets bottom="50.0" />
+               </VBox.margin>
             </Text>
-            <TextField fx:id="txtusername" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
+            <TextField fx:id="txtusername" promptText="Email" styleClass="password" stylesheets="@../../values/LoginPage.css">
                <font>
                   <Font size="25.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="50.0" right="50.0" />
+               </VBox.margin>
             </TextField>
-            <PasswordField fx:id="txtpassword" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px;">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </PasswordField>
+            <AnchorPane maxWidth="444.0" minWidth="70.0" prefHeight="98.0" prefWidth="444.0">
+               <children>
+                  <TextField fx:id="txt_field_password" layoutX="23.0" layoutY="18.0" prefHeight="58.0" prefWidth="398.0" styleClass="txtfiled" stylesheets="@../../values/LoginPage.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="txtpassword" layoutX="23.0" layoutY="18.0" prefHeight="58.0" prefWidth="398.0" promptText="Password" styleClass="password" stylesheets="@../../values/LoginPage.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </PasswordField>
+                  <ImageView fx:id="id_eye_hide" fitHeight="41.0" fitWidth="30.0" layoutX="379.0" layoutY="33.0" onMouseClicked="#changeVisibility" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/hide.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="id_eye_show" fitHeight="41.0" fitWidth="30.0" layoutX="379.0" layoutY="33.0" onMouseClicked="#changeVisibility" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/show.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
             <Hyperlink alignment="CENTER_RIGHT" maxHeight="35.0" maxWidth="170.0" minHeight="35.0" minWidth="155.0" onAction="#forgotPasswordLogIn" prefHeight="35.0" prefWidth="152.0" text="Forgot Password?" textAlignment="CENTER" textFill="#3048ff" underline="true">
                <font>
                   <Font size="18.0" />
@@ -60,8 +88,7 @@
                </VBox.margin>
             </Hyperlink>
             <Label fx:id="errorMessage" alignment="CENTER" prefHeight="18.0" prefWidth="391.0" textFill="#e80d0d" />
-            <TextField fx:id="serverIP" prefHeight="26.0" prefWidth="320.0" promptText="Enter Server IP (leave blank for localhost)" />
-            <Button mnemonicParsing="false" onAction="#loginPageToChatPage" style="-fx-background-color: #CC0000;" text="LOGIN" textAlignment="CENTER" textFill="#faf9f6">
+            <Button mnemonicParsing="false" onAction="#loginPageToChatPage" styleClass="logButton" stylesheets="@../../values/LoginPage.css" text="LOGIN" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />
                </font>
@@ -72,9 +99,6 @@
                </font>
             </Hyperlink>
          </children>
-         <padding>
-            <Insets bottom="50.0" left="50.0" right="50.0" top="60.0" />
-         </padding>
       </VBox>
    </right>
 </BorderPane>
