@@ -33,6 +33,8 @@ public class ChatPageController {
     private static ChatUser toUserObj;
     private static Database database = getDb();
 
+    public static String ip = getIP();
+
     @FXML
     private ListView<String> userListView;
 
@@ -77,8 +79,7 @@ public class ChatPageController {
         ObservableList<String> allChatUsersExceptCurrent = FXCollections.observableArrayList(users);
         FXCollections.sort(allChatUsersExceptCurrent, String.CASE_INSENSITIVE_ORDER);
         userListView.setItems(allChatUsersExceptCurrent);
-
-        clientManager = ClientManager.getInstance();
+        clientManager = ClientManager.getInstance(ip);
         client = clientManager.getClient();
 
         localListView.setItems(localChatList);
@@ -144,6 +145,9 @@ public class ChatPageController {
         });
     }
 
+    private static String getIP() {
+        return SceneController.ip;
+    }
     public static void addLabel(String messageFromUser, VBox vBox, boolean isSent) {
         Label messageLabel = new Label(messageFromUser);
         messageLabel.setWrapText(true);
