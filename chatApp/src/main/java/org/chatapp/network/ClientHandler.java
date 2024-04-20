@@ -1,10 +1,8 @@
 package org.chatapp.network;
 
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-
 
 public class ClientHandler implements Runnable{
     private static final ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
@@ -30,7 +28,6 @@ public class ClientHandler implements Runnable{
             closeAll(socket, bufferedWriter, bufferedReader);
         }
     }
-
     public static ArrayList<String> getUserNames() {
         return userNames;
     }

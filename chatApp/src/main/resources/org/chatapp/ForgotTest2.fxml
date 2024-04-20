@@ -66,7 +66,7 @@
                   <Insets left="250.0" />
                </VBox.margin>
             </Hyperlink>
-            <Label fx:id="errorMessageForgotPass" alignment="CENTER" prefHeight="18.0" prefWidth="391.0" textFill="#e80d0d" />
+            <Label fx:id="errorMessage" alignment="CENTER" prefHeight="18.0" prefWidth="391.0" textFill="#e80d0d" />
             <Button mnemonicParsing="false" onAction="#resetPassNotLoggedIn" style="-fx-background-color: #CC0000;" text="Reset Password" textAlignment="CENTER" textFill="#faf9f6">
                <font>
                   <Font size="23.0" />
