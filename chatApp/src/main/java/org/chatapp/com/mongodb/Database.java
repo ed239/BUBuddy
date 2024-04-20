@@ -85,16 +85,6 @@ public class Database {
         return false;
     }
 
-    // VERIFY WHETHER THE DATE OF BIRTH IS A MATCH
-    public boolean verifyDateOfBirth(String username,String dateOfBirth){
-        Document userDoc = userCollection.find(new Document("username", username)).first();
-        if(userDoc!= null){
-            String storeDateOfBirth = userDoc.getString("dob");
-            return storeDateOfBirth.equals(dateOfBirth);
-        }
-        return false;
-    }
-
     ///////////////////////////////////////////////////////////////////
     /// getName() get full name of a user                           ///
     /// Input : String Username                                     ///
