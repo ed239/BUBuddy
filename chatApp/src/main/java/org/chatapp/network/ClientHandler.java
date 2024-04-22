@@ -5,15 +5,28 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
-
+//
+// Class: ClientHandler
+//
+// Description:
+//     This is a ClientHandler class for "Server-Client socket".
+//     This class collects clients. It runs in Server implements Runnable interface.
+//
 public class ClientHandler implements Runnable{
-    private static final ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
-    private static final ArrayList<String> userNames = new ArrayList<>();
+    private static final ArrayList<ClientHandler> clientHandlers = new ArrayList<>();            // list for collecting all ClientHandlers
+    private static final ArrayList<String> userNames = new ArrayList<>();                        // list for collecting all user names
     private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
-    private String userName;
+    private BufferedReader bufferedReader;                                                       // for reading message
+    private BufferedWriter bufferedWriter;                                                       // for writing message
+    private String userName;                                                                     // clientHandler user name
 
+    ///////////////////////////////////////////////////////////////////
+    /// ClientHandler(socket) Constructor for ClientHandler         ///
+    /// Input : socket                                              ///
+    /// Output: None                                                ///
+    /// Creates ClientHandler object with Socket, bufferedWriter,   ///
+    /// bufferedReader, userName instances                          ///
+    ///////////////////////////////////////////////////////////////////
     public ClientHandler(Socket socket) {
         try {
             this.socket = socket;
@@ -22,8 +35,8 @@ public class ClientHandler implements Runnable{
             this.userName = bufferedReader.readLine();
             clientHandlers.add(this);
             userNames.add(userName);
-            broadcastMessage("addUser");
-            broadcastMessage(userName);
+            broadcastMessage("addUser");            // this message triggers updateUserNames method of the client
+            broadcastMessage(userName);             // sending a new user to other users
             broadcastMessage("Server: " + userName + " connected");
         }
         catch (IOException e) {
@@ -31,14 +44,12 @@ public class ClientHandler implements Runnable{
         }
     }
 
-    public static ArrayList<String> getUserNames() {
-        return userNames;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
+    ///////////////////////////////////////////////////////////////////
+    /// run() Runnable interface method                             ///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
+    /// Allows Client read message from other Clients               ///
+    ///////////////////////////////////////////////////////////////////
     @Override
     public void run() {
         String messageFromUser;
@@ -55,6 +66,13 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// populateUsers() gives Client access to all user names       ///
+    /// Input : String message, String userToDelete                 ///
+    /// Output: None                                                ///
+    /// SProvides access to user names to other clients, it is      ///
+    /// launched only by other methods                              ///
+    ///////////////////////////////////////////////////////////////////
     public void populateUsers(String message, String userToDelete) {
         try {
             String request = bufferedReader.readLine();
@@ -79,6 +97,12 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// broadcastMessage() sends message to all users except current///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
+    /// Allows Clients to read message from other Clients           ///
+    ///////////////////////////////////////////////////////////////////
     public void broadcastMessage(String message) {
         for (ClientHandler clientHandler : clientHandlers) {
             try {
@@ -94,6 +118,13 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// removeClientHandler() removes client from list              ///
+    /// Input : None                                                ///
+    /// Output: None                                                ///
+    /// Removes a client from the static list and sends             ///
+    /// message to other users that this client has left chat       ///
+    ///////////////////////////////////////////////////////////////////
     public void removeClientHandler() {
         clientHandlers.remove(this);
         userNames.remove(userName);
@@ -102,6 +133,13 @@ public class ClientHandler implements Runnable{
         broadcastMessage("Server: " + userName + " left chat");
     }
 
+    ///////////////////////////////////////////////////////////////////
+    /// closeAll(socket, bufferedWriter, bufferedReader)            ///
+    /// closes socket, bufferedWriter, and bufferedReader           ///
+    /// Input : socket, bufferedWriter, bufferedReader              ///
+    /// Output: None                                                ///
+    /// Method closes everything                                    ///
+    ///////////////////////////////////////////////////////////////////
     public void closeAll(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader) {
         removeClientHandler();
         try {
