@@ -16,11 +16,13 @@ public class ChatUser {
     private String name;
     private String username;
     private String dob;
+
     ////////////////////////////////////////////////////////////////////////////
     /// ChatUser() constructor for chatUser object                           ///
     /// Input : ObjectId id, String name, String username, String dateOfBirth///
     /// Output: None                                                         ///
     /// creates a chatUser Obj with id,name,username, and dob                ///
+    ////////////////////////////////////////////////////////////////////////////
     public ChatUser(ObjectId id, String name, String username, String dateOfBirth) {
         this.id = id;
         this.name = name;
@@ -32,6 +34,7 @@ public class ChatUser {
     /// getId() returns chatUsers id               ///
     /// Input : None                               ///
     /// Output: ObjectId id                        ///
+    //////////////////////////////////////////////////
     public ObjectId getId() {
         return id;
     }
@@ -40,6 +43,7 @@ public class ChatUser {
     /// getName() returns chatUsers name           ///
     /// Input : None                               ///
     /// Output: String name                        ///
+    //////////////////////////////////////////////////
     public String getName() {
         return name;
     }
@@ -48,6 +52,7 @@ public class ChatUser {
     /// getUsername() returns chatUsers username   ///
     /// Input : None                               ///
     /// Output: String username                    ///
+    //////////////////////////////////////////////////
     public String getUsername() {
         return username;
     }
@@ -56,6 +61,7 @@ public class ChatUser {
     /// getDOB() returns chatUsers username        ///
     /// Input : None                               ///
     /// Output: String DOB                         ///
+    //////////////////////////////////////////////////
     public String getDOB() { return dob;}
 
 }

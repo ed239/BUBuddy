@@ -1,11 +1,3 @@
-package org.chatapp;
-
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import java.io.IOException;
 //----------------------------------------------------------------------------------------------------------------------
 //
 //  BUBuddyApp
@@ -26,8 +18,26 @@ import java.io.IOException;
 //        6. Separating ChatContainer for different chats
 //   All this is doable, it just takes time
 //
-//
 
+package org.chatapp;
+
+
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import java.io.IOException;
+
+//
+// Class: BUBuddyApp
+//
+// Description:
+//     This is a BUBuddyApp class which runs the majority of the application.
+//     This class is what allows the users to visually launch the app and begin
+//     messaging others. In order to perform local chat, Server.java must be run
+//     before this class.
+//
 public class BUBuddyApp extends Application {
     private final int sceneWidth = 1000;
     private final int sceneHeight = 700;
@@ -36,6 +46,7 @@ public class BUBuddyApp extends Application {
     /// start() Starts the application on the login page            ///
     /// Input : None                                                ///
     /// Output: None                                                ///
+    ///////////////////////////////////////////////////////////////////
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(BUBuddyApp.class.getResource("LoginPage.fxml"));
