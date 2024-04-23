@@ -207,7 +207,7 @@ public class ChatPageController {
     /// logs user out and redirects back to Log In page             ///
     ///////////////////////////////////////////////////////////////////
     public void backToLogIn(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();

@@ -7,6 +7,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -33,7 +36,7 @@
          </VBox>
    </center>
    <right>
-      <VBox alignment="CENTER" minHeight="600.0" minWidth="490.0" prefHeight="714.0" prefWidth="500.0" scaleZ="2.0" spacing="30.0" style="-fx-background-color: #faf9f6;" translateZ="1.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" minHeight="600.0" minWidth="490.0" prefHeight="714.0" prefWidth="500.0" scaleZ="2.0" spacing="25.0" style="-fx-background-color: #faf9f6;" translateZ="1.0" BorderPane.alignment="CENTER">
          <children>
             <Text fill="#2d2926" strokeType="OUTSIDE" strokeWidth="0.0" text="SIGN UP" textAlignment="CENTER">
                <font>
@@ -47,18 +50,43 @@
                <font>
                   <Font size="25.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="50.0" right="50.0" />
+               </VBox.margin>
             </TextField>
-            <DatePicker fx:id="dateOfBirth" promptText="Date Of Birth" />
+            <DatePicker fx:id="dateOfBirth" prefHeight="38.0" prefWidth="399.0" promptText="Date Of Birth" styleClass="input" stylesheets="@../../values/DateTextStyle.css" />
             <TextField fx:id="txtusername" layoutX="60.0" layoutY="270.0" promptText="Email" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
                <font>
                   <Font size="25.0" />
                </font>
+               <VBox.margin>
+                  <Insets left="50.0" right="50.0" />
+               </VBox.margin>
             </TextField>
-            <PasswordField fx:id="txtpassword" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
-               <font>
-                  <Font size="25.0" />
-               </font>
-            </PasswordField>
+            <AnchorPane prefHeight="69.0" prefWidth="500.0">
+               <children>
+                  <TextField fx:id="txt_field_password" layoutX="51.0" layoutY="6.0" prefHeight="54.0" prefWidth="399.0" styleClass="password" stylesheets="@../../values/LoginPage.css">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="txtpassword" layoutX="51.0" layoutY="6.0" prefWidth="399.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </PasswordField>
+                  <ImageView fx:id="id_eye_hide" fitHeight="30.0" fitWidth="30.0" layoutX="405.0" layoutY="20.0" onMouseClicked="#changeVisibility" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../img/hide.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="id_eye_show" fitHeight="30.0" fitWidth="30.0" layoutX="405.0" layoutY="20.0" onMouseClicked="#changeVisibility" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../img/show.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
             <Label fx:id="errorMessageSignUp" textFill="#e80d0d" wrapText="true" />
             <Button alignment="CENTER" mnemonicParsing="false" onAction="#backToLogInAccountCreated" style="-fx-background-color: #CC0000;" text="SIGN UP" textAlignment="CENTER" textFill="#faf9f6">
                <font>
@@ -74,9 +102,6 @@
                </font>
             </Hyperlink>
          </children>
-         <padding>
-            <Insets bottom="50.0" left="50.0" right="50.0" top="10.0" />
-         </padding>
       </VBox>
    </right>
 </BorderPane>

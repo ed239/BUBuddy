@@ -105,6 +105,7 @@ public class ProfilePageController {
         }
     }
 
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /// getImages() Opens a file chooser dialog to select a profile image from the user's system.                    ///
     /// Input : None                                                                                                 ///
