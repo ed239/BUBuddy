@@ -371,7 +371,7 @@ public class SceneController {
     /// Redirects to Log in page from Sign Up and Forgot Password                ///
     ////////////////////////////////////////////////////////////////////////////////
     public void backToLogIn(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
+        root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         stage.getScene().setRoot(root);
         stage.show();
@@ -385,7 +385,7 @@ public class SceneController {
     /////////////////////////////////////////////////////////////////////////////////
     public void backToLogInAccountCreated(ActionEvent event) throws IOException {
         if (signUp()) {
-            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LogInPage.fxml")));
+            root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginPage.fxml")));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             stage.getScene().setRoot(root);
             stage.show();
