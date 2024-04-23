@@ -53,6 +53,7 @@ public class ClientManager {
         }
         return instance;
     }
+
     ///////////////////////////////////////////////////////////////////
     /// getClient() getter for client                               ///
     /// Input : None                                                ///

@@ -16,7 +16,6 @@ import java.net.Socket;
 //     This class creates a client. It runs in ClientManager.
 //
 public class Client {
-
     public Socket socket;                                  // Socket for Client
     private BufferedReader bufferedReader;                 // for reading message
     private BufferedWriter bufferedWriter;                 // for writing message
@@ -150,7 +149,6 @@ public class Client {
     /// Method closes everything                                    ///
     ///////////////////////////////////////////////////////////////////
     public void closeAll(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader) {
-
         try {
             if (bufferedReader != null) {
                 bufferedReader.close();

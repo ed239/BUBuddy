@@ -21,17 +21,14 @@ import static org.chatapp.SceneController.database;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-//--------------------------------------------------------------------------------------------------------------------//
-//                                                                                                                    //
-// Class: ProfilePageController                                                                                       //
-//                                                                                                                    //
-//                                                                                                                    //
-// Description:                                                                                                       //
-//          The ProfilePageController class manages the user profile page of the chat application. It handles user    //
-//          interactions related to updating profile details, managing profile images, and resetting passwords.       //
-//                                                                                                                    //
-//                                                                                                                    //
-//--------------------------------------------------------------------------------------------------------------------//
+
+//
+// Class: ProfilePageController
+//
+// Description:
+//          The ProfilePageController class manages the user profile page of the chat application. It handles user
+//          interactions related to updating profile details, managing profile images, and resetting passwords.
+//
 
 public class ProfilePageController {
     private Stage stage;

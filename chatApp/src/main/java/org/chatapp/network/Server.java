@@ -11,7 +11,6 @@
 //
 
 
-
 package org.chatapp.network;
 
 import java.io.IOException;
@@ -28,7 +27,6 @@ import java.net.UnknownHostException;
 //     This class creates a server for clients. It runs separately.
 //
 public class Server {
-
     private final ServerSocket serverSocket;                       // ServerSocket for receiving clients
     private static final int portNumber = 6667;                    // Port number on which Server will listen
 
