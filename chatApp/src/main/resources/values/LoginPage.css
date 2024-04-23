@@ -5,12 +5,6 @@
     -fx-border-color: #CC0000;
     -fx-border-width: 2px;
     -fx-border-radius: 5px;
-    /*-fx-effect: null; !* Remove default effect *!*/
-}
-.password:hover{
-    /*Drop shadow*/
-    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 10, 0, 0, 0);*/
-
 }
 .logButton{
     -fx-background-color: #CC0000;

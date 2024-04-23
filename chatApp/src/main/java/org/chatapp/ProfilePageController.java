@@ -136,7 +136,6 @@ public class ProfilePageController {
         String dateOfBirth = dateOfBirthTextField.getText();
 
         database.updateProfileDetails(username, fullName, dateOfBirth);
-
         // SAVE PROFILE IMAGE IF SELECTED FROM PC
         if(selectedImagePath != null){
             try{
@@ -171,7 +170,6 @@ public class ProfilePageController {
     private void saveImagesPath(String path){
         try(PrintWriter printWriter = new PrintWriter(imagePathsFile)) {
             printWriter.println(path);
-            // Provide user feedback here, e.g., display a success message
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -215,16 +213,11 @@ public class ProfilePageController {
             errorMessageProfile.setText("Passwords do not match!");
             return false;
         }
-
-        // GET CURRENT LOGGED-IN USER:
         String username = curUser.getUsername();
-
-        //UPDATE THE PASSWORD IN THE DATABASE:
         boolean passwordUpdated = database.updatePassword(username, newPassword);
         if(passwordUpdated){
             return true;
         }else {
-            // FAILED TO UPDATE PASSWORD
             errorMessageProfile.setText("Failed to update password!");
             return false;
         }

@@ -131,7 +131,6 @@ public class SceneController {
             errorMessageForgotPass.setText("Passwords do not match!");
             return false;
         }
-        //CHANGING THE PASSWORD
         boolean passwordUpdated = database.updatePassword(username, newPassword);
         if(passwordUpdated){
             errorMessageForgotPass.setText("Success!");
@@ -164,20 +163,14 @@ public class SceneController {
             errorResetPassword.setText("Passwords do not match!");
             return false;
         }
-
-        // GET CURRENT LOGGED-IN USER:
         String username = (curUser != null) ? curUser.getUsername() : null;
         if (username == null) {
-            // Handle this case appropriately, such as showing an error message to the user.
-            return false; // Or perform other actions based on your application's logic.
+            return false;
         }
-
-        //UPDATE THE PASSWORD IN THE DATABASE:
         boolean passwordUpdated = database.updatePassword(username, newPassword);
         if(passwordUpdated){
             return true;
         }else {
-            // FAILED TO UPDATE PASSWORD
             errorResetPassword.setText("Failed to update password!");
             return false;
         }
