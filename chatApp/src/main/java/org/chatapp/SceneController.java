@@ -55,7 +55,13 @@ public class SceneController {
     @FXML
     private ImageView id_eye_show;
     @FXML
+    private ImageView id_eye_hide_1;
+    @FXML
+    private ImageView id_eye_show_1;
+    @FXML
     private TextField txt_field_password;
+    @FXML
+    private TextField txt_field_password_1;
     private String passwordErrorMsg = "Password needs to have at least 8 characters, 1 capital "
         + "letter, 1 number and 1 additional symbol.";
     static Database database = Database.getInstance();
@@ -177,7 +183,7 @@ public class SceneController {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////
-    /// changeVisibility() show or hide the password in login page                      ///
+    /// changeVisibility() show or hide the password in Login Page and Sign Up page     ///
     /// Input : None                                                                    ///
     /// Output: None                                                                    ///
     /// When you click the Show password button it is show the password otherwise hide  ///
@@ -199,6 +205,33 @@ public class SceneController {
             txtpassword.setVisible(true);
             id_eye_show.setVisible(false);
             id_eye_hide.setVisible(true);
+        }
+    }
+
+
+    ///////////////////////////////////////////////////////////////////////////////////////
+    /// changeVisibility1() show or hide the password in Forgot Password page           ///
+    /// Input : None                                                                    ///
+    /// Output: None                                                                    ///
+    /// When you click the Show password button it is show the password otherwise hide  ///
+    ///////////////////////////////////////////////////////////////////////////////////////
+    @FXML
+    void changeVisibility1(MouseEvent event){
+        ImageView clickedImage = (ImageView) event.getSource();
+        if(clickedImage.getId().equals("id_eye_hide_1")){
+            // Show password
+            txt_field_password_1.setText(newPasswordField.getText());
+            txt_field_password_1.setVisible(true);
+            newPasswordField.setVisible(false);
+            id_eye_show_1.setVisible(true);
+            id_eye_hide_1.setVisible(false);
+        }else if (clickedImage.getId().equals("id_eye_show_1")){
+            // Hide the password
+            newPasswordField.setText(txt_field_password_1.getText());
+            txt_field_password_1.setVisible(false);
+            newPasswordField.setVisible(true);
+            id_eye_show_1.setVisible(false);
+            id_eye_hide_1.setVisible(true);
         }
     }
 
