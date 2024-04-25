@@ -207,6 +207,11 @@ public class Database {
         }
     }
 
+    public Document getMessageDoc(ObjectId toId, ObjectId id, String messageToSend, Date currentTime) {
+        Document message = new Document("toId", toId).append("fromId", id).append("text", messageToSend).append("timestamp", currentTime);
+        return message;
+    }
+
     ///////////////////////////////////////////////////////////////////////////////
     /// getChatUser() get  current chat user                                    ///
     /// Input : String name (fullname)                                          ///
@@ -360,4 +365,6 @@ public class Database {
             return false;
         }
     }
+
+
 }
