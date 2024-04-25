@@ -68,6 +68,8 @@ public class ChatPageController {
     private boolean isAutoUpdating = false;
     private Timeline timeline;
 
+    Boolean firstMessage = false;
+
     ///////////////////////////////////////////////////////////////////
     /// initialize() sets requires vars for page                    ///
     /// Input : None                                                ///
@@ -109,6 +111,11 @@ public class ChatPageController {
                 toUserObj = database.getChatUser(newValue);
                 chatContainer.getChildren().clear();
                 displayAllMessages(curUser.getId(), toUserObj.getId(),"");
+                if(displayedMessages.isEmpty()){
+                    firstMessage = true;
+                }else{
+                    firstMessage = false;
+                }
                 isLocalChat = false;  //for separating send button between main chat and Local group chat
                 isMainChat = true;
             }
@@ -266,6 +273,12 @@ public class ChatPageController {
                 Date currentTime = new Date();
                 boolean done = database.addNewmessage(toId, curUser.getId(), messageToSend, currentTime);
                 if (done) {
+                    if(firstMessage){
+                        Document message = database.getMessageDoc(toId, curUser.getId(), messageToSend, currentTime);
+                        displayedMessages.add(message);
+                        displayMessage(message);
+                        firstMessage = false;
+                    }
                     displayNewMessages(toId, curUser.getId(), messageToSend);
                     txtmessage.setText("");
                 }
@@ -365,12 +378,15 @@ public class ChatPageController {
     ///////////////////////////////////////////////////////////////////
     public void displayNewMessages(ObjectId toId, ObjectId fromId, String text) {
         FindIterable<Document> newMessages = database.getNewMessagesBetweenUsers(toId, fromId, lastDisplayedTimestamp);
+        System.out.println("NEW MESSAGES");
+        System.out.println(newMessages);
         for (Document message : newMessages) {
             if (!displayedMessages.contains(message)) {
                 displayMessage(message);
                 displayedMessages.add(message);
             }
         }
+
     }
 
 }
