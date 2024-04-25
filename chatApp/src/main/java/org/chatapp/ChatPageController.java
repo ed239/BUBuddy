@@ -378,8 +378,6 @@ public class ChatPageController {
     ///////////////////////////////////////////////////////////////////
     public void displayNewMessages(ObjectId toId, ObjectId fromId, String text) {
         FindIterable<Document> newMessages = database.getNewMessagesBetweenUsers(toId, fromId, lastDisplayedTimestamp);
-        System.out.println("NEW MESSAGES");
-        System.out.println(newMessages);
         for (Document message : newMessages) {
             if (!displayedMessages.contains(message)) {
                 displayMessage(message);
