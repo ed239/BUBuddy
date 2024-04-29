@@ -107,7 +107,9 @@ public class ClientHandler implements Runnable{
         for (ClientHandler clientHandler : clientHandlers) {
             try {
                 if (!clientHandler.userName.equals(userName)) {
-                    clientHandler.bufferedWriter.write(message);
+                    if (!message.isEmpty()) {
+                        clientHandler.bufferedWriter.write(message);
+                    }
                     clientHandler.bufferedWriter.newLine();
                     clientHandler.bufferedWriter.flush();
                 }
