@@ -14,7 +14,7 @@ import java.util.ArrayList;
 //
 public class ClientHandler implements Runnable{
     private static final ArrayList<ClientHandler> clientHandlers = new ArrayList<>();            // list for collecting all ClientHandlers
-    private static final ArrayList<String> userNames = new ArrayList<>();                        // list for collecting all user names
+    private static final ArrayList<String> userNames = new ArrayList<>();                        // list for collecting all usernames
     private Socket socket;
     private BufferedReader bufferedReader;                                                       // for reading message
     private BufferedWriter bufferedWriter;                                                       // for writing message
