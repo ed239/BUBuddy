@@ -57,7 +57,9 @@ public class ClientHandler implements Runnable{
         while (socket.isConnected()) {
             try {
                 messageFromUser = bufferedReader.readLine();
-                broadcastMessage(messageFromUser);
+                if(messageFromUser != null) {
+                    broadcastMessage(messageFromUser);
+                }
             }
             catch (IOException e) {
                 closeAll(socket, bufferedWriter, bufferedReader);
