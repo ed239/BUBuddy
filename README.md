@@ -13,7 +13,11 @@ A chat application built with the user in mind, targeting the Boston University 
 
 ## Demo
 
-TODO: Insert gif or link to demo
+TODO: Insert g
+
+https://github.com/ed239/BUBuddy/assets/55884703/2942e96d-fc62-4ea1-ad07-568690beffc4
+
+if or link to demo
 
 
 ## Run The Project:
