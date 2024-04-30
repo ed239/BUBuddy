@@ -65,12 +65,12 @@
             </TextField>
             <AnchorPane prefHeight="69.0" prefWidth="500.0">
                <children>
-                  <TextField fx:id="txt_field_password" layoutX="51.0" layoutY="6.0" prefHeight="54.0" prefWidth="399.0" promptText="Password" styleClass="password" stylesheets="@../../values/LoginPage.css">
+                  <TextField fx:id="txt_field_password" layoutX="51.0" layoutY="6.0" prefHeight="54.0" prefWidth="399.0" promptText="Password" styleClass="password" stylesheets="@../../values/LoginPage.css" visible="false">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="txtpassword" layoutX="51.0" layoutY="6.0" prefWidth="399.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;" visible="false">
+                  <PasswordField fx:id="txtpassword" layoutX="51.0" layoutY="6.0" prefWidth="399.0" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: #CC0000; -fx-border-width: 2px; -fx-background-radius: 5px; -fx-border-radius: 5px;">
                      <font>
                         <Font size="25.0" />
                      </font>
